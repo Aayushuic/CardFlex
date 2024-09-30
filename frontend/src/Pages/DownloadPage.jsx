@@ -23,7 +23,7 @@ const DownloadPage = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `http://localhost:8080/api/user/order/${orderId}/token/${paymentId}`,
+          `/api/user/order/${orderId}/token/${paymentId}`,
           {
             method: "GET",
             credentials: "include",

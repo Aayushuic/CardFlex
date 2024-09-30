@@ -53,7 +53,7 @@ const Description = () => {
         return;
       }
 
-      const response = await fetch("http://localhost:8080/api/user/cart/add", {
+      const response = await fetch("/api/user/cart/add", {
         method: "PATCH",
         credentials: "include",
         headers: {

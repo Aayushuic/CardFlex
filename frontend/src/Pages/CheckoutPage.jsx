@@ -53,19 +53,16 @@ const CheckoutPage = () => {
         return;
       }
 
-      const response = await fetch(
-        "http://localhost:8080/api/user/cart/remove",
-        {
-          method: "PATCH",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            "x-api-key": import.meta.env.VITE_API_KEY,
-            "X-CSRF-Token": localStorage.getItem("csrfToken"),
-          },
-          body: JSON.stringify({ productId }),
-        }
-      );
+      const response = await fetch("/api/user/cart/remove", {
+        method: "PATCH",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": import.meta.env.VITE_API_KEY,
+          "X-CSRF-Token": localStorage.getItem("csrfToken"),
+        },
+        body: JSON.stringify({ productId }),
+      });
 
       const responseData = await response.json();
       if (responseData.success) {
@@ -125,7 +122,7 @@ const CheckoutPage = () => {
         description: "Test Transaction",
         image: "https://example.com/your_logo",
         order_id: razorpay_order_id,
-        callback_url: `http://localhost:8080/api/payment/payment-verification?secret=${orderId}`,
+        callback_url: `/api/payment/payment-verification?secret=${orderId}`,
         prefill: {
           name: "Krishna ji",
           email: "krishna.kumar@example.com",

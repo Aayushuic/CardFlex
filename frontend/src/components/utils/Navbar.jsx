@@ -91,7 +91,7 @@ const Navbar = ({ setSearchDialog }) => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/api/user/logout`, {
+      const response = await fetch(`/api/user/logout`, {
         method: "GET",
         credentials: "include",
         headers: {
@@ -208,7 +208,10 @@ const Navbar = ({ setSearchDialog }) => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-white dark:bg-gray-800 shadow-lg rounded-md">
-                <DropdownMenuItem className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md cursor-pointer" onClick={()=>navigate("/orders")}>
+                <DropdownMenuItem
+                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md cursor-pointer"
+                  onClick={() => navigate("/orders")}
+                >
                   Your Orders
                 </DropdownMenuItem>
                 <DropdownMenuItem className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">

@@ -22,17 +22,14 @@ const UserOrders = () => {
 
     const fetchOrders = async () => {
       try {
-        const res = await fetch(
-          "http://localhost:8080/api/user/order/getOrders",
-          {
-            method: "GET",
-            headers: {
-              "x-api-key": import.meta.env.VITE_API_KEY,
-              "X-CSRF-Token": localStorage.getItem("csrfToken"),
-            },
-            credentials: "include",
-          }
-        );
+        const res = await fetch("/api/user/order/getOrders", {
+          method: "GET",
+          headers: {
+            "x-api-key": import.meta.env.VITE_API_KEY,
+            "X-CSRF-Token": localStorage.getItem("csrfToken"),
+          },
+          credentials: "include",
+        });
 
         if (res.status === 401) {
           navigate("/login");
@@ -83,7 +80,7 @@ const UserOrders = () => {
             </Button>
           </Link>
         </div>
-        <Footer/>
+        <Footer />
       </>
     );
   }

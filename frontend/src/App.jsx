@@ -13,7 +13,7 @@ function App() {
   //   const fetchCSRFToken = async () => {
   //     try {
   //       const response = await fetch(
-  //         "http://localhost:8080/api/get-csrf-token",
+  //         "/api/get-csrf-token",
   //         {
   //           method: "GET",
   //           credentials: "include",

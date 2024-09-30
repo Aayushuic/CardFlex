@@ -7,16 +7,13 @@ const UseGetLatestProduct = async () => {
   useEffect(() => {
     const fetchLatestProduct = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:8080/api/user/product/getlatest`,
-          {
-            method: "GET",
-            headers: {
-              "x-api-key": import.meta.env.VITE_API_KEY,
-              "X-CSRF-Token": localStorage.getItem("csrfToken"),
-            },
-          }
-        );
+        const response = await fetch(`/api/user/product/getlatest`, {
+          method: "GET",
+          headers: {
+            "x-api-key": import.meta.env.VITE_API_KEY,
+            "X-CSRF-Token": localStorage.getItem("csrfToken"),
+          },
+        });
         const responseData = await response.json();
         if (responseData.success) {
           dispatch(setLatestProduct(responseData.data));

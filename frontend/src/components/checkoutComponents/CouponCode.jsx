@@ -11,7 +11,7 @@ const CouponCode = ({ setDiscountPercentage }) => {
   const [error, setError] = useState(null);
   const [showDetails, setShowDetails] = useState(null);
   const [showConfetti, setShowConfetti] = useState(false); // State to control confetti display
-  const user = useSelector(state=>state.auth.user);
+  const user = useSelector((state) => state.auth.user);
 
   const validCoupons = {
     WELCOME40: {
@@ -26,17 +26,14 @@ const CouponCode = ({ setDiscountPercentage }) => {
 
   const checkFirstOrder = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:8080/api/user/order/check-first-order`,
-        {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            "x-api-key": import.meta.env.VITE_API_KEY,
-          },
-        }
-      );
+      const response = await fetch(`/api/user/order/check-first-order`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": import.meta.env.VITE_API_KEY,
+        },
+      });
       const data = await response.json();
       if (data.success) {
         return true;
@@ -52,7 +49,7 @@ const CouponCode = ({ setDiscountPercentage }) => {
   };
 
   const handleApplyCoupon = async () => {
-    if(!user){
+    if (!user) {
       setError("Coupon are only available for registered user");
       return;
     }

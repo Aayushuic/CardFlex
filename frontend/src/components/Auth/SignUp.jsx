@@ -22,7 +22,7 @@ const Signup = () => {
     try {
       setLoading(true);
 
-      const response = await fetch(`http://localhost:8080/api/user/signup`, {
+      const response = await fetch(`/api/user/signup`, {
         method: "POST",
         credentials: "include",
         headers: {

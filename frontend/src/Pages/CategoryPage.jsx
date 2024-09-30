@@ -49,24 +49,21 @@ const CategoryPage = () => {
   // Fetch product data
   const fetchProduct = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:8080/api/user/product/fetchproducts",
-        {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            "x-api-key": import.meta.env.VITE_API_KEY,
-            "X-CSRF-Token": localStorage.getItem("csrfToken"),
-          },
-          body: JSON.stringify({
-            categoryName: normalizeCategoryName,
-            itemName: normalizeItemName,
-            page: currentPage,
-            limit: 15,
-          }),
-        }
-      );
+      const response = await fetch("/api/user/product/fetchproducts", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": import.meta.env.VITE_API_KEY,
+          "X-CSRF-Token": localStorage.getItem("csrfToken"),
+        },
+        body: JSON.stringify({
+          categoryName: normalizeCategoryName,
+          itemName: normalizeItemName,
+          page: currentPage,
+          limit: 15,
+        }),
+      });
 
       const responseData = await response.json();
       if (responseData.success === true) {

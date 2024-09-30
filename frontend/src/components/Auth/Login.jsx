@@ -9,7 +9,6 @@ import { useDispatch } from "react-redux";
 import { setAuthUser } from "@/features/authslice";
 import { toast } from "sonner";
 
-
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -25,13 +24,13 @@ const Login = () => {
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:8080/api/user/login`, {
+      const response = await fetch(`/api/user/login`, {
         method: "POST",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          "x-api-key":import.meta.env.VITE_API_KEY,
-          "X-CSRF-Token":localStorage.getItem('csrfToken')
+          "x-api-key": import.meta.env.VITE_API_KEY,
+          "X-CSRF-Token": localStorage.getItem("csrfToken"),
         },
         body: JSON.stringify(data),
       });
@@ -111,7 +110,10 @@ const Login = () => {
               <Loader2 className="h-4 w-4 mr-2 animate-spin" /> Please Wait...
             </Button>
           ) : (
-            <Button className="w-full my-4 bg-purple-500 hover:bg-purple-700"  type="submit">
+            <Button
+              className="w-full my-4 bg-purple-500 hover:bg-purple-700"
+              type="submit"
+            >
               Login
             </Button>
           )}
