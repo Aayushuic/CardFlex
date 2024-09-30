@@ -63,7 +63,7 @@ const limiter = rateLimit({
 
 app.use("/api/payment", limiter, paymentRouter);
 
-// Apply CSRF protection globally
+
 // app.use("/api", csrfProtection);
 
 // Routes
