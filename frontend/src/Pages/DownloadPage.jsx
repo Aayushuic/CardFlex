@@ -61,15 +61,18 @@ const DownloadPage = () => {
   }
 
   return (
-    <div ref={confettiRef}>
+    <div>
       <div className="max-w-7xl mx-auto overflow-x-hidden">
-        <Confetti
-          recycle={false}
-          width={confettiRef.current?.clientWidth}
-          height={confettiRef.current?.clientHeight}
-          numberOfPieces={500}
-        />
-        <div className="max-w-6xl mx-auto py-10 px-4 relative">
+        <div
+          className="max-w-6xl mx-auto py-10 px-4 relative overflow-y-hidden overflow-x-hidden"
+          ref={confettiRef}
+        >
+          <Confetti
+            recycle={false}
+            width={confettiRef.current?.clientWidth}
+            height={confettiRef.current?.clientHeight}
+            numberOfPieces={500}
+          />
           <h1 className="text-3xl font-bold text-center mb-8 text-[#1B3C73]">
             Thank you for your purchase!
           </h1>
