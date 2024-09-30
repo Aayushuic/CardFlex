@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+}
+.loading-dots-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: transparent; /* No background */
+  z-index: 9999;
+  position: relative;
+}
+
+.dot {
+  width: 20px; /* Increased size */
+  height: 20px; /* Increased size */
+  margin: 0 10px; /* Spacing between dots */
+  background-color: #61dafb;
+  border-radius: 50%;
+  display: inline-block;
+  animation: bounce 1.5s infinite ease-in-out;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+@keyframes bounce {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+/* Horizontal layout for dots */
+.loading-dots-container > div {
+  display: flex;
+  flex-direction: row; /* Set dots in a row */
+}
+
+.loading-text {
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #282c34; /* Text color */
+  font-weight: bold;
+}
