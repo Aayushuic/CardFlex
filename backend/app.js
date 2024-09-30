@@ -47,7 +47,7 @@ app.use(express.json());
 app.use(express.static(path.resolve(__dirname, "dist")));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser()); // Important: cookie-parser should come before csurf
-app.use(express.static(path.join(__dirname, "public")));
+// app.use(express.static(path.join(__dirname, "public")));
 
 // Set the view engine to EJS
 app.set("views", path.join(__dirname, "views"));

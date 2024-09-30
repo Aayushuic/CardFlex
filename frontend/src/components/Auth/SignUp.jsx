@@ -154,7 +154,7 @@ const Signup = () => {
             </Button>
           ) : (
             <Button
-              className="my-4 flex items-center gap-3 w-full bg-purple-500 hover:bg-purple-700"
+              className="my-4 flex items-center gap-3 w-full bg-[#1B3C73] hover:bg-[#40679E]"
               type="submit"
             >
               Sign Up

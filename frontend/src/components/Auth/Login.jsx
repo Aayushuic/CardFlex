@@ -111,7 +111,7 @@ const Login = () => {
             </Button>
           ) : (
             <Button
-              className="w-full my-4 bg-purple-500 hover:bg-purple-700"
+              className="w-full my-4 bg-[#1B3C73] hover:bg-[#40679E]"
               type="submit"
             >
               Login
