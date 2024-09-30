@@ -52,7 +52,7 @@ const paymentVerification = async (req, res) => {
 
       
       return res.redirect(
-        `http://localhost:5173/download/${order._id}/verified/${order.razorpay_payment_id}`
+        `/download/${order._id}/verified/${order.razorpay_payment_id}`
       );
     } else {
       return res
