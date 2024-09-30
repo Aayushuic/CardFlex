@@ -6,7 +6,6 @@ const logger = require("morgan");
 const cors = require("cors");
 const rateLimit = require("express-rate-limit");
 // const csurf = require("csurf");
-const path = require("path");
 require("dotenv").config();
 
 const usersRouter = require("./routes/users");

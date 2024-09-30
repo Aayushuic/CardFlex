@@ -67,7 +67,7 @@ const generateProducts = (count, specificCount) => {
 const main = async () => {
   try {
     // Connect to MongoDB
-    await mongoose.connect('mongodb://127.0.0.1:27017/flexcard');
+    await mongoose.connect('mongodb+srv://cdrfiles23:Krishna1916@cardflex.pygbo.mongodb.net/?retryWrites=true&w=majority&appName=CardFlex');
     
     console.log('Connected to MongoDB');
 
