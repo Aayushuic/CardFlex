@@ -1,5 +1,5 @@
 const express = require("express");
-const EmailVerification = require("../Controller/verification/EmailVerification");
+const EmailVerification = require("../Controller/Verification/EmailVerification");
 
 const router = express.Router();
 
