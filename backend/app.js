@@ -16,6 +16,7 @@ const paymentRouter = require("./routes/paymentRouter");
 const orderRouter = require("./routes/orderRouter");
 const database = require("./utils/database");
 const apiKeyMiddleware = require("./middleware/apiKeyMiddleWare");
+const verificationRouter = require("./routes/verification");
 
 const app = express();
 
@@ -72,6 +73,7 @@ app.use("/api/payment", limiter, paymentRouter);
 // });
 
 // Apply rate limiter and routes
+app.use("/api/user/verify", verificationRouter);
 app.use("/api/user", apiKeyMiddleware, limiter, usersRouter);
 app.use("/api/admin", apiKeyMiddleware, limiter, adminRouter);
 app.use("/api/user/product", apiKeyMiddleware, limiter, productRouter);
@@ -92,7 +94,7 @@ app.use((err, req, res, next) => {
 });
 
 // Database connection and server start
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 4000;
 database()
   .then(() => {
     app.listen(port, () => {

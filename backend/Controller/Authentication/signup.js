@@ -1,5 +1,9 @@
 const User = require("../../modals/user");
 const bcrypt = require("bcryptjs");
+const EmailToken = require("../../modals/EmailToken");
+const crypto = require("crypto");
+const sendVerificationEmail = require("../../utils/VerificationContent");
+const sendEmail = require("../../utils/EmailConfig");
 
 const signUp = async (req, res) => {
   try {
@@ -35,10 +39,36 @@ const signUp = async (req, res) => {
       phoneNumber: phoneNumber,
     }).save();
 
+    const emailToken = await new EmailToken({
+      userId: user?._id,
+      token: crypto.randomBytes(32).toString("hex"),
+    }).save();
+
+    console.log(emailToken);
+
+    const verificationUrl = `/api/user/verify/${user._id}/${emailToken.token}`;
+
+    const emailContent = sendVerificationEmail(user.name, verificationUrl);
+
+    const isSuccess = await sendEmail(
+      user.email,
+      "CardFlex - Email Verification",
+      emailContent
+    );
+
+    if (!isSuccess) {
+      await emailToken.deleteOne();
+      return res.status(500).json({
+        success: true,
+        message: "User register Successfully",
+      });
+    }
+
     // Respond with a success message
-    return res
-      .status(200)
-      .json({ success: true, message: "User registered successfully." });
+    return res.status(200).json({
+      success: true,
+      message: "Email sent — please verify your account",
+    });
   } catch (error) {
     // Handle any errors that occur during the process
     return res
