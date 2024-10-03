@@ -46,7 +46,7 @@ const signUp = async (req, res) => {
 
     console.log(emailToken);
 
-    const verificationUrl = `/api/user/verify/${user._id}/${emailToken.token}`;
+    const verificationUrl = `https://card-flex-in.vercel.app/api/user/verify/${user._id}/${emailToken.token}`;
 
     const emailContent = sendVerificationEmail(user.name, verificationUrl);
 
