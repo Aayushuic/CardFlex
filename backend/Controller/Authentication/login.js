@@ -1,6 +1,11 @@
 const User = require("../../modals/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const EmailToken = require("../../modals/EmailToken");
+const crypto = require("crypto");
+const sendVerificationEmail = require("../../utils/VerificationContent");
+const sendEmail = require("../../utils/EmailConfig");
+
 
 const login = async (req, res) => {
   try {
@@ -30,9 +35,41 @@ const login = async (req, res) => {
     }
 
     if(!user.verified){
-      return res.status(400).json({
+      const isToken = await EmailToken.findOne({userId:user._id});
+
+      if(isToken){
+        return res.status(400).json({
+          success: false,
+          message: "please verify your email",
+        });
+      }
+
+      const emailToken = await new EmailToken({
+        userId: user?._id,
+        token: crypto.randomBytes(32).toString("hex"),
+      }).save();
+  
+      const verificationUrl = `https://card-flex-in.vercel.app/api/user/verify/${user._id}/${emailToken.token}`;
+  
+      const emailContent = sendVerificationEmail(user.name, verificationUrl);
+  
+      const isSuccess = await sendEmail(
+        user.email,
+        "CardFlex - Email Verification",
+        emailContent
+      );
+
+      if (!isSuccess) {
+        await emailToken.deleteOne();
+        return res.status(500).json({
+          success: false,
+          message: "something went wrong,try again later",
+        });
+      }
+
+      return res.status(200).json({
         success: false,
-        message: "please verify your email",
+        message: "Email sent — please verify your account",
       });
     }
 

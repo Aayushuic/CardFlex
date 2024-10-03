@@ -44,7 +44,7 @@ const signUp = async (req, res) => {
       token: crypto.randomBytes(32).toString("hex"),
     }).save();
 
-    console.log(emailToken);
+    
 
     const verificationUrl = `https://card-flex-in.vercel.app/api/user/verify/${user._id}/${emailToken.token}`;
 

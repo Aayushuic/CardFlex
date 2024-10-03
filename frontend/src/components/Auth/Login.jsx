@@ -20,9 +20,11 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const [loading, setLoading] = useState(false);
+  const [backendError, setBackendError] = useState("");
 
   const onSubmit = async (data) => {
     setLoading(true);
+    setBackendError(""); // Reset backend error before new request
     try {
       const response = await fetch(`/api/user/login`, {
         method: "POST",
@@ -42,11 +44,11 @@ const Login = () => {
         reset();
         navigate("/");
       } else {
-        toast.error(responseData.message);
+        setBackendError(responseData.message);
       }
     } catch (error) {
-      toast.error("something went wrong");
-      console.log(error.message || error);
+      toast.error("Something went wrong");
+      console.error(error.message || error);
     } finally {
       setLoading(false);
     }
@@ -60,11 +62,16 @@ const Login = () => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <h1 className="font-bold text-xl mb-5">Login</h1>
+          {backendError && (
+            <div className="bg-red-100 text-red-600 p-2 rounded-md mb-4">
+              {backendError}
+            </div>
+          )}
           <div className="my-2">
             <Label htmlFor="email">Email</Label>
             <Input
               id="email"
-              className="mt-1 focus-visible:ring-0  focus-visible:ring-offset-0"
+              className="mt-1 focus-visible:ring-0 focus-visible:ring-offset-0"
               type="email"
               name="email"
               placeholder="Email"
@@ -87,7 +94,7 @@ const Login = () => {
               <Input
                 id="password"
                 name="password"
-                className="mt-1 focus-visible:ring-0  focus-visible:ring-offset-0"
+                className="mt-1 focus-visible:ring-0 focus-visible:ring-offset-0"
                 type="password"
                 placeholder="Password"
                 {...register("password", {
