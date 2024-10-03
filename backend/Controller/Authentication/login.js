@@ -29,6 +29,13 @@ const login = async (req, res) => {
       });
     }
 
+    if(!user.verified){
+      return res.status(400).json({
+        success: false,
+        message: "please verify your email",
+      });
+    }
+
     const payload = {
       userId: user._id,
       email: user.email,
