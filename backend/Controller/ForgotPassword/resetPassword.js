@@ -5,32 +5,35 @@ const ForgotToken = require("../../modals/ForgotToken.js");
 const resetPassword = async (req, res) => {
   try {
     const { userId, token, password, confirmPassword } = req.body;
-    console.log(req.body);
     if (!userId || !token) {
-      return res.render("invalid", {
+      return res.render("invalid.ejs", {
         message:
           "This action is invalid or has expired. Please try again or contact support.",
       });
     }
 
-    if (password != confirmPassword) {
-      return res.render("invalid", { message: "confirm password not matched" });
+    if (!password || !confirmPassword ) {
+      return res.render("invalid.ejs", { message: "confirm password not matched,Try again.." });
     }
 
+    if (password != confirmPassword ) {
+      return res.render("invalid.ejs", { message: "confirm password not matched" });
+    }
+    
     const isToken = await ForgotToken.findOne({
       userId: userId,
       token: token,
     });
 
     if (!isToken) {
-      return res.render("invalid", {
+      return res.render("invalid.ejs", {
         message: "invalid token or token expired",
       });
     } else {
       const user = await User.findById(userId);
 
       if (!user) {
-        return res.render("invalid", { message: "invalid action" });
+        return res.render("invalid.ejs", { message: "invalid action" });
       }
 
       const salt = await bcrypt.genSalt(15);
