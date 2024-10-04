@@ -5,7 +5,7 @@ const ForgotToken = require("../../modals/ForgotToken.js");
 const resetPassword = async (req, res) => {
   try {
     const { userId, token, password, confirmPassword } = req.body;
-
+    console.log(req.body);
     if (!userId || !token) {
       return res.render("invalid", {
         message:
