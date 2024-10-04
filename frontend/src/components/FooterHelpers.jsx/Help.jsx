@@ -32,11 +32,11 @@ const Help = () => {
                 className="bg-gray-100 p-4 rounded-lg cursor-pointer flex justify-between items-center" 
                 onClick={() => toggleDropdown(index)}
               >
-                <h3 className="font-semibold text-purple-600">{item.question}</h3>
+                <h3 className="font-semibold text-indigo-600">{item.question}</h3>
                 {openIndex === index ? (
-                  <ChevronUp className="h-5 w-5 text-purple-600" />
+                  <ChevronUp className="h-5 w-5 text-indigo-600" />
                 ) : (
-                  <ChevronDown className="h-5 w-5 text-purple-600" />
+                  <ChevronDown className="h-5 w-5 text-indigo-600" />
                 )}
               </div>
               {openIndex === index && (
@@ -53,8 +53,8 @@ const Help = () => {
           <p className="text-lg text-gray-700 mb-4">
             If you can't find the answers you need, please reach out to our support team:
           </p>
-          <p className="text-lg font-semibold text-purple-600">Email: support@cardflex.com</p>
-          <p className="text-lg font-semibold text-purple-600">Phone: +1 800 123 4567</p>
+          <p className="text-lg font-semibold text-indigo-600">Email: support@cardflex.com</p>
+          <p className="text-lg font-semibold text-indigo-600">Phone: +1 800 123 4567</p>
         </section>
       </div>
       <Footer />

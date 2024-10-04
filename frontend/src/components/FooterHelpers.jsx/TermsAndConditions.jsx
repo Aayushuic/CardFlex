@@ -5,19 +5,19 @@ const TermsAndConditions = () => {
   return (
     <div className="bg-white">
       <div className="py-16 px-8 md:px-16">
-        <h1 className="text-4xl font-bold text-center text-pink-500 mb-12">
+        <h1 className="text-4xl font-bold text-center text-[#1B3C73] mb-12">
           Terms and Conditions
         </h1>
 
         <p className="text-lg text-gray-700 mb-6 text-center">
           Welcome to{" "}
-          <span className="font-semibold text-purple-600">CardFlex</span>. By
+          <span className="font-semibold text-indigo-600">CardFlex</span>. By
           accessing or using our services, you agree to comply with these Terms
           and Conditions. Please read them carefully.
         </p>
 
         <section className="mb-16">
-          <h2 className="text-3xl font-semibold text-pink-500 mb-4">
+          <h2 className="text-3xl font-semibold text-[#1B3C73] mb-4">
             1. Acceptance of Terms
           </h2>
           <p className="text-lg text-gray-700 mb-4">
@@ -28,7 +28,7 @@ const TermsAndConditions = () => {
         </section>
 
         <section className="mb-16">
-          <h2 className="text-3xl font-semibold text-pink-500 mb-4">
+          <h2 className="text-3xl font-semibold text-[#1B3C73] mb-4">
             2. Use of Services
           </h2>
           <p className="text-lg text-gray-700 mb-4">
@@ -40,20 +40,20 @@ const TermsAndConditions = () => {
         </section>
 
         <section className="mb-16">
-          <h2 className="text-3xl font-semibold text-pink-500 mb-4">
+          <h2 className="text-3xl font-semibold text-[#1B3C73] mb-4">
             3. Intellectual Property
           </h2>
           <p className="text-lg text-gray-700 mb-4">
             All content, trademarks, and other intellectual property on our
             website are the property of{" "}
-            <span className="font-semibold text-purple-600">CardFlex</span> or
+            <span className="font-semibold text-indigo-600">CardFlex</span> or
             our licensors. You may not reproduce, distribute, or create
             derivative works without our express written permission.
           </p>
         </section>
 
         <section className="mb-16">
-          <h2 className="text-3xl font-semibold text-pink-500 mb-4">
+          <h2 className="text-3xl font-semibold text-[#1B3C73] mb-4">
             4. Payment Terms
           </h2>
           <p className="text-lg text-gray-700 mb-4">
@@ -65,7 +65,7 @@ const TermsAndConditions = () => {
         </section>
 
         <section className="mb-16">
-          <h2 className="text-3xl font-semibold text-pink-500 mb-4">
+          <h2 className="text-3xl font-semibold text-[#1B3C73] mb-4">
             5. Custom Orders
           </h2>
           <p className="text-lg text-gray-700 mb-4">
@@ -76,19 +76,19 @@ const TermsAndConditions = () => {
         </section>
 
         <section className="mb-16">
-          <h2 className="text-3xl font-semibold text-pink-500 mb-4">
+          <h2 className="text-3xl font-semibold text-[#1B3C73] mb-4">
             6. Limitation of Liability
           </h2>
           <p className="text-lg text-gray-700 mb-4">
             To the fullest extent permitted by law,{" "}
-            <span className="font-semibold text-purple-600">CardFlex</span>{" "}
+            <span className="font-semibold text-indigo-600">CardFlex</span>{" "}
             shall not be liable for any indirect, incidental, special, or
             consequential damages arising from your use of our services.
           </p>
         </section>
 
         <section className="mb-16">
-          <h2 className="text-3xl font-semibold text-pink-500 mb-4">
+          <h2 className="text-3xl font-semibold text-[#1B3C73] mb-4">
             7. Changes to Terms
           </h2>
           <p className="text-lg text-gray-700 mb-4">
@@ -99,28 +99,28 @@ const TermsAndConditions = () => {
         </section>
 
         <section className="mb-16">
-          <h2 className="text-3xl font-semibold text-pink-500 mb-4">
+          <h2 className="text-3xl font-semibold text-[#1B3C73] mb-4">
             8. Governing Law
           </h2>
           <p className="text-lg text-gray-700 mb-4">
             These Terms and Conditions shall be governed by and construed in
-            accordance with the laws of India, without
-            regard to its conflict of law provisions.
+            accordance with the laws of India, without regard to its conflict of
+            law provisions.
           </p>
         </section>
 
         <section className="mb-16">
-          <h2 className="text-3xl font-semibold text-pink-500 mb-4">
+          <h2 className="text-3xl font-semibold text-[#1B3C73] mb-4">
             9. Contact Us
           </h2>
           <p className="text-lg text-gray-700 mb-2">
             If you have any questions or concerns about these Terms and
             Conditions, please contact us:
           </p>
-          <p className="text-lg font-semibold text-purple-600">
+          <p className="text-lg font-semibold text-indigo-600">
             Email: support@cardflex.com
           </p>
-          <p className="text-lg font-semibold text-purple-600">
+          <p className="text-lg font-semibold text-indigo-600">
             Phone: +1 800 123 4567
           </p>
         </section>

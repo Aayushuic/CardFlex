@@ -6,19 +6,19 @@ const PrivacyPolicy = () => {
   return (
     <div className="bg-white">
       <div className="py-16 px-8 md:px-16">
-        <h1 className="text-4xl font-bold text-center text-pink-500 mb-12">
+        <h1 className="text-4xl font-bold text-center text-[#1B3C73] mb-12">
           Privacy Policy
         </h1>
 
         <p className="text-lg text-gray-700 mb-6 text-center">
           Welcome to{" "}
-          <span className="font-semibold text-purple-600">CardFlex</span>. Your
+          <span className="font-semibold text-indigo-600">CardFlex</span>. Your
           privacy is important to us, and this policy outlines how we handle
           your information when you visit our site and use our services.
         </p>
 
         <section className="mb-16">
-          <h2 className="text-3xl font-semibold text-pink-500 mb-4">
+          <h2 className="text-3xl font-semibold text-[#1B3C73] mb-4">
             1. Information We Collect
           </h2>
           <p className="text-lg text-gray-700 mb-4">
@@ -34,7 +34,7 @@ const PrivacyPolicy = () => {
         </section>
 
         <section className="mb-16">
-          <h2 className="text-3xl font-semibold text-pink-500 mb-4">
+          <h2 className="text-3xl font-semibold text-[#1B3C73] mb-4">
             2. How We Use Your Information
           </h2>
           <p className="text-lg text-gray-700 mb-4">
@@ -52,7 +52,7 @@ const PrivacyPolicy = () => {
         </section>
 
         <section className="mb-16">
-          <h2 className="text-3xl font-semibold text-pink-500 mb-4">
+          <h2 className="text-3xl font-semibold text-[#1B3C73] mb-4">
             3. Data Security
           </h2>
           <p className="text-lg text-gray-700 mb-4">
@@ -63,7 +63,7 @@ const PrivacyPolicy = () => {
         </section>
 
         <section className="mb-16">
-          <h2 className="text-3xl font-semibold text-pink-500 mb-4">
+          <h2 className="text-3xl font-semibold text-[#1B3C73] mb-4">
             4. Sharing Your Information
           </h2>
           <p className="text-lg text-gray-700 mb-4">
@@ -74,7 +74,7 @@ const PrivacyPolicy = () => {
         </section>
 
         <section className="mb-16">
-          <h2 className="text-3xl font-semibold text-pink-500 mb-4">
+          <h2 className="text-3xl font-semibold text-[#1B3C73] mb-4">
             5. Your Rights
           </h2>
           <p className="text-lg text-gray-700 mb-4">You have the right to:</p>
@@ -88,7 +88,7 @@ const PrivacyPolicy = () => {
         </section>
 
         <section className="mb-16">
-          <h2 className="text-3xl font-semibold text-pink-500 mb-4">
+          <h2 className="text-3xl font-semibold text-[#1B3C73] mb-4">
             6. Changes to This Policy
           </h2>
           <p className="text-lg text-gray-700 mb-4">
@@ -98,17 +98,17 @@ const PrivacyPolicy = () => {
         </section>
 
         <section className="mb-16">
-          <h2 className="text-3xl font-semibold text-pink-500 mb-4">
+          <h2 className="text-3xl font-semibold text-[#1B3C73] mb-4">
             7. Contact Us
           </h2>
           <p className="text-lg text-gray-700 mb-2">
             If you have any questions or concerns about this Privacy Policy,
             please contact us:
           </p>
-          <p className="text-lg font-semibold text-purple-600">
+          <p className="text-lg font-semibold text-indigo-600">
             Email: support@cardflex.com
           </p>
-          <p className="text-lg font-semibold text-purple-600">
+          <p className="text-lg font-semibold text-indigo-600">
             Phone: +1 800 123 4567
           </p>
         </section>
