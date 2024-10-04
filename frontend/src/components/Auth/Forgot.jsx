@@ -22,7 +22,7 @@ const Forgot = () => {
     setIsLoading(true);
     try {
       // Replace with your backend endpoint for password reset
-      const response = await fetch(`/api/user/reset/forgot-password`,{
+      const response = await fetch(`/api/reset/forgot-password`,{
         method: "POST",
         headers: {
           "Content-Type": "application/json",

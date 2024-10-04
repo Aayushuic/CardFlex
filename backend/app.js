@@ -74,8 +74,8 @@ app.use("/api/payment", limiter, paymentRouter);
 // });
 
 // Apply rate limiter and routes
+app.use("/api/reset",limiter, forgotRouter);
 app.use("/api/user/verify",limiter, verificationRouter);
-app.use("/api/user/reset",limiter, forgotRouter);
 app.use("/api/user", apiKeyMiddleware, limiter, usersRouter);
 app.use("/api/admin", apiKeyMiddleware, limiter, adminRouter);
 app.use("/api/user/product", apiKeyMiddleware, limiter, productRouter);

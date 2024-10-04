@@ -30,7 +30,7 @@ const sendForgotLink = async (req, res) => {
         token: crypto.randomBytes(32).toString("hex"),
       }).save();
 
-      const resetUrl = `https://card-flex-in.vercel.app/api/user/reset/${user._id}/password/${passwordToken.token}`;
+      const resetUrl = `https://card-flex-in.vercel.app/api/reset/${user._id}/password/${passwordToken.token}`;
 
       // Construct the email content
       const emailContent = `
