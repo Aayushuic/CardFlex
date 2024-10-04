@@ -17,6 +17,7 @@ const orderRouter = require("./routes/orderRouter");
 const database = require("./utils/database");
 const apiKeyMiddleware = require("./middleware/apiKeyMiddleWare");
 const verificationRouter = require("./routes/verification");
+const forgotRouter = require("./routes/ForgotPassword");
 
 const app = express();
 
@@ -73,7 +74,8 @@ app.use("/api/payment", limiter, paymentRouter);
 // });
 
 // Apply rate limiter and routes
-app.use("/api/user/verify", verificationRouter);
+app.use("/api/user/verify",limiter, verificationRouter);
+app.use("/api/user/reset",limiter, forgotRouter);
 app.use("/api/user", apiKeyMiddleware, limiter, usersRouter);
 app.use("/api/admin", apiKeyMiddleware, limiter, adminRouter);
 app.use("/api/user/product", apiKeyMiddleware, limiter, productRouter);

@@ -1,4 +1,5 @@
 import App from "@/App";
+import Forgot from "@/components/Auth/Forgot";
 import Login from "@/components/Auth/Login";
 import Signup from "@/components/Auth/SignUp";
 import AboutUs from "@/components/FooterHelpers.jsx/aboutus";
@@ -99,6 +100,10 @@ const router = createBrowserRouter([
   {
     path: "*",
     element: <PageNotFound />,
+  },
+  {
+    path: "/forgot-password",
+    element: <Forgot />,
   },
 ]);
 
