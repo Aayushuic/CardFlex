@@ -80,8 +80,8 @@ const Forgot = () => {
               )}
             </div>
             {isLoading ? (
-              <Button variant="outline">
-                <Loader2 className="animate-spin mr-2 bg-[#1B3C73] hover:bg-[#40679E] "></Loader2>{" "}
+              <Button variant="outline" className="bg-[#1B3C73] hover:bg-[#40679E]">
+                <Loader2 className="animate-spin mr-2  "></Loader2>{" "}
                 please wait...
               </Button>
             ) : (
