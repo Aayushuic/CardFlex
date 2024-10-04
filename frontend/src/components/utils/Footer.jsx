@@ -11,29 +11,28 @@ const Footer = () => {
           <div className="mb-8 md:mb-0">
             <h3 className="text-2xl font-bold mb-4">CardFlex</h3>
             <p className="text-gray-600 dark:text-gray-400 max-w-sm">
-              Your ultimate destination for customizable card templates. Download stunning designs for any occasion and elevate your personal or business branding.
+              Your ultimate destination for customizable card templates.
+              Download stunning designs for any occasion and elevate your
+              personal or business branding.
             </p>
           </div>
 
           {/* Contact Information */}
           <div className="mb-8 md:mb-0">
-            <h3 className="text-xl font-bold mb-4">Contact Us</h3>
+            <h3 className="text-xl font-bold mb-4">Developed By</h3>
             <p className="text-gray-600 dark:text-gray-400">
-              Email:{" "}
-              <a
-                href="mailto:aayushchauhan1916@gmail.com"
-                className="text-blue-600 dark:text-blue-400 hover:underline"
-              >
-                aayushchauhan1916@gmail.com
-              </a>
+              Name:&nbsp;
+              <span className="text-indigo-600 dark:text-blue-400">
+                Aayush Chauhan
+              </span>
             </p>
             <p className="text-gray-600 dark:text-gray-400">
-              Phone:{" "}
+              Email:&nbsp;
               <a
-                href="tel:+91 7060457474"
-                className="text-blue-600 dark:text-blue-400 hover:underline"
+                href="mailto:aayushchauhan1916@gmail.com"
+                className="text-indigo-600 dark:text-blue-400 hover:underline"
               >
-                +91 7060457474
+                aayushchauhan1916@gmail.com
               </a>
             </p>
           </div>
