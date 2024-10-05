@@ -118,21 +118,21 @@ const CheckoutPage = () => {
         key: razorpayKey,
         amount: amount,
         currency: "INR",
-        name: "Krishna ji",
+        name: "Card Flex",
         description: "Test Transaction",
         image: "https://example.com/your_logo",
         order_id: razorpay_order_id,
         callback_url: `/api/payment/payment-verification?secret=${orderId}`,
         prefill: {
-          name: "Krishna ji",
-          email: "krishna.kumar@example.com",
+          name: "Card Flex",
+          email: "cardflexhelp@gmail.com",
           contact: "7060457474",
         },
         notes: {
           address: "Aayush Chauhan",
         },
         theme: {
-          color: "#3399cc",
+          color: "#1B3C73",
         },
       };
 
