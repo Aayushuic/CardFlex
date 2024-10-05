@@ -39,7 +39,7 @@ const orderSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now, // Set the TTL for 30 seconds (MongoDB TTL will delete after 30 sec)
-      expires: 54000,
+      expires: 1296000,
     },
     paymentStatus: {
       type: String,
