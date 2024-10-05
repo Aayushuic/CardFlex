@@ -54,6 +54,7 @@ app.use(cookieParser()); // Important: cookie-parser should come before csurf
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+app.set('trust proxy', true);
 
 // Rate limiter to prevent abuse
 const limiter = rateLimit({
