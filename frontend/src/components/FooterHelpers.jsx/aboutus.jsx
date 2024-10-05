@@ -64,7 +64,7 @@ const AboutUs = () => (
           be happy to assist you.
         </p>
         <p className="text-lg font-semibold text-indigo-600">
-          Email: support@cardflex.com
+          Email: cardflexhelp@gmail.com
         </p>
         <p className="text-lg font-semibold text-indigo-600">
           Phone: +1 800 123 4567
@@ -74,7 +74,7 @@ const AboutUs = () => (
       <div className="flex justify-center mt-8">
         <Button variant="outline">
           <Link
-            to="/help"
+            to="/contact-us"
             onClick={() => window.scrollTo(0, 0)}
             className="text-[#1B3C73]"
           >

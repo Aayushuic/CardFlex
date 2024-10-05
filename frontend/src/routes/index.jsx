@@ -3,6 +3,7 @@ import Forgot from "@/components/Auth/Forgot";
 import Login from "@/components/Auth/Login";
 import Signup from "@/components/Auth/SignUp";
 import AboutUs from "@/components/FooterHelpers.jsx/aboutus";
+import ContactUs from "@/components/FooterHelpers.jsx/ContactUs";
 import Help from "@/components/FooterHelpers.jsx/Help";
 import PrivacyPolicy from "@/components/FooterHelpers.jsx/PrivacyPolicy";
 import RefundAndCancellations from "@/components/FooterHelpers.jsx/RefundAndCancellations";
@@ -90,6 +91,10 @@ const router = createBrowserRouter([
       {
         path: "/help",
         element: <Help />,
+      },
+      {
+        path: "/contact-us",
+        element: <ContactUs />,
       },
     ],
   },

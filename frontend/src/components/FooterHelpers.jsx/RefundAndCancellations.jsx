@@ -44,7 +44,7 @@ const RefundAndCancellations = () => {
 
         <div className="flex justify-center mt-8">
           <Link
-            to="/help"
+            to="/contact-us"
             onClick={()=>window.scrollTo(0,0)}
             className="px-6 py-3 rounded-lg"
           >
