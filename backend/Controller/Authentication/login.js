@@ -34,7 +34,7 @@ const login = async (req, res) => {
       });
     }
 
-    if(!user.verified){
+    if(user.verified==false){
       const isToken = await EmailToken.findOne({userId:user._id});
 
       if(isToken){
