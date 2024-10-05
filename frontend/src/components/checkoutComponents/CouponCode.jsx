@@ -83,7 +83,6 @@ const CouponCode = ({ setDiscountPercentage }) => {
         setError(null);
       } else {
         setError("Invalid Coupon Code");
-        applyDiscount(0);
         setDiscount(0);
         setDiscountPercentage(0);
       }
