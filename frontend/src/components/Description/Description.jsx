@@ -106,11 +106,11 @@ const Description = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-center">
         {/* Image Section */}
         <div className="flex justify-center items-center">
-          <div className="relative w-full max-w-[600px] h-[400px] md:h-[500px]">
+          <div className="relative w-full max-w-[600px] h-auto md:h-[500px]">
             <img
-              src={productDetails.imageSrc} // Replace with actual card image URL
+              src={productDetails.imageSrc}
               alt="image preview"
-              className="absolute inset-0 w-full h-full object-fit rounded-lg shadow-xl transition-transform duration-300 hover:scale-105"
+              className="w-full h-full object-cover md:object-contain rounded-lg shadow-xl transition-transform duration-300 hover:scale-105"
             />
           </div>
         </div>
@@ -171,7 +171,7 @@ const Description = () => {
               Download
             </Button>
             {loading ? (
-              <Button className="flex items-center gap-2 px-4 py-2 bg-pink-500 text-white hover:bg-pink-400 transition">
+              <Button className="flex items-center gap-2 px-4 py-2 bg-[#1B3C73] text-white hover:bg-[#40679E] transition">
                 <Loader2 className="w-5 h-5 animate-spin" />
               </Button>
             ) : isItemInCart ? (
