@@ -68,7 +68,7 @@ const ContactUs = () => {
                 </label>
                 <input
                   {...register("name", { required: "Name is required" })}
-                  className="border border-gray-300 p-2 rounded-lg w-full"
+                  className="border border-gray-300 p-2 rounded-lg w-full focus-visible:outline-[#1B3C73]"
                   type="text"
                   id="name"
                 />
@@ -90,7 +90,7 @@ const ContactUs = () => {
                       message: "Invalid email address",
                     },
                   })}
-                  className="border border-gray-300 p-2 rounded-lg w-full"
+                  className="border border-gray-300 p-2 rounded-lg w-full focus-visible:outline-[#1B3C73]"
                   type="email"
                   id="email"
                 />
@@ -112,7 +112,7 @@ const ContactUs = () => {
                       message: "Invalid phone number",
                     },
                   })}
-                  className="border border-gray-300 p-2 rounded-lg w-full"
+                  className="border border-gray-300 p-2 rounded-lg w-full focus-visible:outline-[#1B3C73]"
                   type="tel"
                   id="phone"
                 />
@@ -128,7 +128,7 @@ const ContactUs = () => {
                 </label>
                 <input
                   {...register("subject", { required: "Subject is required" })}
-                  className="border border-gray-300 p-2 rounded-lg w-full"
+                  className="border border-gray-300 p-2 rounded-lg w-full focus-visible:outline-[#1B3C73]"
                   type="text"
                   id="subject"
                 />
@@ -144,7 +144,7 @@ const ContactUs = () => {
                 </label>
                 <textarea
                   {...register("message")}
-                  className="border border-gray-300 p-2 rounded-lg w-full"
+                  className="border border-gray-300 p-2 rounded-lg w-full focus-visible:outline-[#1B3C73]"
                   id="message"
                   rows="4"
                 />
@@ -184,7 +184,7 @@ const ContactUs = () => {
               Email: cardflexhelp@gmail.com
             </p>
             <p className="text-lg font-semibold text-indigo-600 mb-2">
-              Phone: +1 800 123 4567
+              Phone: +91 7060457474
             </p>
             <p className="text-lg text-gray-700 mt-6">
               We are available from Monday to Friday, 9:00 AM - 6:00 PM. Feel

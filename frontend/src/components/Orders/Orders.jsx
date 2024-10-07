@@ -124,7 +124,7 @@ const Orders = ({ orders }) => {
                     <div className="mt-4 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700">
                       <p className="font-semibold">Note:</p>
                       <p>
-                        Your order details will remain available for 30 days.
+                        Your order details will remain available for 15 days.
                         Please save your files on your local device.
                       </p>
                     </div>

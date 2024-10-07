@@ -66,7 +66,7 @@ const createOrderInstance = async (req, res) => {
       });
       await currentOrder.save();
 
-      console.log("Order saved in database:", currentOrder);
+      // console.log("Order saved in database:", currentOrder);
 
       return res.json({
         success: true,

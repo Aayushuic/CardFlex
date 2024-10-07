@@ -120,9 +120,6 @@ const TermsAndConditions = () => {
           <p className="text-lg font-semibold text-indigo-600">
             Email: cardflexhelp@gmail.com
           </p>
-          <p className="text-lg font-semibold text-indigo-600">
-            Phone: +1 800 123 4567
-          </p>
         </section>
       </div>
       <Footer />

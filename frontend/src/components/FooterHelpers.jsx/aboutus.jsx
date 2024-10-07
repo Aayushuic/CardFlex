@@ -2,6 +2,7 @@ import React from "react";
 import Footer from "../utils/Footer";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
+import { Phone } from "lucide-react";
 
 const AboutUs = () => (
   <div className="bg-white">
@@ -66,9 +67,6 @@ const AboutUs = () => (
         <p className="text-lg font-semibold text-indigo-600">
           Email: cardflexhelp@gmail.com
         </p>
-        <p className="text-lg font-semibold text-indigo-600">
-          Phone: +1 800 123 4567
-        </p>
       </section>
 
       <div className="flex justify-center mt-8">
@@ -76,8 +74,11 @@ const AboutUs = () => (
           <Link
             to="/contact-us"
             onClick={() => window.scrollTo(0, 0)}
-            className="text-[#1B3C73]"
+            className="text-[#1B3C73] flex group items-center"
           >
+            <span className="group-hover:animate-bounce mr-2">
+              <Phone />
+            </span>
             Contact Us
           </Link>
         </Button>

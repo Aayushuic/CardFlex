@@ -46,7 +46,7 @@ const SearchDialog = ({ setSearchDialog }) => {
             value={input}
           />
           <div
-            className="flex justify-center items-center p-3 bg-purple-600 rounded-r-sm cursor-pointer hover:bg-purple-500"
+            className="flex justify-center items-center p-3 bg-[#1B3C73] hover:bg-[#40679E] rounded-r-sm cursor-pointer"
             onClick={handleSubmit}
           >
             <Search />

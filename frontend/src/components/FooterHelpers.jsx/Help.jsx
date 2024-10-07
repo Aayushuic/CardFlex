@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Footer from "../utils/Footer";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, Phone } from "lucide-react";
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
 // Ensure you have lucid-react installed
@@ -82,24 +82,23 @@ const Help = () => {
           <p className="text-lg font-semibold text-indigo-600">
             Email: cardflexhelp@gmail.com
           </p>
-          <p className="text-lg font-semibold text-indigo-600">
-            Phone: +1 800 123 4567
-          </p>
         </section>
         <div className="flex justify-center mt-8">
-        <Button variant="outline">
-          <Link
-            to="/contact-us"
-            onClick={() => window.scrollTo(0, 0)}
-            className="text-[#1B3C73]"
-          >
-            Contact Us
-          </Link>
-        </Button>
-      </div>
+          <Button variant="outline">
+            <Link
+              to="/contact-us"
+              onClick={() => window.scrollTo(0, 0)}
+              className="text-[#1B3C73] flex group items-center"
+            >
+              <span className="group-hover:animate-bounce mr-2">
+                <Phone />
+              </span>
+              Contact Us
+            </Link>
+          </Button>
+        </div>
       </div>
 
-      
       <Footer />
     </div>
   );
