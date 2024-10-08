@@ -9,11 +9,12 @@ import {
 } from "../ui/card";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
-import "./Description.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 import { addToCart, logout } from "@/features/authslice";
+import Modal from "./DescriptionModal"; // Import Modal component
+import "./Description.css";
 
 const Description = () => {
   const location = useLocation();
@@ -28,6 +29,7 @@ const Description = () => {
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
   const dispatch = useDispatch();
 
   const isItemInCart = user?.cart?.some(
@@ -65,12 +67,11 @@ const Description = () => {
       });
 
       const responseData = await response.json();
-      console.log(responseData);
       if (responseData.success) {
         toast.success(responseData.message);
         dispatch(addToCart(responseData.cart));
       } else {
-        if (responseData.message == "Session Expired") {
+        if (responseData.message === "Session Expired") {
           toast.error(responseData.message);
           dispatch(logout());
           navigate("/login");
@@ -101,12 +102,19 @@ const Description = () => {
     window.scrollTo(0, 0);
   };
 
+  const handleImageClick = () => {
+    setIsModalOpen(true); // Open the modal when image is clicked
+  };
+
   return (
     <div className="container mx-auto px-6 py-12 max-w-8xl">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-center">
         {/* Image Section */}
         <div className="flex justify-center items-center">
-          <div className="relative w-full max-w-[600px] h-auto md:h-[500px]">
+          <div
+            className="relative w-full max-w-[600px] h-auto md:h-[500px] cursor-pointer"
+            onClick={handleImageClick} // Trigger modal on click
+          >
             <img
               src={productDetails.imageSrc}
               alt="image preview"
@@ -196,6 +204,12 @@ const Description = () => {
           </CardFooter>
         </Card>
       </div>
+      {/* Modal Component */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)} // Close modal
+        imageSrc={productDetails.imageSrc}
+      />
     </div>
   );
 };

@@ -59,7 +59,7 @@ app.set('trust proxy', true);
 // Rate limiter to prevent abuse
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 200, // Limit each IP to 100 requests per window
+  max: 100, // Limit each IP to 100 requests per window
 });
 
 // API key middleware for secure endpoints
