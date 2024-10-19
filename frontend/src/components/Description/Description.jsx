@@ -159,13 +159,13 @@ const Description = () => {
                 <span className="font-medium text-gray-800 dark:text-gray-200">
                   Properties:
                 </span>{" "}
-                High resolution, Print-ready
+                Fully Customizable File with Fonts, High resolution.
               </li>
               <li>
                 <span className="font-medium text-gray-800 dark:text-gray-200">
                   Supported Version:
                 </span>{" "}
-                Supports in all versions
+                All Coreldraw Version X3 to 2022 and Above.
               </li>
             </ul>
           </CardContent>
