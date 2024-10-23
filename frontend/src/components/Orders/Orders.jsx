@@ -18,7 +18,7 @@ const Orders = ({ orders }) => {
 
   return (
     <div className="max-w-5xl mx-auto p-0 sm:p-6">
-      <h2 className="text-4xl font-bold mb-8 text-center text-pink-600">
+      <h2 className="text-4xl font-bold mb-8 text-center text-[#1B3C73] mt-5">
         Your Orders
       </h2>
       {orders.map((order, index) => (

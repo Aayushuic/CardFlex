@@ -103,7 +103,7 @@ const CategoryPage = () => {
   return (
     <>
       <div className="flex flex-col sm:flex-row justify-between items-center mt-4 space-y-4 sm:space-y-0 max-w-6xl mx-auto">
-        <h1 className="text-2xl font-bold text-center sm:text-left">
+        <h1 className="text-2xl font-bold text-center sm:text-left text-[#1B3C73]">
           {categoryName?.replace(/-/g, " ")} - {itemName?.replace(/-/g, " ")}
         </h1>
         {/* ShadCN Select for Sorting */}
