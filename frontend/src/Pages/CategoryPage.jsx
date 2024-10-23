@@ -135,7 +135,7 @@ const CategoryPage = () => {
             <CardSkeleton key={idx} />
           ))}
         </div>
-      ) : products === null ? (
+      ) : !products || products.length === 0 ? (
         <div className="flex flex-col justify-center items-center mt-20 sm:mt-28 text-center px-4 space-y-6 mb-20">
           <Frown className="w-16 h-16 sm:w-20 sm:h-20 text-[#1B3C73]" />
           <h2 className="text-4xl sm:text-5xl font-bold text-gray-700">
