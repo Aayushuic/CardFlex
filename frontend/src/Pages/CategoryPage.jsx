@@ -113,7 +113,7 @@ const CategoryPage = () => {
           {categoryName?.replace(/-/g, " ")} - {itemName?.replace(/-/g, " ")}
         </h1>
         {/* ShadCN Select for Sorting */}
-        {products != null && (
+        {(!products || products.length === 0) && (
           <div className="w-full px-5 sm:w-auto">
             <Select onValueChange={handleSortChange}>
               <SelectTrigger className="w-full sm:w-[180px]">
