@@ -27,6 +27,7 @@ import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 import { logout } from "@/features/authslice";
+import CardFlexPng from "../../assets/cardflex.Png";
 
 const Navbar = ({ setSearchDialog }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -114,17 +115,13 @@ const Navbar = ({ setSearchDialog }) => {
     <>
       <nav className="flex items-center sticky top-0 z-40 justify-between p-4 shadow-md bg-[#FF407D] dark:bg-gray-800 text-white">
         {/* Logo */}
-        <div className="flex items-baseline m-0 sm:ml-6">
-          <p className="text-white text-3xl font-bold">C</p>
-          <p className="text-white text-xl font-semibold">ard</p>
-          <p className="text-[#24509d] text-3xl leading-none font-bold">F</p>
-          <p className="text-[#24509d] text-xl font-semibold">lex</p>
-        </div>
+        <Link to="/">
+          <div className="flex items-baseline m-0 sm:ml-6">
+            <img src={CardFlexPng} alt="" className="max-w-44 max-h-44" />
+          </div>
+        </Link>
         {/* Centered Dropdown Menus - Desktop Only */}
         <div className="hidden lg:flex flex-1 justify-center space-x-4">
-          <button className="font-semibold px-2 ">
-            <Link to="/">Home</Link>
-          </button>
           {dropdownData.map((dropdown, index) => (
             <DropdownMenu
               key={index}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -27,6 +27,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"; // ShadCN UI select components
+import { Frown, Heart } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const CategoryPage = () => {
   const { categoryName, itemName } = useParams();
@@ -35,6 +37,7 @@ const CategoryPage = () => {
   const products = useSelector((state) => state.product.categoryProducts);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [isLoading, setLoading] = useState(false);
 
   // Memoize normalized strings
   const normalizeCategoryName = useMemo(
@@ -48,6 +51,7 @@ const CategoryPage = () => {
 
   // Fetch product data
   const fetchProduct = async () => {
+    setLoading(true);
     try {
       const response = await fetch("/api/user/product/fetchproducts", {
         method: "POST",
@@ -74,6 +78,8 @@ const CategoryPage = () => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -107,24 +113,49 @@ const CategoryPage = () => {
           {categoryName?.replace(/-/g, " ")} - {itemName?.replace(/-/g, " ")}
         </h1>
         {/* ShadCN Select for Sorting */}
-        <div className="w-full px-5 sm:w-auto">
-          <Select onValueChange={handleSortChange}>
-            <SelectTrigger className="w-full sm:w-[180px]">
-              <SelectValue placeholder="Sort by Price" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="asc">Price: Low to High</SelectItem>
-              <SelectItem value="desc">Price: High to Low</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+        {products != null && (
+          <div className="w-full px-5 sm:w-auto">
+            <Select onValueChange={handleSortChange}>
+              <SelectTrigger className="w-full sm:w-[180px]">
+                <SelectValue placeholder="Sort by Price" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="asc">Price: Low to High</SelectItem>
+                <SelectItem value="desc">Price: High to Low</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        )}
       </div>
 
-      {products === null ? (
+      {/* Display skeletons when loading */}
+      {isLoading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto mt-5">
-          {[1, 2, 3, 4, 5, 6, 7, 9].map((el, idx) => (
+          {[...Array(9)].map((_, idx) => (
             <CardSkeleton key={idx} />
           ))}
+        </div>
+      ) : products === null ? (
+        <div className="flex flex-col justify-center items-center mt-20 sm:mt-28 text-center px-4 space-y-6 mb-20">
+          <Frown className="w-16 h-16 sm:w-20 sm:h-20 text-[#1B3C73]" />
+          <h2 className="text-4xl sm:text-5xl font-bold text-gray-700">
+            Currently Unavailable
+          </h2>
+          <p className="text-lg sm:text-xl text-gray-700 max-w-2xl leading-relaxed">
+            We're sorry, but there are no products available in this category
+            right now. Please check back later or explore other categories for
+            more options.
+          </p>
+          <Link to="/">
+            <Button
+              variant="outline"
+              className="flex items-center gap-2 group mt-5" // Add the group class here
+            >
+              <Heart className="h-5 w-5 text-gray-800 transition-colors duration-200 group-hover:text-red-500" />
+              {/* Heart turns red on button hover */}
+              <span className="text-gray-800"> Explore Other Categories</span>
+            </Button>
+          </Link>
         </div>
       ) : (
         <div>
