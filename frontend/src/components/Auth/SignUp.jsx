@@ -3,15 +3,20 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { Link, useNavigate } from "react-router-dom";
-import { Loader2 } from "lucide-react";
+import { Eye, EyeOff, Loader2} from "lucide-react"; // Icons for show/hide password
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import SignUpModal from "../Auth/PopUpModal"; // Import the Modal component
+import SignUpModal from "../Auth/PopUpModal";
+import TermsModal from "../Auth/TermsModal";
 
 const Signup = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [showTermsModal, setShowTermsModal] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // State for password visibility
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State for confirm password visibility
 
   const {
     register,
@@ -21,6 +26,16 @@ const Signup = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
+    if (!termsAccepted) {
+      toast.error("You must accept the terms and conditions to proceed.");
+      return;
+    }
+
+    if (data.password !== data.confirmPassword) {
+      toast.error("Passwords do not match.");
+      return;
+    }
+
     try {
       setLoading(true);
 
@@ -40,13 +55,13 @@ const Signup = () => {
         responseData.success ||
         responseData.message === "User already exists."
       ) {
-        setModalMessage(responseData.message); // Set the message for the modal
+        setModalMessage(responseData.message);
       } else {
         toast.error(responseData.message);
       }
       reset();
     } catch (error) {
-      toast.error("Oops! Something went wrong, try later");
+      toast.error("Oops! Something went wrong, try later.");
     } finally {
       setLoading(false);
     }
@@ -70,8 +85,8 @@ const Signup = () => {
               placeholder="Your Sweet Name"
               {...register("name", { required: "missing" })}
             />
-            {errors.fullName && (
-              <p className="text-red-600 text-sm">{errors.fullName.message}</p>
+            {errors.name && (
+              <p className="text-red-600 text-sm">{errors.name.message}</p>
             )}
           </div>
 
@@ -116,26 +131,87 @@ const Signup = () => {
             )}
           </div>
 
+          {/* Password field with show/hide functionality */}
           <div className="my-2">
             <Label htmlFor="password">Password</Label>
-            <Input
-              id="password"
-              className="mt-1 focus-visible:ring-0 focus-visible:ring-offset-0"
-              type="password"
-              placeholder="Password"
-              {...register("password", {
-                required: "missing",
-              })}
-            />
+            <div className="relative">
+              <Input
+                id="password"
+                className="mt-1 focus-visible:ring-0 focus-visible:ring-offset-0 pr-10"
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                {...register("password", {
+                  required: "missing",
+                })}
+              />
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-600"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <EyeOff /> : <Eye />}
+              </button>
+            </div>
             {errors.password && (
               <p className="text-red-600 text-sm">{errors.password.message}</p>
             )}
+          </div>
+
+          {/* Confirm Password field with show/hide functionality */}
+          <div className="my-2">
+            <Label htmlFor="confirmPassword">Confirm Password</Label>
+            <div className="relative">
+              <Input
+                id="confirmPassword"
+                className="mt-1 focus-visible:ring-0 focus-visible:ring-offset-0 pr-10"
+                type={showConfirmPassword ? "text" : "password"}
+                placeholder="Confirm Password"
+                {...register("confirmPassword", {
+                  required: "Confirm your password",
+                })}
+              />
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-600"
+                onClick={() =>
+                  setShowConfirmPassword(!showConfirmPassword)
+                }
+              >
+                {showConfirmPassword ? <EyeOff /> : <Eye />}
+              </button>
+            </div>
+            {errors.confirmPassword && (
+              <p className="text-red-600 text-sm">
+                {errors.confirmPassword.message}
+              </p>
+            )}
+          </div>
+
+          <div className="my-4 flex items-center">
+            <input
+              type="checkbox"
+              id="terms"
+              checked={termsAccepted}
+              onChange={(e) => setTermsAccepted(e.target.checked)}
+              className="mr-2"
+            />
+            <label htmlFor="terms" className="text-sm">
+              I accept the{" "}
+              <button
+                type="button"
+                onClick={() => setShowTermsModal(true)}
+                className="text-blue-600 underline hover:text-blue-800"
+              >
+                terms and conditions
+              </button>
+            </label>
           </div>
 
           {loading ? (
             <Button
               className="my-4 flex items-center gap-3 w-full bg-[#1B3C73] hover:bg-[#40679E]"
               type="submit"
+              disabled
             >
               <Loader2 className="animate-spin" /> Loading...
             </Button>
@@ -143,6 +219,7 @@ const Signup = () => {
             <Button
               className="my-4 flex items-center gap-3 w-full bg-[#1B3C73] hover:bg-[#40679E]"
               type="submit"
+              disabled={!termsAccepted}
             >
               Sign Up
             </Button>
@@ -163,8 +240,15 @@ const Signup = () => {
           message={modalMessage}
           onClose={() => {
             setModalMessage("");
-            navigate("/login"); // Navigate to login after closing the modal
+            navigate("/login");
           }}
+        />
+      )}
+
+      {/* Modal for showing the terms and conditions */}
+      {showTermsModal && (
+        <TermsModal
+          onClose={() => setShowTermsModal(false)}
         />
       )}
     </div>

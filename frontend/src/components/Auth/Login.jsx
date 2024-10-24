@@ -3,7 +3,7 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { useForm } from "react-hook-form";
-import { Loader2 } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react"; // Import the eye icons
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setAuthUser } from "@/features/authslice";
@@ -12,6 +12,9 @@ import { toast } from "sonner";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false); // State for password visibility
+  const [loading, setLoading] = useState(false);
+  const [backendError, setBackendError] = useState("");
 
   const {
     register,
@@ -19,8 +22,10 @@ const Login = () => {
     reset,
     formState: { errors },
   } = useForm();
-  const [loading, setLoading] = useState(false);
-  const [backendError, setBackendError] = useState("");
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const onSubmit = async (data) => {
     setLoading(true);
@@ -95,15 +100,26 @@ const Login = () => {
                 id="password"
                 name="password"
                 className="mt-1 focus-visible:ring-0 focus-visible:ring-offset-0"
-                type="password"
+                type={showPassword ? "text" : "password"} // Toggle between text and password type
                 placeholder="Password"
                 {...register("password", {
                   required: "Password is required",
                 })}
               />
+              {/* Eye icon to toggle visibility */}
+              <div
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-600"
+                onClick={togglePasswordVisibility}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-5 w-5" />
+                ) : (
+                  <Eye className="h-5 w-5" />
+                )}
+              </div>
               <Link
                 to="/forgot-password"
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-red-500 text-sm"
+                className="absolute right-10 top-1/2 transform -translate-y-1/2 text-red-500 text-sm"
               >
                 Forgot?
               </Link>
