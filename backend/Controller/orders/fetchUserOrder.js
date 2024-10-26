@@ -9,15 +9,20 @@ const fetchUserOrder = async (req, res) => {
         .json({ success: false, message: "unauthenticated", authentic: false });
     }
 
-    const orders = await Order.find({ user: userId }).select(["-user","-_id","-razorpay_payment_id"]).populate({
-        path:"product",
-        select:"-purchaseCount"
-    });
+    const orders = await Order.find({
+      user: userId,
+      paymentStatus: "successful",
+    })
+      .select(["-user", "-_id", "-razorpay_payment_id"])
+      .populate({
+        path: "product",
+        select: "-purchaseCount",
+      });
 
     return res.status(200).json({
       success: true,
       orders: orders,
-      authentic:true
+      authentic: true,
     }); // Send the order with populated product details
   } catch (error) {
     console.error(error);

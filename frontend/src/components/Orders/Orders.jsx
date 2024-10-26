@@ -52,17 +52,19 @@ const Orders = ({ orders }) => {
                       </p>
                     </div>
                   </div>
-                  <div className="mt-4 md:mt-0">
-                    <a href={item.cdrFile}>
-                      <Button
-                        variant="outline"
-                        className="flex items-center gap-2 px-4 py-2 text-pink-600 hover:bg-red-50 hover:text-pink-700"
-                      >
-                        <Download className="mr-1" />
-                        Download
-                      </Button>
-                    </a>
-                  </div>
+                  { order.paymentStatus != "pending" && (
+                    <div className="mt-4 md:mt-0">
+                      <a href={item.cdrFile}>
+                        <Button
+                          variant="outline"
+                          className="flex items-center gap-2 px-4 py-2 text-pink-600 hover:bg-red-50 hover:text-pink-700"
+                        >
+                          <Download className="mr-1" />
+                          Download
+                        </Button>
+                      </a>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -89,19 +91,32 @@ const Orders = ({ orders }) => {
                       <div className="pb-2 pl-2 pr-2">
                         <Badge
                           variant="outline"
-                          className="bg-green-300 text-gray-600"
+                          className={`${
+                            order.paymentStatus === "pending"
+                              ? "bg-red-300 text-gray-700"
+                              : "bg-green-300 text-gray-700"
+                          }`}
                         >
                           {order.paymentStatus}
                         </Badge>
                       </div>
                     </div>
+                    {order.paymentStatus === "pending" ? (
+                      <p className="text-gray-600">
+                        <strong className="text-gray-800">Amount To be Paid:</strong>{" "}
+                        <span className="text-xl font-bold text-green-700">
+                          ₹{order.amount}
+                        </span>
+                      </p>
+                    ) : (
+                      <p className="text-gray-600">
+                        <strong className="text-gray-800">Amount Paid:</strong>{" "}
+                        <span className="text-xl font-bold text-green-700">
+                          ₹{order.amount}
+                        </span>
+                      </p>
+                    )}
 
-                    <p className="text-gray-600">
-                      <strong className="text-gray-800">Amount Paid:</strong>{" "}
-                      <span className="text-xl font-bold text-green-700">
-                        ₹{order.amount}
-                      </span>
-                    </p>
                     <p className="text-gray-600">
                       <strong className="text-gray-800">Discount:</strong>{" "}
                       <span className="text-red-500">

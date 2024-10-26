@@ -236,9 +236,9 @@ const Navbar = ({ setSearchDialog }) => {
         {/* Mobile Menu Toggle */}
 
         <div className="lg:hidden flex justify-center items-center gap-3">
-          <Link to="/" className="block lg:hidden p-2">
+          {/* <Link to="/" className="block lg:hidden p-2">
             <Home size={20} />
-          </Link>
+          </Link> */}
           <span
             onClick={() => setSearchDialog(true)}
             className="block lg:hidden p-2 cursor-pointer"
@@ -267,7 +267,7 @@ const Navbar = ({ setSearchDialog }) => {
               }`}
             >
               <DialogTitle className="font-semibold text-lg">
-                Krishna
+                CardFlex
               </DialogTitle>
               <DialogDescription>
                 Below is our available categories
@@ -311,7 +311,13 @@ const Navbar = ({ setSearchDialog }) => {
                 {isUser ? (
                   <>
                     <Link to="/orders">
-                      <Button variant="outline" className="w-full">
+                      <Button
+                        variant="outline"
+                        className="w-full"
+                        onClick={() => {
+                          handleLinkClick();
+                        }}
+                      >
                         Your Orders
                       </Button>
                     </Link>
