@@ -196,7 +196,11 @@ const ContactUs = () => {
                 Locate Us
               </h2>
               <p className="text-lg text-gray-700 mb-4">
-                Visit our office at "आर. के. ऑफसेट प्रेस" or find us on the map:
+                Visit our office at{" "}
+                <b>
+                  R.K. Printing Press, near Shree Hospital, Surjan Nagar,
+                  Moradabad, Uttar Pradesh
+                </b>
               </p>
               <a
                 href="https://www.google.com/maps/@29.2308653,78.7057841,3a,75y,114.68h,92.13t/data=!3m6!1e1!3m4!1snJzVWVgcgKDQAecUE2nJfQ!2e0!7i13312!8i6656?coh=205409&entry=ttu&g_ep=EgoyMDI0MTAyMy4wIKXMDSoASAFQAw%3D%3D"
@@ -204,7 +208,7 @@ const ContactUs = () => {
                 rel="noopener noreferrer"
                 className="text-lg font-semibold text-indigo-600 underline"
               >
-                Open आर. के. ऑफसेट प्रेस in Google Maps
+                Locate Us At Google Maps
               </a>
             </div>
           </div>

@@ -79,6 +79,15 @@ const Footer = () => {
               </li>
               <li className="mb-2">
                 <Link
+                  to="/contact-us"
+                  className="hover:text-black dark:hover:text-white"
+                  onClick={() => window.scrollTo(0, 0)}
+                >
+                  Contact Us
+                </Link>
+              </li>
+              <li className="mb-2">
+                <Link
                   to="/help"
                   className="hover:text-black dark:hover:text-white"
                   onClick={() => window.scrollTo(0, 0)}
