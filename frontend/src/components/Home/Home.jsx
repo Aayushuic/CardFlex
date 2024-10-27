@@ -19,9 +19,9 @@ const Home = () => {
   return (
     <>
       <div className="p-0 mt-5 sm:mt-0 sm:p-6 lg:p-10 bg-white relative">
-        <div className="mb-10 max-w-7xl mx-auto">
+        {/* <div className="mb-10 max-w-7xl mx-auto">
           <HomeCarousel />
-        </div>
+        </div> */}
         <div className="max-w-7xl mx-auto px-4">
           <LatestDesign />
         </div>
