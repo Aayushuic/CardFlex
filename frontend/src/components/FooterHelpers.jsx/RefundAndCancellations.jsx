@@ -36,7 +36,7 @@ const RefundAndCancellations = () => {
             possible.
           </p>
           <p className="text-lg font-semibold text-indigo-600 ">
-            Email: support@yourcompany.com
+            Email: cardflexhelp@gmail.com
           </p>
         </section>
 
