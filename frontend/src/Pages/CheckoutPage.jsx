@@ -119,8 +119,8 @@ const CheckoutPage = () => {
         amount: amount,
         currency: "INR",
         name: "Card Flex",
-        description: "Test Transaction",
-        image: "https://example.com/your_logo",
+        description: "Card Flex",
+        image: "https://res.cloudinary.com/dpx4mvnkp/image/upload/v1730016310/android-chrome-512x512_pw2tlc.png",
         order_id: razorpay_order_id,
         callback_url: `/api/payment/payment-verification?secret=${orderId}`,
         prefill: {

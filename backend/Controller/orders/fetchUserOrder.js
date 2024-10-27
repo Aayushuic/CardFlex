@@ -13,6 +13,7 @@ const fetchUserOrder = async (req, res) => {
       user: userId,
       paymentStatus: "successful",
     })
+      .sort({ createdAt: -1 })
       .select(["-user", "-_id", "-razorpay_payment_id"])
       .populate({
         path: "product",
