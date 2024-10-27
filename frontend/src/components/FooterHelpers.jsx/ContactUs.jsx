@@ -1,8 +1,7 @@
-
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Footer from "../utils/Footer";
-import Modal from "./ContactFormModal"; // Import the Modal component
+import Modal from "./ContactFormModal";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 
@@ -108,7 +107,7 @@ const ContactUs = () => {
                   {...register("phoneNumber", {
                     required: "Phone number is required",
                     pattern: {
-                      value: /^\d{10}$/, // Must be exactly 10 digits
+                      value: /^\d{10}$/,
                       message: "Invalid phone number",
                     },
                   })}
@@ -191,11 +190,27 @@ const ContactUs = () => {
               free to drop us a message, and we will get back to you as soon as
               possible.
             </p>
+            {/* Locate Us section */}
+            <div className="mt-8">
+              <h2 className="text-3xl font-semibold text-[#1B3C73] mb-4">
+                Locate Us
+              </h2>
+              <p className="text-lg text-gray-700 mb-4">
+                Visit our office at "आर. के. ऑफसेट प्रेस" or find us on the map:
+              </p>
+              <a
+                href="https://www.google.com/maps/@29.2308653,78.7057841,3a,75y,114.68h,92.13t/data=!3m6!1e1!3m4!1snJzVWVgcgKDQAecUE2nJfQ!2e0!7i13312!8i6656?coh=205409&entry=ttu&g_ep=EgoyMDI0MTAyMy4wIKXMDSoASAFQAw%3D%3D"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-lg font-semibold text-indigo-600 underline"
+              >
+                Open आर. के. ऑफसेट प्रेस in Google Maps
+              </a>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Modal for success message */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       <Footer />
     </div>
