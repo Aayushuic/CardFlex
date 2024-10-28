@@ -199,7 +199,7 @@ const Navbar = ({ setSearchDialog }) => {
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
-                  className="hidden lg:flex items-center p-2 bg-[#701539] rounded-full"
+                  className="hidden lg:flex items-center p-2 bg-[#701539] h-10 w-10 rounded-full"
                 >
                   <User />
                 </Button>
