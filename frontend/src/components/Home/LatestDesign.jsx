@@ -9,7 +9,7 @@ const LatestDesign = () => {
   UseGetLatestProduct();
   return (
     <div>
-      {/* <h2 className="text-xl font-bold mb-4 text-center">Latest Design</h2> */}
+      <h2 className="text-xl font-bold mb-4 text-center text-[#1B3C73]">Latest Design</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {products.length == 0 ? (
           [0,1,2,3,4,5,6,7,8].map((el,idx)=>{

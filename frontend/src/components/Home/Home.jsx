@@ -1,11 +1,19 @@
 import React from "react";
-import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import carousel styles
 import { Button } from "../ui/button";
 import { FaArrowUp, FaWhatsapp } from "react-icons/fa"; // Import WhatsApp and ArrowUp icons
 import LatestDesign from "./LatestDesign";
 import HomeCarousel from "./HomeCarousel";
 import Footer from "../utils/Footer";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "../ui/carousel";
+import { Link } from "react-router-dom";
+import TrendingCategory from "./TrendingCategory";
 
 const Home = () => {
   const scrollToTop = () => {
@@ -22,6 +30,11 @@ const Home = () => {
         {/* <div className="mb-10 max-w-7xl mx-auto">
           <HomeCarousel />
         </div> */}
+        <div className="mb-10 max-w-3xl mx-auto">
+          
+          <TrendingCategory/>
+        </div>
+
         <div className="max-w-7xl mx-auto px-4">
           <LatestDesign />
         </div>
@@ -33,7 +46,7 @@ const Home = () => {
         >
           <FaArrowUp size={24} />
         </Button>
-      
+
         <button
           onClick={openWhatsApp}
           variant="outline"
@@ -42,7 +55,6 @@ const Home = () => {
         >
           <FaWhatsapp size={30} />
         </button>
-      
       </div>
       <Footer />
     </>
