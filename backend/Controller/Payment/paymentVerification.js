@@ -11,7 +11,7 @@ const paymentVerification = async (req, res) => {
     const body = razorpay_order_id + "|" + razorpay_payment_id;
 
     const expectedSignature = crypto
-      .createHmac("sha256", "vP83yht91wf42bY4zfEy4ItB") // Replace this with your actual key
+      .createHmac("sha256",process.env.RAZOR_PAY_SECRET) // Replace this with your actual key
       .update(body.toString())
       .digest("hex");
 
@@ -50,7 +50,7 @@ const paymentVerification = async (req, res) => {
         }
       }
 
-      
+
       return res.redirect(
         `/download/${order._id}/verified/${order.razorpay_payment_id}`
       );

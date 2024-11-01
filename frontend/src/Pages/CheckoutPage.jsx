@@ -111,8 +111,7 @@ const CheckoutPage = () => {
       };
       const orderInstance = await createOrder(orderDetails);
 
-      const { razorpay_order_id, orderId, amount } = orderInstance;
-
+      const { razorpay_order_id, orderId, amount,name,email,phoneNumber } = orderInstance;
       // Razorpay options
       const options = {
         key: razorpayKey,
@@ -124,12 +123,12 @@ const CheckoutPage = () => {
         order_id: razorpay_order_id,
         callback_url: `/api/payment/payment-verification?secret=${orderId}`,
         prefill: {
-          name: "Card Flex",
-          email: "cardflexhelp@gmail.com",
-          contact: "7060457474",
+          name: name,
+          email: email,
+          contact: phoneNumber,
         },
         notes: {
-          address: "Aayush Chauhan",
+          address: "_blank",
         },
         theme: {
           color: "#1B3C73",

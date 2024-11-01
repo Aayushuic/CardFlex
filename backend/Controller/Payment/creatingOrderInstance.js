@@ -73,6 +73,9 @@ const createOrderInstance = async (req, res) => {
         orderId: currentOrder._id,
         razorpay_order_id: order.id,
         order_amount:amount,
+        name:currentOrder.name,
+        phoneNumber:currentOrder.phoneNumber,
+        email:currentOrder.email,
       });
     } // Razorpay order creation failed
 
