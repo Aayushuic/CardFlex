@@ -1,7 +1,7 @@
 import CartItem from "@/components/Cart/CartItem";
 import { Button } from "@/components/ui/button";
 import { logout, removeFromCart } from "@/features/authslice";
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -9,22 +9,18 @@ import { Heart, ShoppingCart } from "lucide-react";
 
 const CartPage = () => {
   const user = useSelector((state) => state.auth.user);
-  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // Calculate subtotal
-  const subtotal = user?.cart?.reduce(
-    (total, item) => total + item.newPrice,
-    0
-  );
+  const subtotal = user?.cart?.reduce((total, item) => total + item.newPrice, 0);
 
   // Handle remove item
-  const handleRemove = async (productId) => {
+  const handleRemove = async (productId, setLoading) => {
     setLoading(true);
     try {
       if (!user) {
-        toast.info("please login...");
+        toast.info("Please login...");
         navigate("/login");
         return;
       }
@@ -45,7 +41,7 @@ const CartPage = () => {
         toast.info(responseData.message);
         dispatch(removeFromCart(responseData.cart));
       } else {
-        if (responseData.message == "Session Expired") {
+        if (responseData.message === "Session Expired") {
           toast.error(responseData.message);
           dispatch(logout());
           navigate("/login");
@@ -76,12 +72,8 @@ const CartPage = () => {
               <span className="font-semibold">Why not add something fun?</span>
             </p>
             <Link to="/">
-              <Button
-                variant="outline"
-                className="flex items-center gap-2 group mt-5" // Add the group class here
-              >
+              <Button variant="outline" className="flex items-center gap-2 group mt-5">
                 <Heart className="h-5 w-5 text-gray-800 transition-colors duration-200 group-hover:text-red-500" />
-                {/* Heart turns red on button hover */}
                 <span className="text-gray-800">Browse Products</span>
               </Button>
             </Link>

@@ -27,14 +27,17 @@ export const Card = ({
   };
 
   const handleAddtoCart = async (productId) => {
-    setLoading(true);
     try {
       if (!user) {
-        toast.info("login to add item in cart");
+        toast.info("Please log in to add items to the cart.");
         navigate("/login");
-        return;
+        return false;
       }
 
+      if (isItemInCart) {
+        return true;
+      }
+      setLoading(true);
       const response = await fetch("/api/user/cart/add", {
         method: "PATCH",
         credentials: "include",
@@ -50,16 +53,18 @@ export const Card = ({
       if (responseData.success) {
         toast.success(responseData.message);
         dispatch(addToCart(responseData.cart));
+        return true; // Indicate success
       } else {
-        if (responseData.message == "Session Expired") {
+        if (responseData.message === "Session Expired") {
           toast.error(responseData.message);
           dispatch(logout());
           navigate("/login");
-          return;
         }
+        return false; // Indicate failure
       }
     } catch (error) {
       toast.error(error.message || error);
+      return false;
     } finally {
       setLoading(false);
     }
@@ -68,18 +73,25 @@ export const Card = ({
   // Check if the item exists in the user's cart by comparing the _id with the cart items' _id
   const isItemInCart = user?.cart?.some((item) => item._id === _id);
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     if (user) {
-      handleAddtoCart(_id);
+      const success = await handleAddtoCart(_id);
+      if (success) {
+        navigate("/checkout", {
+          state: { _id, imageSrc, title, oldPrice, newPrice, description },
+        });
+        window.scrollTo(0, 0);
+      }
+    } else {
+      navigate("/checkout", {
+        state: { _id, imageSrc, title, oldPrice, newPrice, description },
+      });
+      window.scrollTo(0, 0);
     }
-    navigate("/checkout", {
-      state: { _id, imageSrc, title, oldPrice, newPrice, description },
-    });
-    window.scrollTo(0, 0);
   };
 
   return (
-    <div className="border rounded-md overflow-hidden bg-white dark:bg-gray-800 dark:border-none transition-all shadow-md hover:shadow-2xl hover:shadow-gray-600 cursor-pointer">
+    <div className="border rounded-md overflow-hidden bg-white dark:bg-gray-800 dark:border-none transition-all shadow-md group cursor-pointer">
       {/* Image and Description */}
       <div onClick={handleDescriptionPageClick}>
         {imageSrc && (
@@ -87,7 +99,7 @@ export const Card = ({
             src={imageSrc}
             alt={title}
             loading="lazy"
-            className="w-full h-auto aspect-[4/3] object-cover"
+            className="w-full h-auto aspect-[4/3] object-cover group-hover:opacity-70"
           />
         )}
         <div className="p-4">
@@ -105,46 +117,57 @@ export const Card = ({
         </div>
       </div>
 
-      {/* Buttons for Download and Cart */}
-      <div className="p-4 border-t border-gray-100 dark:border-gray-700 flex justify-evenly">
-        {/* Download Button */}
+      {loading ? (
         <Button
-          variant="outline"
-          onClick={handleDownload}
-          className="flex-1 mr-2 flex justify-center items-center py-2 px-4 text-pink-500 rounded-md transition-all duration-300 hover:text-pink-600"
+          variant="solid"
+          className="w-full min-h-[56px] p-4 transition-all duration-300 flex items-center justify-center space-x-1"
         >
-          <Download className="mr-2 w-5 h-5 icon-hover-wiggle" />
-          Download
+          <span
+            className="w-3 h-3 rounded-full animate-bounce"
+            style={{ backgroundColor: "#1B3C73", animationDelay: "0s" }}
+          ></span>
+          <span
+            className="w-3 h-3 rounded-full animate-bounce"
+            style={{ backgroundColor: "#1B3C73", animationDelay: "0.3s" }}
+          ></span>
+          <span
+            className="w-3 h-3 rounded-full animate-bounce"
+            style={{ backgroundColor: "#1B3C73", animationDelay: "0.5s" }}
+          ></span>
         </Button>
+      ) : (
+        <div className="p-4 border-t border-gray-100 dark:border-gray-700 flex justify-evenly">
+          {/* Download Button */}
+          <Button
+            variant="outline"
+            onClick={handleDownload}
+            className="flex-1 mr-2 flex justify-center items-center py-2 px-4 text-pink-500 rounded-md transition-all duration-300 hover:text-pink-600"
+          >
+            <Download className="mr-2 w-5 h-5 icon-hover-wiggle" />
+            Download
+          </Button>
 
-        {/* Add to Cart or Loading Button */}
-        {loading ? (
-          <Button
-            variant="solid"
-            className="flex-1 ml-2 flex justify-center items-center py-2 px-4 text-white bg-[#1B3C73] hover:bg-[#40679E] rounded-md transition-all duration-300"
-          >
-            <Loader2 className="animate-spin" />
-          </Button>
-        ) : isItemInCart ? (
-          <Button
-            variant="solid"
-            disabled
-            className="flex-1 ml-2 flex justify-center items-center py-2 px-4 text-white bg-[#1B3C73] hover:bg-[#40679E] rounded-md transition-all duration-300"
-          >
-            <ShoppingCart className="mr-2 w-5 h-5 icon-hover-wiggle" />
-            Added
-          </Button>
-        ) : (
-          <Button
-            variant="solid"
-            onClick={() => handleAddtoCart(_id)}
-            className="flex-1 ml-2 flex justify-center items-center py-2 px-4 text-white bg-[#1B3C73] hover:bg-[#40679E] rounded-md transition-all duration-300"
-          >
-            <ShoppingCart className="mr-2 w-5 h-5 icon-hover-wiggle" />
-            Add to Cart
-          </Button>
-        )}
-      </div>
+          {isItemInCart ? (
+            <Button
+              variant="solid"
+              disabled
+              className="flex-1 ml-2 flex justify-center items-center py-2 px-4 text-white bg-[#1B3C73] hover:bg-[#40679E] rounded-md transition-all duration-300"
+            >
+              <ShoppingCart className="mr-2 w-5 h-5 icon-hover-wiggle" />
+              Added
+            </Button>
+          ) : (
+            <Button
+              variant="solid"
+              onClick={() => handleAddtoCart(_id)}
+              className="flex-1 ml-2 flex justify-center items-center py-2 px-4 text-white bg-[#1B3C73] hover:bg-[#40679E] rounded-md transition-all duration-300"
+            >
+              <ShoppingCart className="mr-2 w-5 h-5 icon-hover-wiggle" />
+              Add to Cart
+            </Button>
+          )}
+        </div>
+      )}
     </div>
   );
 };

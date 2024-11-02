@@ -5,7 +5,7 @@ import { BsCartX } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 
-const CartSummary = ({ cart, subtotal, handleRemove, loading }) => {
+const CartSummary = ({ cart, subtotal, handleRemove}) => {
   return (
     <div className="flex flex-col h-[500px] bg-white p-0 sm:p-6 rounded-lg  border-none ">
       <h3 className="text-xl font-semibold mb-4 text-gray-800">Your Cart</h3>
@@ -26,7 +26,6 @@ const CartSummary = ({ cart, subtotal, handleRemove, loading }) => {
               key={idx}
               item={item}
               onRemove={handleRemove}
-              loading={loading}
             />
           ))}
         </div>

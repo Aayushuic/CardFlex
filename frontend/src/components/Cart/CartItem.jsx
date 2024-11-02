@@ -1,9 +1,12 @@
 import { Loader2, Trash } from "lucide-react";
 import { Button } from "../ui/button";
 import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 
-const CartItem = ({ item, onRemove, loading }) => {
+const CartItem = ({ item, onRemove }) => {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
   const handleDescriptionPageClick = () => {
     navigate("/description", {
       state: {
@@ -16,6 +19,7 @@ const CartItem = ({ item, onRemove, loading }) => {
     });
     return;
   };
+
   return (
     <div className="flex flex-col md:flex-row items-center justify-between p-4 border-b dark:border-gray-700">
       <div
@@ -35,17 +39,15 @@ const CartItem = ({ item, onRemove, loading }) => {
       {loading ? (
         <Button
           variant="outline"
-          className="mt-4 md:mt-0 flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900 dark:hover:text-red-300"
-          onClick={() => onRemove(item._id)}
+          className="mt-4 md:mt-0 flex items-center gap-2 px-4 py-2 text-pink-600 hover:bg-red-50 hover:text-pink-700 min-w-[100px]"
         >
-          <Loader2 className="w-5 h-5" />
-        
+          <Loader2 className="w-8 h-8 animate-spin" />
         </Button>
       ) : (
         <Button
           variant="outline"
           className="mt-4 md:mt-0 flex items-center gap-2 px-4 py-2 text-pink-600 hover:bg-red-50 hover:text-pink-700"
-          onClick={() => onRemove(item._id)}
+          onClick={() => onRemove(item._id, setLoading)}
         >
           <Trash className="w-5 h-5" />
           Remove

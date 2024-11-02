@@ -20,7 +20,7 @@ import Footer from "@/components/utils/Footer";
 
 const CheckoutPage = () => {
   const [loadingOverlay, setLoadingOverlay] = useState(false);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [discount, setDiscount] = useState(0);
   const user = useSelector((state) => state.auth.user);
   const cart = user ? user.cart : [];
@@ -44,7 +44,7 @@ const CheckoutPage = () => {
     setDiscount(discountedAmount);
   };
 
-  const handleRemove = async (productId) => {
+  const handleRemove = async (productId,setLoading) => {
     setLoading(true);
     try {
       if (!user) {
@@ -163,7 +163,6 @@ const CheckoutPage = () => {
                   subtotal - (subtotal * discountPercentage) / 100
                 )} // Apply discount to subtotal
                 handleRemove={handleRemove}
-                loading={loading}
               />
             ) : (
               <GuestProductDetails product={product} />
