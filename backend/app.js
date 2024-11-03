@@ -23,7 +23,7 @@ const app = express();
 
 // CORS configuration
 const corsOptions = {
-  origin: ["http://localhost:5173","http://localhost:5174"], // Frontend URL
+  origin: ["http://localhost:5173", "http://localhost:5174"], // Frontend URL
   credentials: true,
   allowedHeaders: [
     "Content-Type",
@@ -51,10 +51,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser()); // Important: cookie-parser should come before csurf
 // app.use(express.static(path.join(__dirname, "public"))
 
-
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-app.set('trust proxy', true);
+app.set("trust proxy", true);
 
 // Rate limiter to prevent abuse
 const limiter = rateLimit({
@@ -66,7 +65,6 @@ const limiter = rateLimit({
 
 app.use("/api/payment", limiter, paymentRouter);
 
-
 // app.use("/api", csrfProtection);
 
 // Routes
@@ -75,8 +73,8 @@ app.use("/api/payment", limiter, paymentRouter);
 // });
 
 // Apply rate limiter and routes
-app.use("/api/reset",limiter, forgotRouter);
-app.use("/api/user/verify",limiter, verificationRouter);
+app.use("/api/reset", limiter, forgotRouter);
+app.use("/api/user/verify", limiter, verificationRouter);
 app.use("/api/user", apiKeyMiddleware, limiter, usersRouter);
 app.use("/api/admin", apiKeyMiddleware, limiter, adminRouter);
 app.use("/api/user/product", apiKeyMiddleware, limiter, productRouter);
