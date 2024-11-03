@@ -77,7 +77,7 @@ const Footer = () => {
                   Terms And Conditions
                 </Link>
               </li>
-              <li className="mb-2">
+              {/* <li className="mb-2">
                 <Link
                   to="/contact-us"
                   className="hover:text-black dark:hover:text-white"
@@ -85,7 +85,7 @@ const Footer = () => {
                 >
                   Contact Us
                 </Link>
-              </li>
+              </li> */}
               <li className="mb-2">
                 <Link
                   to="/help"

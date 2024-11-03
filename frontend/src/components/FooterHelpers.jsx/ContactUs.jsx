@@ -182,9 +182,9 @@ const ContactUs = () => {
             <p className="text-lg font-semibold text-indigo-600 mb-2">
               Email: cardflexhelp@gmail.com
             </p>
-            <p className="text-lg font-semibold text-indigo-600 mb-2">
+            {/* <p className="text-lg font-semibold text-indigo-600 mb-2">
               Phone: +91 7060457474
-            </p>
+            </p> */}
             <p className="text-lg text-gray-700 mt-6">
               We are available from Monday to Friday, 9:00 AM - 6:00 PM. Feel
               free to drop us a message, and we will get back to you as soon as
