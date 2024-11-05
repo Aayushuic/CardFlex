@@ -13,7 +13,7 @@ const sendEmail = async (email,subject,text) => {
         })
 
         await transporter.sendMail({
-            from:process.env.USER,
+            from:'"noreply" <noreply@cardflex.in>',
             to:email,
             subject:subject,
             html:text
