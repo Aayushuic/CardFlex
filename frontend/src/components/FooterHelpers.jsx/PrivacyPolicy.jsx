@@ -106,7 +106,7 @@ const PrivacyPolicy = () => {
             please contact us:
           </p>
           <p className="text-lg font-semibold text-indigo-600">
-            Email: cardflexhelp@gmail.com
+            Email: support@cardflex.in
           </p>
         </section>
       </div>

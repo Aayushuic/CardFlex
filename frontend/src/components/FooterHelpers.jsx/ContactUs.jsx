@@ -180,7 +180,7 @@ const ContactUs = () => {
               You can reach us through the following contact details:
             </p>
             <p className="text-lg font-semibold text-indigo-600 mb-2">
-              Email: cardflexhelp@gmail.com
+              Email: support@cardflex.in
             </p>
             {/* <p className="text-lg font-semibold text-indigo-600 mb-2">
               Phone: +91 7060457474

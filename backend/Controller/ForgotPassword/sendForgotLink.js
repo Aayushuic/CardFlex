@@ -101,7 +101,7 @@ const sendForgotLink = async (req, res) => {
         <p>Best regards,<br>The Card Flex Team</p>
         <div class="footer">
 <p>Need Help? For any queries, feel free to reach out:</p>
-                <p>Email: <a href="mailto:cardflexhelp@gmail.com">cardflexhelp@gmail.com</a></p>
+                <p>Email: <a href="mailto:support@cardflex.in">support@cardflex.in</a></p>
             <p>LinkedIn: <a href="https://www.linkedin.com/in/aayush-chauhan1916/">https://www.linkedin.com/in/aayush-chauhan1916/</a></p>
         </div>
     </div>

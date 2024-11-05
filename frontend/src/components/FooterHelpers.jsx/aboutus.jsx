@@ -65,7 +65,7 @@ const AboutUs = () => (
           be happy to assist you.
         </p>
         <p className="text-lg font-semibold text-indigo-600">
-          Email: cardflexhelp@gmail.com
+          Email: support@cardflex.in
         </p>
       </section>
 
