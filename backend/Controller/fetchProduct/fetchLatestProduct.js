@@ -5,7 +5,7 @@ const fetchLatestProduct = async (req, res) => {
     const latestProduct = await Product.find({})
       .select("-cdrFile")
       .sort({ createdAt: -1 }) // Sort by creation time in descending order
-      .limit(15); // Optionally limit the number of products (e.g., 10)
+      .limit(9); // Optionally limit the number of products (e.g., 10)
     
     return res.status(200).json({
       success: true,
