@@ -79,7 +79,7 @@ const CouponCode = ({ setDiscountPercentage }) => {
         setDiscountPercentage(discountValue);
         setDiscount(discountValue);
         setShowConfetti(true); // Show confetti on successful application
-        setTimeout(() => setShowConfetti(false), 3000); // Hide confetti after 3 seconds
+        setTimeout(() => setShowConfetti(false), 4000); // Hide confetti after 3 seconds
         setError(null);
       } else {
         setError("Invalid Coupon Code");
