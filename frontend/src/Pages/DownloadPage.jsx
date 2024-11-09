@@ -10,6 +10,7 @@ import DownloadFiles from "@/components/DownloadPage/DownloadFiles";
 import "react-loading-skeleton/dist/skeleton.css"; // Include skeleton CSS
 import SkeletonDownload from "@/components/DownloadPage/Skeleton";
 import OrderNotFound from "@/components/DownloadPage/OrderNotFound";
+import FeedBack from "@/components/CustomerFeedback/FeedBack";
 
 const DownloadPage = () => {
   const { orderId, paymentId } = useParams(); // Get the orderId and paymentId from the URL
@@ -97,6 +98,10 @@ const DownloadPage = () => {
             <div className="ml-8">
               <OrderInformation order={order}></OrderInformation>
             </div>
+          </div>
+
+          <div className="mt-14 text-center px-4 md:px-0">
+            <FeedBack />
           </div>
         </div>
       </div>

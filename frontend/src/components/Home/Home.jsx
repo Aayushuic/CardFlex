@@ -6,6 +6,7 @@ import LatestDesign from "./LatestDesign"; // Component to display the latest de
 import HomeCarousel from "./HomeCarousel"; // Component for the home carousel
 import Footer from "../utils/Footer"; // Footer component for the page
 import TrendingCategory from "./TrendingCategory"; // Component for trending categories
+import Reviews from "./Reviews";
 
 const Home = () => {
   // Smooth scroll to top function
@@ -38,6 +39,12 @@ const Home = () => {
           <h2 id="latest-designs" className="sr-only">Latest Designs</h2>
           <LatestDesign /> {/* Component for displaying the latest designs */}
         </section>
+
+        <section className="max-w-7xl mx-auto px-4 mt-8" aria-labelledby="reviews">
+          <h2 id="latest-designs" className="sr-only">Reviews</h2>
+          <Reviews/> {/* Component for displaying the latest designs */}
+        </section>
+
 
         {/* Floating Scroll to Top Button */}
         <Button

@@ -7,7 +7,6 @@ const cors = require("cors");
 const rateLimit = require("express-rate-limit");
 // const csurf = require("csurf");
 require("dotenv").config();
-
 const usersRouter = require("./routes/users");
 const adminRouter = require("./routes/admin/product");
 const productRouter = require("./routes/fetchProduct");
@@ -57,7 +56,6 @@ app.set("view engine", "ejs");
 if (process.env.NODE_ENV === "production") {
   app.set("trust proxy", 1); // Trust the first proxy in production
 }
-
 
 // Rate limiter to prevent abuse
 const limiter = rateLimit({

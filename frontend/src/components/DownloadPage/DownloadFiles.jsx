@@ -23,6 +23,7 @@ const DownloadFiles = ({order}) => {
                 </p>
                 <a
                   href={product.cdrFile}
+                  target="_blank"
                   className="inline-block px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-400 transition"
                 >
                   Download
