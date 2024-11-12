@@ -9,9 +9,9 @@ const fetchUserOrder = async (req, res) => {
         .json({ success: false, message: "unauthenticated", authentic: false });
     }
 
+    // Fetch orders and populate product details
     const orders = await Order.find({
       user: userId,
-      paymentStatus: "successful",
     })
       .sort({ createdAt: -1 })
       .select(["-user", "-_id", "-razorpay_payment_id"])
@@ -20,11 +20,29 @@ const fetchUserOrder = async (req, res) => {
         select: "-purchaseCount",
       });
 
+    // Process orders to conditionally include CDR files in each product
+    const processedOrders = orders.map((order) => {
+      const orderData = order.toObject();
+      
+      // Iterate over each product in the product array
+      orderData.product = orderData.product.map((product) => {
+        if (order.paymentStatus !== "successful") {
+          // Remove the cdrFile if payment is not successful
+          delete product.cdrFile;
+        }
+        return product;
+      });
+
+      return orderData;
+    });
+
+    // console.log(processedOrders);
+
     return res.status(200).json({
       success: true,
-      orders: orders,
+      orders: processedOrders,
       authentic: true,
-    }); // Send the order with populated product details
+    });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Server error" });
