@@ -1,63 +1,77 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import {
   Collapsible,
   CollapsibleTrigger,
   CollapsibleContent,
 } from "@radix-ui/react-collapsible";
-import { Download } from "lucide-react";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Download, HelpCircle } from "lucide-react";
+import HelpDialog from "./OrdersHelpDailog";
+import Modal from "../ConfirmationModal/Modal";
+
 
 const Orders = ({ orders }) => {
   const [expandedOrderIndex, setExpandedOrderIndex] = useState(null);
+  const [isHelpOpen, setIsHelpOpen] = useState(false);
+  const [razorpay_order_id, setrazorpay_order_id] = useState("");
+  const [receipt, setreceipt] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const[modalMessage,setModalMessage] = useState("");
+  const[modalTitle,setModalTitle] = useState("");
+
   const toggleExpandOrder = (index) => {
     setExpandedOrderIndex(expandedOrderIndex === index ? null : index);
   };
 
+  const handleHelpClick = (razorpay_order_id, receipt) => {
+    setIsHelpOpen(true);
+    setrazorpay_order_id(razorpay_order_id);
+    setreceipt(receipt);
+  };
+
   return (
-    <div className="max-w-5xl mx-auto p-0 sm:p-6">
-      <h2 className="text-4xl font-bold mb-8 text-center text-[#1B3C73] mt-5">
+    <div className="max-w-5xl mx-auto p-4 sm:p-6">
+      <h2 className="text-3xl sm:text-4xl font-bold mb-6 sm:mb-8 text-center text-[#1B3C73] mt-5">
         Your Orders
       </h2>
-      {orders.map((order, index) => (
+      {orders?.map((order, index) => (
         <motion.div
           key={index}
-          className="mb-8"
+          className="mb-6 sm:mb-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.8 }}
         >
-          <Card className="border-none bg-white shadow-bottom shadow-lg shadow-gray-100 rounded-lg p-6">
-            <h3 className="text-2xl font-semibold mb-4 text-[#1B3C73]">
-              Order ID: {order.razorpay_order_id}
+          <Card className="border-none bg-white shadow-lg rounded-lg p-4 sm:p-6">
+            <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-[#1B3C73]">
+              Order ID: {order?.razorpay_order_id}
             </h3>
-            <div className="mb-6">
+            <div className="mb-4 sm:mb-6">
               {order.product.map((item, idx) => (
                 <div
                   key={idx}
-                  className="flex flex-col md:flex-row items-center justify-between p-4 border-b dark:border-gray-700"
+                  className="flex flex-col sm:flex-row items-center justify-between p-4 border-b"
                 >
-                  <div className="flex items-center space-x-4 md:space-x-6">
+                  <div className="flex items-center space-x-4">
                     <img
-                      src={item.imageUrl}
-                      alt={item.title}
-                      className="w-16 h-16 object-fit rounded-lg shadow-md md:w-24 md:h-24"
+                      src={item?.imageUrl}
+                      alt={item?.title}
+                      className="w-16 h-16 rounded-lg shadow-md sm:w-24 sm:h-24"
                     />
-                    <div>
+                    <div className="text-center sm:text-left">
                       <h3 className="text-lg font-semibold">{item.title}</h3>
-                      <p className="text-gray-600 dark:text-gray-400">
-                        ₹{item.newPrice}
-                      </p>
+                      <p className="text-gray-600">₹{item?.newPrice}</p>
                     </div>
                   </div>
-                  { order.paymentStatus != "pending" && (
-                    <div className="mt-4 md:mt-0">
-                      <a href={item.cdrFile}>
+                  {order.paymentStatus !== "pending" && (
+                    <div className="mt-4 sm:mt-0">
+                      <a href={item?.cdrFile}>
                         <Button
                           variant="outline"
-                          className="flex items-center gap-2 px-4 py-2 text-pink-600 hover:bg-red-50 hover:text-pink-700"
+                          className="flex items-center gap-2 text-pink-600"
                         >
                           <Download className="mr-1" />
                           Download
@@ -69,12 +83,15 @@ const Orders = ({ orders }) => {
               ))}
             </div>
 
-            <div className="flex flex-col md:flex-row justify-between items-center">
-              <Collapsible open={expandedOrderIndex === index}>
+            <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+              <Collapsible
+                open={expandedOrderIndex === index}
+                className="w-full"
+              >
                 <CollapsibleTrigger asChild>
                   <Button
                     variant="outline"
-                    className="text-blue-600 hover:underline mb-4 md:mb-0"
+                    className="text-blue-600 hover:underline"
                     onClick={() => toggleExpandOrder(index)}
                   >
                     {expandedOrderIndex === index
@@ -83,40 +100,32 @@ const Orders = ({ orders }) => {
                   </Button>
                 </CollapsibleTrigger>
                 <CollapsibleContent>
-                  <div className="mt-4 border-t pt-4 ">
-                    <div className="flex items-center">
-                      <h4 className="text-lg font-semibold text-gray-700 mb-1">
-                        Payment Status:{" "}
+                  <div className="mt-4 border-t pt-4">
+                    <div className="flex items-center mb-2">
+                      <h4 className="text-lg font-semibold text-gray-700">
+                        Payment Status:
                       </h4>
-                      <div className="pb-2 pl-2 pr-2">
-                        <Badge
-                          variant="outline"
-                          className={`${
-                            order.paymentStatus === "pending"
-                              ? "bg-red-300 text-gray-700"
-                              : "bg-green-300 text-gray-700"
-                          }`}
-                        >
-                          {order.paymentStatus}
-                        </Badge>
-                      </div>
+                      <Badge
+                        variant="outline"
+                        className={`ml-2 ${
+                          order.paymentStatus === "pending"
+                            ? "bg-red-300 text-gray-700"
+                            : "bg-green-300 text-gray-700"
+                        }`}
+                      >
+                        {order.paymentStatus}
+                      </Badge>
                     </div>
-                    {order.paymentStatus === "pending" ? (
-                      <p className="text-gray-600">
-                        <strong className="text-gray-800">Amount To be Paid:</strong>{" "}
-                        <span className="text-xl font-bold text-green-700">
-                          ₹{order.amount}
-                        </span>
-                      </p>
-                    ) : (
-                      <p className="text-gray-600">
-                        <strong className="text-gray-800">Amount Paid:</strong>{" "}
-                        <span className="text-xl font-bold text-green-700">
-                          ₹{order.amount}
-                        </span>
-                      </p>
-                    )}
-
+                    <p className="text-gray-600">
+                      <strong className="text-gray-800">
+                        {order.paymentStatus === "pending"
+                          ? "Amount To be Paid:"
+                          : "Amount Paid:"}
+                      </strong>{" "}
+                      <span className="text-xl font-bold text-green-700">
+                        ₹{order.amount}
+                      </span>
+                    </p>
                     <p className="text-gray-600">
                       <strong className="text-gray-800">Discount:</strong>{" "}
                       <span className="text-red-500">
@@ -131,11 +140,8 @@ const Orders = ({ orders }) => {
                     </p>
                     <p className="text-gray-600">
                       <strong className="text-gray-800">Ordered At:</strong>{" "}
-                      <span className="text-gray-600">
-                        {new Date(order.createdAt).toLocaleString()}
-                      </span>
+                      <span>{new Date(order.createdAt).toLocaleString()}</span>
                     </p>
-                    {/* Note about saving the receipt */}
                     <div className="mt-4 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700">
                       <p className="font-semibold">Note:</p>
                       <p>
@@ -146,10 +152,39 @@ const Orders = ({ orders }) => {
                   </div>
                 </CollapsibleContent>
               </Collapsible>
+
+              <div className="flex flex-row sm:flex-col items-center sm:items-start space-x-4 sm:space-y-2 sm:space-x-0 w-full sm:w-auto">
+                <Button
+                  variant="outline"
+                  onClick={() =>
+                    handleHelpClick(order?.razorpay_order_id, order?.receipt)
+                  }
+                  className="flex items-center gap-2 text-[#1B3C73]"
+                >
+                  <HelpCircle className="mr-1" />
+                  Help
+                </Button>
+              </div>
             </div>
           </Card>
         </motion.div>
       ))}
+      <HelpDialog
+        isOpen={isHelpOpen}
+        setIsOpen={setIsHelpOpen}
+        razorpay_order_id={razorpay_order_id}
+        receipt={receipt}
+        setModalMessage={setModalMessage}
+        setModalTitle={setModalTitle}
+        setIsModalOpen={setIsModalOpen}
+      />
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        message={modalMessage}
+        title={modalTitle}
+      />
     </div>
   );
 };

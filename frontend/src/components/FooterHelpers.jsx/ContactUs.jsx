@@ -40,7 +40,6 @@ const ContactUs = () => {
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");
-      console.log(error.message || error);
     } finally {
       setLoading(false);
     }
@@ -48,6 +47,16 @@ const ContactUs = () => {
 
   return (
     <div className="bg-white">
+      {/* SEO Improvements: Title and Meta Description */}
+      <head>
+        <title>Contact Us | CardFlex</title>
+        <meta
+          name="description"
+          content="Get in touch with CardFlex for support or inquiries. Contact us via the form or our provided contact information."
+        />
+        <meta name="robots" content="index, follow" />
+      </head>
+
       <div className="py-16 px-8 md:px-16 max-w-6xl mx-auto">
         <h1 className="text-4xl font-bold text-center text-[#1B3C73] mb-12">
           Contact Us
@@ -57,9 +66,12 @@ const ContactUs = () => {
           below or via the provided contact information.
         </p>
 
-        <div className="flex flex-col md:flex-row gap-12">
+        <section className="flex flex-col md:flex-row gap-12">
           <div className="md:w-1/2">
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              aria-labelledby="contact-form"
+            >
               {/* Name Field */}
               <div className="mb-4">
                 <label className="block mb-2" htmlFor="name">
@@ -70,9 +82,12 @@ const ContactUs = () => {
                   className="border border-gray-300 p-2 rounded-lg w-full focus-visible:outline-[#1B3C73]"
                   type="text"
                   id="name"
+                  aria-describedby="name-error"
                 />
                 {errors.name && (
-                  <p className="text-red-500">{errors.name.message}</p>
+                  <p id="name-error" className="text-red-500">
+                    {errors.name.message}
+                  </p>
                 )}
               </div>
 
@@ -92,9 +107,12 @@ const ContactUs = () => {
                   className="border border-gray-300 p-2 rounded-lg w-full focus-visible:outline-[#1B3C73]"
                   type="email"
                   id="email"
+                  aria-describedby="email-error"
                 />
                 {errors.email && (
-                  <p className="text-red-500">{errors.email.message}</p>
+                  <p id="email-error" className="text-red-500">
+                    {errors.email.message}
+                  </p>
                 )}
               </div>
 
@@ -114,9 +132,12 @@ const ContactUs = () => {
                   className="border border-gray-300 p-2 rounded-lg w-full focus-visible:outline-[#1B3C73]"
                   type="tel"
                   id="phone"
+                  aria-describedby="phone-error"
                 />
                 {errors.phoneNumber && (
-                  <p className="text-red-500">{errors.phoneNumber.message}</p>
+                  <p id="phone-error" className="text-red-500">
+                    {errors.phoneNumber.message}
+                  </p>
                 )}
               </div>
 
@@ -130,9 +151,12 @@ const ContactUs = () => {
                   className="border border-gray-300 p-2 rounded-lg w-full focus-visible:outline-[#1B3C73]"
                   type="text"
                   id="subject"
+                  aria-describedby="subject-error"
                 />
                 {errors.subject && (
-                  <p className="text-red-500">{errors.subject.message}</p>
+                  <p id="subject-error" className="text-red-500">
+                    {errors.subject.message}
+                  </p>
                 )}
               </div>
 
@@ -146,9 +170,12 @@ const ContactUs = () => {
                   className="border border-gray-300 p-2 rounded-lg w-full focus-visible:outline-[#1B3C73]"
                   id="message"
                   rows="4"
+                  aria-describedby="message-error"
                 />
                 {errors.message && (
-                  <p className="text-red-500">{errors.message.message}</p>
+                  <p id="message-error" className="text-red-500">
+                    {errors.message.message}
+                  </p>
                 )}
               </div>
 
@@ -157,6 +184,7 @@ const ContactUs = () => {
                 <button
                   type="submit"
                   className="bg-[#1B3C73] text-white py-3 px-6 rounded-lg font-semibold hover:bg-[#17305e] transition duration-200 flex"
+                  aria-live="polite"
                 >
                   <Loader2 className="animate-spin mr-2" />
                   Please Wait...
@@ -182,14 +210,12 @@ const ContactUs = () => {
             <p className="text-lg font-semibold text-indigo-600 mb-2">
               Email: support@cardflex.in
             </p>
-            {/* <p className="text-lg font-semibold text-indigo-600 mb-2">
-              Phone: +91 7060457474
-            </p> */}
             <p className="text-lg text-gray-700 mt-6">
               We are available from Monday to Friday, 9:00 AM - 6:00 PM. Feel
               free to drop us a message, and we will get back to you as soon as
               possible.
             </p>
+
             {/* Locate Us section */}
             <div className="mt-8">
               <h2 className="text-3xl font-semibold text-[#1B3C73] mb-4">
@@ -212,7 +238,7 @@ const ContactUs = () => {
               </a>
             </div>
           </div>
-        </div>
+        </section>
       </div>
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
