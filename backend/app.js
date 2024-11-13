@@ -69,8 +69,9 @@ const limiter = rateLimit({
 
 // API key middleware for secure endpoints
 
+app.post("/api/razorpay/webhook",webhookCaller);
 app.use("/api/payment", limiter, paymentRouter);
-app.use("/api/razorpay/webhook",webhookCaller);
+
 
 // app.use("/api", csrfProtection);
 
