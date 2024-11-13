@@ -4,6 +4,9 @@ const Order = require("../modals/order"); // Assuming the order schema is in the
 const razorpaySecret = process.env.WEBHOOK_SECRET; // Your Razorpay Secret Key
 
 const webhookCaller = async (req, res) => {
+  if (!razorpaySecret) {
+    return res.status(500).send("Razorpay webhook secret not configured.");
+  }
   // Razorpay signature from the headers
   const webhookSignature = req.headers["x-razorpay-signature"];
   // The raw payload that Razorpay sends
