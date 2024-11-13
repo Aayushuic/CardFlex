@@ -18,6 +18,7 @@ const apiKeyMiddleware = require("./middleware/apiKeyMiddleWare");
 const verificationRouter = require("./routes/verification");
 const forgotRouter = require("./routes/ForgotPassword");
 const webhookCaller = require("./Webhook/webhook");
+const bodyParser = require("body-parser");
 
 const app = express();
 
@@ -69,7 +70,7 @@ const limiter = rateLimit({
 // API key middleware for secure endpoints
 
 app.use("/api/payment", limiter, paymentRouter);
-app.use("/api/razorpay/webhook",express.raw({ type: "application/json"}),webhookCaller);
+app.use("/api/razorpay/webhook",webhookCaller);
 
 // app.use("/api", csrfProtection);
 
