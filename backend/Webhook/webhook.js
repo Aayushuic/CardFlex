@@ -97,7 +97,7 @@ const webhookCaller = async (req, res) => {
       order.receipt = payment.receipt;
 
       // Optionally, track the refunded amount
-      order.refundAmount = refundAmount;
+      // order.refundAmount = refundAmount;
 
       // Save the order with the updated status
       await order.save();
