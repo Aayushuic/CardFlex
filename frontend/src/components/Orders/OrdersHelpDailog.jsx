@@ -41,8 +41,12 @@ const HelpDialog = ({
   // Pre-fill form with user data when dialog opens
   useEffect(() => {
     if (isOpen && user) {
-      setValue("name", user.name || ""); // Pre-fill name
-      setValue("phoneNumber", user.phoneNumber || ""); // Pre-fill phone number
+      setTimeout(() => {
+        setValue("name", user.name || "");
+        setValue("phoneNumber", user.phoneNumber || "");
+        // Optionally blur the field to avoid selection
+        document.activeElement.blur();
+      }, 0);
     }
   }, [isOpen, user, setValue]);
 
@@ -75,8 +79,9 @@ const HelpDialog = ({
 
       const resData = await res.json();
       if (resData.success) {
+        const ticketNumber = resData.ticketNumber;
         setIsModalOpen(true);
-        setModalTitle("Support Request Submitted");
+        setModalTitle(`Ticket-${ticketNumber}`);
         setModalMessage(
           "Your order support request has been submitted successfully! We will review your request and get back to you shortly. Thank you for your patience."
         );

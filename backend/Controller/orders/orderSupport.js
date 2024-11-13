@@ -18,7 +18,7 @@ const createSupportRequest = async (req, res) => {
       receipt: receipt.trim(),
     });
     if (!foundOrder) {
-      return res.status(401).json({ message: "Order not found,Please login again"});
+      return res.status(401).json({ message: "Order not found" });
     }
     // Create the support request
     const newRequest = new SupportRequest({
@@ -30,11 +30,15 @@ const createSupportRequest = async (req, res) => {
       additionalDetails,
     });
 
-    await newRequest.save();
+    const newTicket = await newRequest.save();
 
     res
       .status(201)
-      .json({ message: "Support request created successfully", success: true });
+      .json({
+        message: "Support request created successfully",
+        success: true,
+        ticketNumber: newTicket.ticketNumber,
+      });
   } catch (err) {
     console.log(err);
     res
