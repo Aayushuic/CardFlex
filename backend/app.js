@@ -17,6 +17,7 @@ const database = require("./utils/database");
 const apiKeyMiddleware = require("./middleware/apiKeyMiddleWare");
 const verificationRouter = require("./routes/verification");
 const forgotRouter = require("./routes/ForgotPassword");
+const webhookCaller = require("./Webhook/webhook");
 
 const app = express();
 
@@ -31,6 +32,8 @@ const corsOptions = {
     "X-CSRF-Token",
   ],
 };
+
+
 
 // CSRF protection setup
 // const csrfProtection = csurf({
@@ -66,6 +69,7 @@ const limiter = rateLimit({
 // API key middleware for secure endpoints
 
 app.use("/api/payment", limiter, paymentRouter);
+app.use("/api/razorpay/webhook",express.raw({ type: "application/json"}),webhookCaller);
 
 // app.use("/api", csrfProtection);
 
