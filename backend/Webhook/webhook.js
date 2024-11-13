@@ -15,7 +15,7 @@ const webhookCaller = async (req, res) => {
   // Create the expected signature
   const expectedSignature = crypto
     .createHmac("sha256", razorpaySecret)
-    .update(payload)
+    .update(JSON.stringify(payload)) // Convert payload to string
     .digest("hex");
 
   // Verify the signature to ensure the request is from Razorpay
