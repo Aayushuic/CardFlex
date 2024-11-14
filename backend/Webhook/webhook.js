@@ -7,10 +7,10 @@ const webhookCaller = async (req, res) => {
   if (!razorpaySecret) {
     return res.status(500).send("Razorpay webhook secret not configured.");
   }
-  
+
   // Razorpay signature from the headers
   const webhookSignature = req.headers["x-razorpay-signature"];
-  
+
   // The raw payload that Razorpay sends is already parsed into an object
   const payload = req.body; // <-- This is the correct payload (no need to parse)
 
@@ -27,7 +27,7 @@ const webhookCaller = async (req, res) => {
 
   // Now, directly use the payload (no need to parse it)
   const event = payload; // <-- Directly using the parsed payload here
-  
+
   // Handle the event based on the event type
   try {
     if (event.event === "payment.captured") {
@@ -35,6 +35,7 @@ const webhookCaller = async (req, res) => {
       const paymentId = payment.id;
       const razorpayOrderId = payment.order_id;
       const status = payment.status;
+      const method = payment.method;
 
       // Find the order by razorpay_order_id
       const order = await Order.findOne({ razorpay_order_id: razorpayOrderId });
@@ -46,18 +47,19 @@ const webhookCaller = async (req, res) => {
       // Update the payment status in the order
       order.paymentStatus = status === "captured" ? "successful" : "failed";
       order.razorpay_payment_id = paymentId;
-      order.receipt = payment.receipt;
+      order.paymentMethod = method;
 
       // Save the order with the updated status
       await order.save();
 
-      console.log(`Payment captured for Order: ${razorpayOrderId}, Status: ${status}`);
+      console.log(
+        `Payment captured for Order: ${razorpayOrderId}, Status: ${status}`
+      );
 
       res.status(200).send("Webhook processed successfully");
     } else if (event.event === "payment.failed") {
       const payment = event.payload.payment.entity;
       const razorpayOrderId = payment.order_id;
-      const status = payment.status;
 
       // Find the order by razorpay_order_id
       const order = await Order.findOne({ razorpay_order_id: razorpayOrderId });
@@ -69,42 +71,56 @@ const webhookCaller = async (req, res) => {
       // Update the payment status to failed
       order.paymentStatus = "failed";
       order.razorpay_payment_id = payment.id;
-      order.receipt = payment.receipt;
 
       // Save the order with the updated status
       await order.save();
 
-      console.log(`Payment failed for Order: ${razorpayOrderId}, Status: ${status}`);
-
       res.status(200).send("Webhook processed successfully");
-    } else if (event.event === "payment.refunded") {
-      const payment = event.payload.payment.entity;
-      const razorpayOrderId = payment.order_id;
-      const refundAmount = payment.refund_amount; // Amount refunded
-      const refundStatus = payment.status; // Refund status (e.g., 'processed', 'failed')
+    } else if (event.event === "refund.created") {
+      const refund = event.payload.refund.entity;
+      const refundId = refund.id;
+      const razorpayPaymentId = refund.payment_id;
+      const amount = refund.amount;
 
-      // Find the order by razorpay_order_id
-      const order = await Order.findOne({ razorpay_order_id: razorpayOrderId });
+      // Find the order associated with this payment ID
+      const order = await Order.findOne({
+        razorpay_payment_id: razorpayPaymentId,
+      });
 
       if (!order) {
         return res.status(404).send("Order not found");
       }
 
-      // Update the payment status to "refunded"
-      order.paymentStatus =
-        refundStatus === "processed" ? "refunded" : "refund_failed";
-      order.razorpay_payment_id = payment.id;
-      order.receipt = payment.receipt;
+      // Update the order with refund details
+      order.paymentStatus = "refund_processed";
+      order.refund_id = refundId;
+      order.refundAmount = amount;
 
-      // Optionally, track the refunded amount
-      // order.refundAmount = refundAmount;
+      await order.save();
+      res.status(200).send("Refund created event processed successfully");
+    } else if (event.event === "refund.processed") {
+      const refund = event.payload.refund.entity;
+      const refundId = refund.id;
+      const razorpayPaymentId = refund.payment_id;
+      const amount = refund.amount;
 
-      // Save the order with the updated status
+      // Find the order associated with this payment ID
+      const order = await Order.findOne({
+        razorpay_payment_id: razorpayPaymentId,
+      });
+
+      if (!order) {
+        return res.status(404).send("Order not found");
+      }
+
+      // Update the order with refund processed status
+      order.paymentStatus = "refunded";
+      order.refund_id = refundId;
+      order.refundAmount = amount;
+
       await order.save();
 
-      console.log(`Payment refunded for Order: ${razorpayOrderId}, Refund Status: ${refundStatus}, Amount: ${refundAmount}`);
-
-      res.status(200).send("Webhook processed successfully");
+      res.status(200).send("Refund processed event handled successfully");
     } else {
       res.status(200).send("Event not handled");
     }
