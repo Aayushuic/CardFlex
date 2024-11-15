@@ -41,7 +41,7 @@ const TicketChatModal = ({ isOpen, onClose, ticket, setTickets }) => {
 
     try {
       const res = await fetch(
-        "/api/user/order/support/ticket/Chat",
+        "/api/user/order/support/ticket/chat",
         {
           method: "POST",
           headers: {
@@ -78,7 +78,7 @@ const TicketChatModal = ({ isOpen, onClose, ticket, setTickets }) => {
         setError("Failed to send your message. Please try again.");
       }
     } catch (error) {
-      setError("server error, try again later")
+      setError("server error, try again later");
     } finally {
       setLoading(false);
       setNewMessage("");
