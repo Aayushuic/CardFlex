@@ -153,7 +153,7 @@ const HelpDialog = ({
                 Payment Done File Not Received
               </option>
               <option value="Received Wrong Item">Received Wrong Item</option>
-              <option value="Request Refund">Unable to Download</option>
+              <option value="Unable to Download">Unable to Download</option>
               <option value="Poor Quality">Poor Quality</option>
               <option value="Others">Others</option>
             </select>

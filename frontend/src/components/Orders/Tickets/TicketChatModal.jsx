@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { logout } from "@/features/authslice";
 import { Loader2, SendHorizonal } from "lucide-react";
 import React, { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";

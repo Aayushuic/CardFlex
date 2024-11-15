@@ -20,6 +20,7 @@ const createSupportRequest = async (req, res) => {
     if (!foundOrder) {
       return res.status(401).json({ message: "Order not found" });
     }
+
     // Create the support request
     const newRequest = new SupportRequest({
       user: req._id,
@@ -30,20 +31,29 @@ const createSupportRequest = async (req, res) => {
       additionalDetails,
     });
 
-    const newTicket = await newRequest.save();
+    // Default message indicating request reception
+    const NewMessage = {
+      message:
+        "We've received your support request and are reviewing it. Our team will respond shortly.",
+      sentAt: Date.now(),
+      isAdmin: true,
+    };
 
-    res
-      .status(201)
-      .json({
-        message: "Support request created successfully",
-        success: true,
-        ticketNumber: newTicket.ticketNumber,
-      });
+    newRequest.messages.push(NewMessage);
+
+    // Save the support request and return a response
+    const newTicket = await newRequest.save();
+    res.status(201).json({
+      message: "Support request created successfully",
+      success: true,
+      ticketNumber: newTicket.ticketNumber,
+    });
   } catch (err) {
     console.log(err);
-    res
-      .status(500)
-      .json({ message: "server is busy,try later", success: false });
+    res.status(500).json({
+      message: "Server is busy, try again later",
+      success: false,
+    });
   }
 };
 

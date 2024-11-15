@@ -104,7 +104,7 @@ const Orders = ({ orders }) => {
                       <a href={item?.cdrFile}>
                         <Button
                           variant="outline"
-                          className="flex items-center gap-2 text-indigo-600 border-indigo-600 hover:bg-indigo-50"
+                          className="flex items-center gap-2 text-indigo-600 border-indigo-600 hover:bg-indigo-50 hover:text-indigo-700"
                         >
                           <Download className="mr-1" />
                           Download
@@ -120,7 +120,7 @@ const Orders = ({ orders }) => {
               <CollapsibleTrigger asChild>
                 <Button
                   variant="outline"
-                  className="text-indigo-600 hover:text-indigo-800"
+                  className="text-indigo-600 hover:text-indigo-700"
                   onClick={() => toggleExpandOrder(index)}
                 >
                   {expandedOrderIndex === index ? "Show Less" : "Show Details"}
@@ -164,7 +164,7 @@ const Orders = ({ orders }) => {
             <div className="mt-6 flex justify-between items-center">
               <Button
                 variant="outline"
-                className="flex items-center gap-2 text-indigo-600 hover:bg-indigo-50"
+                className="flex items-center gap-2 text-indigo-600 hover:text-indigo-700 hover:bg-indigo-50"
                 onClick={() =>
                   handleHelpClick(order?.razorpay_order_id, order?.receipt)
                 }
@@ -176,7 +176,7 @@ const Orders = ({ orders }) => {
               <Link to="/ticket">
                 <Button
                   variant="outline"
-                  className="flex items-center gap-2 text-indigo-600 hover:bg-indigo-50"
+                  className="flex items-center gap-2 text-indigo-600 hover:text-indigo-700 hover:bg-indigo-50"
                 >
                   <Ticket className="mr-1" />
                   Your Tickets
