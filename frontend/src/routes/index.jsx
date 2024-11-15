@@ -10,6 +10,7 @@ import RefundAndCancellations from "@/components/FooterHelpers.jsx/RefundAndCanc
 import TermsAndConditions from "@/components/FooterHelpers.jsx/TermsAndConditions";
 
 import Home from "@/components/Home/Home";
+import TicketDashboard from "@/components/Orders/Tickets/Ticket";
 import PageNotFound from "@/components/utils/PageNotFound";
 import SearchResult from "@/components/utils/SearchResult";
 import CartPage from "@/Pages/CartPage";
@@ -96,6 +97,11 @@ const router = createBrowserRouter([
         path: "/contact-us",
         element: <ContactUs />,
       },
+      {
+        path: "/ticket",
+        element: <TicketDashboard/>,
+      },
+      
     ],
   },
   {

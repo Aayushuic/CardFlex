@@ -49,6 +49,7 @@ const supportRequestSchema = new mongoose.Schema({
   },
   messages: [
     {
+      _id:false,
       message: {
         type: String,
         required: true,
@@ -62,11 +63,12 @@ const supportRequestSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
       },
-    },
+    }, 
   ],
   createdAt: {
     type: Date,
-    default: Date.now, // Set the TTL for 30 seconds (MongoDB TTL will delete after 30 sec)
+    default: Date.now,
+    expires: '15d'
   },
 });
 

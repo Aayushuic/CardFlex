@@ -7,11 +7,13 @@ import Orders from "@/components/Orders/Orders";
 import { Button } from "@/components/ui/button"; // Assuming you have a Button component
 import { Heart, ShoppingCart } from "lucide-react";
 import Footer from "@/components/utils/Footer";
+import { FourSquare } from "react-loading-indicators";
 
 const UserOrders = () => {
   const [orders, setOrders] = useState([]);
   const user = useSelector((state) => state.auth.user);
-  const navigate = useNavigate();
+  const navigate = useNavigate();;
+  const[loading,setLoading] = useState(false)
 
   useEffect(() => {
     if (!user) {
@@ -22,6 +24,7 @@ const UserOrders = () => {
 
     const fetchOrders = async () => {
       try {
+        setLoading(true);
         const res = await fetch("/api/user/order/getOrders", {
           method: "GET",
           headers: {
@@ -48,11 +51,21 @@ const UserOrders = () => {
       } catch (error) {
         console.error("Error fetching orders:", error);
         toast.error("Something went wrong. Please try again.");
+      }finally{
+        setLoading(false);
       }
     };
 
     fetchOrders();
   }, [user, navigate]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <FourSquare color="#1B3C73" size="large" text="" textColor="" />
+      </div>
+    );
+  }
 
   if (!orders.length) {
     return (
