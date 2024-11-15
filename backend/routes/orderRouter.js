@@ -13,6 +13,6 @@ router.get("/check-first-order", isAuthenticated, checkFirstOrder);
 router.get("/getOrders", isAuthenticated, fetchUserOrder);
 router.post("/support", isAuthenticated, createSupportRequest);
 router.get("/support/ticket", isAuthenticated, fetchTicket);
-router.get("/support/ticket/chat", isAuthenticated, orderSupportChat);
+router.post("/support/ticket/chat", isAuthenticated, orderSupportChat);
 
 module.exports = router;
