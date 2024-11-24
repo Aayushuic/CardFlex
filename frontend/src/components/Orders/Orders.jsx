@@ -99,7 +99,7 @@ const Orders = ({ orders }) => {
                       <p className="text-gray-600">₹{item?.newPrice}</p>
                     </div>
                   </div>
-                  {order.paymentStatus !== "pending" && (
+                  {order.paymentStatus == "successful" && (
                     <div className="mt-4 sm:mt-0">
                       <a href={item?.cdrFile}>
                         <Button
