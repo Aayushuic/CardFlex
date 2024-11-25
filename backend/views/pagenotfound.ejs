@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Page Not Found</title>
+  <style>
+    /* Global Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body Styling */
+    body {
+      font-family: 'Arial', sans-serif;
+      height: 100vh;
+      background: radial-gradient(circle, #6a11cb, #2575fc);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      color: white;
+    }
+
+    /* Container Styling */
+    .container {
+      text-align: center;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    /* Main Heading */
+    h1 {
+      font-size: 7rem;
+      font-weight: bold;
+      letter-spacing: 8px;
+      background: linear-gradient(90deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glow 2s infinite alternate;
+    }
+
+    /* Subtext */
+    p {
+      font-size: 1.6rem;
+      margin: 20px 0;
+      color: rgba(255, 255, 255, 0.9);
+      animation: floatText 3s infinite alternate;
+    }
+
+    /* Button Styling */
+    .btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 35px;
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #2575fc;
+      background: white;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn:hover {
+      background: #ff9a9e;
+      color: white;
+      transform: translateY(-5px);
+      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Floating Circles */
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      animation: floatCircle 8s infinite ease-in-out;
+    }
+
+    .circle:nth-child(1) {
+      width: 100px;
+      height: 100px;
+      top: 15%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .circle:nth-child(2) {
+      width: 200px;
+      height: 200px;
+      bottom: 20%;
+      right: 15%;
+      animation-delay: 2s;
+    }
+
+    .circle:nth-child(3) {
+      width: 120px;
+      height: 120px;
+      top: 50%;
+      left: 50%;
+      animation-delay: 4s;
+    }
+
+    .circle:nth-child(4) {
+      width: 150px;
+      height: 150px;
+      bottom: 10%;
+      left: 5%;
+      animation-delay: 6s;
+    }
+
+    .circle:nth-child(5) {
+      width: 180px;
+      height: 180px;
+      top: 25%;
+      right: 5%;
+      animation-delay: 8s;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes glow {
+      from {
+        filter: brightness(1);
+      }
+      to {
+        filter: brightness(1.5);
+      }
+    }
+
+    @keyframes floatText {
+      from {
+        transform: translateY(0);
+      }
+      to {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes floatCircle {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-20px) rotate(45deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>404</h1>
+    <p>Oops! We couldn’t find the page you were looking for.</p>
+    <a href="/" class="btn">Return Home</a>
+  </div>
+
+  <!-- Floating circles -->
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+</body>
+</html>

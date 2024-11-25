@@ -89,6 +89,10 @@ app.use("/api/user/product", apiKeyMiddleware, limiter, productRouter);
 app.use("/api/user/cart", apiKeyMiddleware, limiter, cartRouter);
 app.use("/api/user/order", apiKeyMiddleware, limiter, orderRouter);
 
+app.all("*",(req,res)=>{
+  res.render("pagenotfound");
+})
+
 // Error handling middleware
 app.use((req, res, next) => {
   next(createError(404));
