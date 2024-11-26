@@ -87,6 +87,7 @@ const login = async (req, res) => {
       secure: true,
       expires: Date.now() + 21 * 24 * 60 * 60 * 1000,
       maxAge: 21 * 24 * 60 * 60 * 1000,
+      signed:true
     };
 
     const userData = await User.findOne({email:email}).populate({
@@ -94,7 +95,7 @@ const login = async (req, res) => {
       select: '-cdrFile' // Exclude the 'cdrFile' field
     }).select("-password");
     res
-      .cookie("token", token, cookieOption)
+      .cookie("token", token, cookieOption,)
       .status(200)
       .json({
         success: true,
