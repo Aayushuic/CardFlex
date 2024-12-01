@@ -1,8 +1,16 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useEffect } from "react";
+import { Helmet } from "react-helmet"; // This helps to manage the head of the page dynamically
+import "swiper/css";
+import "swiper/css/pagination";
 import ReviewCard from "./ReviewCard";
+import { Autoplay } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 const Reviews = () => {
+  useEffect(() => {
+    document.title = "Customer Reviews | Card Flex"; // Custom title for SEO
+  }, []);
+
   const reviews = [
     {
       userName: "Ravi Sharma",
@@ -68,25 +76,67 @@ const Reviews = () => {
 
   return (
     <section aria-labelledby="latest-design-heading" className="p-6">
-      <h2
-        id="latest-design-heading"
-        className="text-xl font-bold mb-6 text-center text-[#1B3C73]"
-      >
-        Customer's Reviews
+      {/* SEO: Helmet tags for meta data */}
+      <Helmet>
+        <meta
+          name="description"
+          content="Read what our customers say about their experience with our high-quality CDR files. Customer satisfaction is our priority!"
+        />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://cardflex.in" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Customer Reviews | CardFlex" />
+        <meta
+          property="og:description"
+          content="Check out customer reviews for our high-quality CDR files. We prioritize customer satisfaction!"
+        />
+      </Helmet>
+
+      {/* Heading Section */}
+      <h2 id="latest-design-heading" className="text-center mb-6 relative">
+        <span className="block text-4xl md:text-5xl font-bold text-[#1B3C73] leading-snug">
+          <span className="block">
+            Hear
+            <span className="text-5xl md:text-6xl text-[#FF6347] inline-block transform rotate-2 ml-2">
+              from
+            </span>
+          </span>
+          <span className="block mt-2 md:mt-0">
+            Our
+            <span className="text-4xl md:text-5xl text-[#FFD700] inline-block transform -rotate-2 ml-4">
+              Happy
+            </span>
+            <span className="ml-4">Customers</span>
+          </span>
+        </span>
       </h2>
-      <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+
+      {/* Swiper Carousel for Reviews */}
+      <Swiper
+        modules={[Autoplay]}
+        spaceBetween={10}
+        slidesPerView={2}
+        autoplay={{ delay: 3000 }}
+        pagination={{ clickable: true }}
+        breakpoints={{
+          0: {
+            slidesPerView: 1, // For screens smaller than 640px, show 1 slide
+          },
+          870: {
+            slidesPerView: 2,
+          },
+          1024: {
+            slidesPerView: 2,
+          },
+        }}
+        className="review-carousel"
+      >
         {reviews.map((review, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 100 }} // Start with opacity 0 and slightly below
-            whileInView={{ opacity: 1, y: 0 }} // Fade in and slide up
-            transition={{ duration: 1.3, ease: "easeOut" }} // Smooth transition
-            viewport={{ once: true }} // Trigger once when entering the viewport
-          >
+          <SwiperSlide key={index}>
             <ReviewCard review={review} />
-          </motion.div>
+          </SwiperSlide>
         ))}
-      </div>
+      </Swiper>
     </section>
   );
 };

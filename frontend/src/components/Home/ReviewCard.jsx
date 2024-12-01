@@ -8,7 +8,10 @@ const ReviewCard = ({ review }) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
       stars.push(
-        <span key={i} className={i <= rating ? 'text-yellow-500' : 'text-gray-300'}>
+        <span
+          key={i}
+          className={`text-[30px] ${i <= rating ? 'text-yellow-500' : 'text-gray-300'}`}
+        >
           ★
         </span>
       );
@@ -17,15 +20,14 @@ const ReviewCard = ({ review }) => {
   };
 
   return (
-    <div className="border rounded-lg shadow-sm p-4 mb-4 w-full">
-      <div className="flex items-center mb-2">
+    <div className="p-6 mb-6 w-full max-w-lg mx-auto min-h-[100px] flex flex-col justify-between bg-white">
+      <div className="flex items-center mb-3">
         <div className="flex">{renderStars()}</div>
-        <span className="ml-2 font-semibold text-gray-700">{userName}</span>
+        <span className="ml-4 font-semibold text-xl text-[#1B3C73]">{userName}</span>
       </div>
-      <p className="text-gray-600">{text}</p>
+      <p className="text-lg text-gray-700 flex-grow">{text}</p>
     </div>
   );
 };
-
 
 export default ReviewCard;

@@ -7,6 +7,9 @@ import {
   Search,
   User,
   Home,
+  LogOut,
+  Ticket,
+  Logs,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
@@ -209,10 +212,21 @@ const Navbar = ({ setSearchDialog }) => {
                   className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md cursor-pointer"
                   onClick={() => navigate("/orders")}
                 >
-                  Your Orders
+                  <Button variant="ghost"> 
+                    <Logs/>
+                     Orders</Button>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md cursor-pointer"
+                  onClick={() => navigate("/ticket")}
+                >
+                  <Button variant="ghost">
+                    <Ticket/>
+                    Tickets</Button>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
                   <Button variant="ghost" onClick={handleLogout}>
+                    <LogOut/>
                     Logout
                   </Button>
                 </DropdownMenuItem>
