@@ -85,8 +85,8 @@ const login = async (req, res) => {
     const cookieOption = {
       httpOnly: true,
       secure: true,
-      expires: Date.now() + 21 * 24 * 60 * 60 * 1000,
-      maxAge: 21 * 24 * 60 * 60 * 1000,
+      expires: Date.now() + 15 * 24 * 60 * 60 * 1000,
+      maxAge: 15 * 24 * 60 * 60 * 1000,
       signed:true
     };
 
@@ -95,7 +95,7 @@ const login = async (req, res) => {
       select: '-cdrFile' // Exclude the 'cdrFile' field
     }).select("-password");
     res
-      .cookie("token", token, cookieOption,)
+      .cookie("token", token, cookieOption)
       .status(200)
       .json({
         success: true,

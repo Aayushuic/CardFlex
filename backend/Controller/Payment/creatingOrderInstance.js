@@ -51,8 +51,7 @@ const createOrderInstance = async (req, res) => {
     // console.log(order)
 
     if (order.status === "created") {
-      console.log("Razorpay order created:", order); // Save the order in the database
-
+      
       const currentOrder = new Order({
         name,
         email,
@@ -66,7 +65,6 @@ const createOrderInstance = async (req, res) => {
       });
       await currentOrder.save();
 
-      // console.log("Order saved in database:", currentOrder);
 
       return res.json({
         success: true,

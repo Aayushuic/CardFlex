@@ -2,6 +2,11 @@ const crypto = require("crypto");
 const Order = require("../../modals/order");
 const User = require("../../modals/user");
 
+const RAZOR_PAY_SECRET =
+  process.env.NODE_ENV === "production"
+    ? process.env.RAZOR_PAY_SECRET
+    : process.env.LOCAL_RAZOR_PAY_SECRET;
+
 const paymentVerification = async (req, res) => {
   try {
     const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
@@ -11,7 +16,7 @@ const paymentVerification = async (req, res) => {
     const body = razorpay_order_id + "|" + razorpay_payment_id;
 
     const expectedSignature = crypto
-      .createHmac("sha256",process.env.RAZOR_PAY_SECRET) // Replace this with your actual key
+      .createHmac("sha256",RAZOR_PAY_SECRET) // Replace this with your actual key
       .update(body.toString())
       .digest("hex");
 

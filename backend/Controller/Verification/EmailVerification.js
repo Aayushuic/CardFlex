@@ -4,9 +4,7 @@ const User = require("../../modals/user");
 const verifyEmail = async (req, res) => {
     try {
         const { id, token } = req.params;
-        console.log(id,token);
-
-        // Use findOne instead of find, since find returns an array.
+      
         const user = await User.findOne({ _id: id });
 
         if (!user) {
