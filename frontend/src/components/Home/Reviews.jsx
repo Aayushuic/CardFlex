@@ -8,7 +8,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 const Reviews = () => {
   useEffect(() => {
-    document.title = "Customer Reviews | Card Flex"; // Custom title for SEO
+    document.title = "Home | Card Flex"; // Custom title for SEO
   }, []);
 
   const reviews = [

@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  AiOutlineSearch,
-  AiOutlineCheckCircle,
-  AiOutlineCloseCircle,
-} from "react-icons/ai";
+import { AiOutlineSearch, AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 import { BiRefresh } from "react-icons/bi";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -15,6 +11,7 @@ import { logout } from "@/features/authslice";
 import { Mosaic } from "react-loading-indicators";
 import TicketChatModal from "./TicketChatModal";
 import Footer from "@/components/utils/Footer";
+import { Helmet } from "react-helmet"; // Import Helmet for SEO
 
 const TicketDashboard = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -64,7 +61,6 @@ const TicketDashboard = () => {
         });
 
         if (!res.ok) {
-          // Check if the response status is OK
           if (res.status === 401) {
             navigate("/login");
             toast.info("Session Expired, Please login again");
@@ -72,7 +68,7 @@ const TicketDashboard = () => {
           } else {
             toast.info("Something broke, Please try again later.");
           }
-          return; // Return early if there was an error
+          return;
         }
 
         const resData = await res.json();
@@ -107,29 +103,25 @@ const TicketDashboard = () => {
     setSearchQuery("");
   };
 
-  // if (loading) {
-  //   return (
-  //     <div className="flex justify-center items-center min-h-screen">
-  //       <Mosaic
-  //         color={["#33CCCC", "#33CC36", "#B8CC33", "#FCCA00"]} // Custom color (Green color in this case)
-  //         size="large" // Size can be "small", "medium", or "large"
-  //         text="Loading..." // Optional: Text to display
-  //         textColor="#000000" // Optional: Color of the text
-  //       />
-  //     </div>
-  //   );
-  // }
-
   return (
     <>
+      {/* SEO using react-helmet */}
+      <Helmet>
+        <title>Ticket Dashboard | Cardflex</title>
+        <meta
+          name="description"
+          content="Manage and view your support tickets. Track the status of open and closed tickets easily."
+        />
+      </Helmet>
+
       <div className="p-6 min-h-screen bg-white">
         <h2 className="text-3xl font-extrabold text-center text-[#1B3C73] mb-8">
           Your Tickets
         </h2>
 
         {/* Search and Filter */}
-        <div className="flex flex-row gap-4 items-center mb-8 bg-white  p-4 rounded-lg">
-          <div className="flex items-center space-x-2  rounded-lg px-3 py-2 bg-gray-100 w-full md:w-auto">
+        <div className="flex flex-row gap-4 items-center mb-8 bg-white p-4 rounded-lg">
+          <div className="flex items-center space-x-2 rounded-lg px-3 py-2 bg-gray-100 w-full md:w-auto">
             <AiOutlineSearch className="text-gray-500" />
             <input
               type="text"
@@ -158,10 +150,8 @@ const TicketDashboard = () => {
             <div>
               <h3 className="text-sm font-medium">Open Tickets</h3>
               <p className="text-lg font-bold">
-                {
-                  filteredTickets?.filter((ticket) => ticket.status == "Open")
-                    .length
-                }
+                {filteredTickets?.filter((ticket) => ticket.status == "Open")
+                  .length}
               </p>
             </div>
           </Card>
@@ -170,11 +160,8 @@ const TicketDashboard = () => {
             <div>
               <h3 className="text-sm font-medium">Closed Tickets</h3>
               <p className="text-lg font-bold">
-                {
-                  filteredTickets?.filter(
-                    (ticket) => ticket.status === "Closed"
-                  ).length
-                }
+                {filteredTickets?.filter((ticket) => ticket.status === "Closed")
+                  .length}
               </p>
             </div>
           </Card>
