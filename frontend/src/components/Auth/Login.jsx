@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { Helmet } from "react-helmet"; // Import Helmet for SEO
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { useForm } from "react-hook-form";
-import { Eye, EyeOff, Loader2 } from "lucide-react"; // Import the eye icons
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setAuthUser } from "@/features/authslice";
@@ -12,7 +13,7 @@ import { toast } from "sonner";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [showPassword, setShowPassword] = useState(false); // State for password visibility
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [backendError, setBackendError] = useState("");
 
@@ -29,7 +30,7 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     setLoading(true);
-    setBackendError(""); // Reset backend error before new request
+    setBackendError("");
     try {
       const response = await fetch(`/api/user/login`, {
         method: "POST",
@@ -61,6 +62,17 @@ const Login = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Login | CardFlex</title>
+        <meta
+          name="description"
+          content="Login to Cardflex and access premium features including secure transactions, CDR file downloads, and more."
+        />
+        <meta name="keywords" content="Cardflex, Login, Secure Login, CDR Downloads, CDR files,free design,Payment Gateway,free hindi design" />
+        <meta name="author" content="Cardflex" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://cardflex.in/login" />
+      </Helmet>
       <div className="flex items-center justify-center lg:w-7xl max-w-7xl mx-auto px-4">
         <form
           className="w-full md:w-1/2 border border-gray-200 rounded-md my-10 p-4"
@@ -100,13 +112,12 @@ const Login = () => {
                 id="password"
                 name="password"
                 className="mt-1 focus-visible:ring-0 focus-visible:ring-offset-0"
-                type={showPassword ? "text" : "password"} // Toggle between text and password type
+                type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 {...register("password", {
                   required: "Password is required",
                 })}
               />
-              {/* Eye icon to toggle visibility */}
               <div
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-600"
                 onClick={togglePasswordVisibility}

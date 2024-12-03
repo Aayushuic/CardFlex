@@ -7,10 +7,6 @@ import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const Reviews = () => {
-  useEffect(() => {
-    document.title = "Home | Card Flex"; // Custom title for SEO
-  }, []);
-
   const reviews = [
     {
       userName: "Ravi Sharma",
