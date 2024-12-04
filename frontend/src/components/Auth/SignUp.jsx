@@ -40,19 +40,25 @@ const Signup = () => {
     try {
       setLoading(true);
 
-      const response = await fetch(`/api/user/signup`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": import.meta.env.VITE_API_KEY,
-          "X-CSRF-Token": localStorage.getItem("csrfToken"),
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/user/signup`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": import.meta.env.VITE_API_KEY,
+            "X-CSRF-Token": localStorage.getItem("csrfToken"),
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       const responseData = await response.json();
-      if (responseData.success || responseData.message === "User already exists.") {
+      if (
+        responseData.success ||
+        responseData.message === "User already exists."
+      ) {
         setModalMessage(responseData.message);
       } else {
         toast.error(responseData.message);
@@ -73,7 +79,10 @@ const Signup = () => {
           name="description"
           content="Create an account on Cardflex to access secure transactions, download CDR files, and explore exclusive features. Sign up today!"
         />
-        <meta name="keywords" content="Cardflex, Sign Up, Registration, CDR Downloads,CDR files,free design,free hindi design, Secure Transactions" />
+        <meta
+          name="keywords"
+          content="Cardflex, Sign Up, Registration, CDR Downloads,CDR files,free design,free hindi design, Secure Transactions"
+        />
         <meta name="author" content="Cardflex" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://cardflex.in/signup" />
@@ -93,7 +102,9 @@ const Signup = () => {
               className="mt-1 focus-visible:ring-0 focus-visible:ring-offset-0"
               {...register("name", { required: "Please enter your name" })}
             />
-            {errors.name && <p className="text-red-600 text-sm">{errors.name.message}</p>}
+            {errors.name && (
+              <p className="text-red-600 text-sm">{errors.name.message}</p>
+            )}
           </div>
 
           <div className="my-2">
@@ -111,7 +122,9 @@ const Signup = () => {
                 },
               })}
             />
-            {errors.email && <p className="text-red-600 text-sm">{errors.email.message}</p>}
+            {errors.email && (
+              <p className="text-red-600 text-sm">{errors.email.message}</p>
+            )}
           </div>
 
           <div className="my-2">
@@ -123,11 +136,21 @@ const Signup = () => {
               className="mt-1 focus-visible:ring-0 focus-visible:ring-offset-0"
               {...register("phoneNumber", {
                 required: "Please enter your phone number",
-                maxLength: { value: 10, message: "Enter a valid 10-digit number" },
-                minLength: { value: 10, message: "Enter a valid 10-digit number" },
+                maxLength: {
+                  value: 10,
+                  message: "Enter a valid 10-digit number",
+                },
+                minLength: {
+                  value: 10,
+                  message: "Enter a valid 10-digit number",
+                },
               })}
             />
-            {errors.phoneNumber && <p className="text-red-600 text-sm">{errors.phoneNumber.message}</p>}
+            {errors.phoneNumber && (
+              <p className="text-red-600 text-sm">
+                {errors.phoneNumber.message}
+              </p>
+            )}
           </div>
 
           <div className="my-2">
@@ -138,7 +161,9 @@ const Signup = () => {
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 className="mt-1 focus-visible:ring-0 focus-visible:ring-offset-0 pr-10"
-                {...register("password", { required: "Please enter a password" })}
+                {...register("password", {
+                  required: "Please enter a password",
+                })}
               />
               <button
                 type="button"
@@ -148,7 +173,9 @@ const Signup = () => {
                 {showPassword ? <EyeOff /> : <Eye />}
               </button>
             </div>
-            {errors.password && <p className="text-red-600 text-sm">{errors.password.message}</p>}
+            {errors.password && (
+              <p className="text-red-600 text-sm">{errors.password.message}</p>
+            )}
           </div>
 
           <div className="my-2">
@@ -159,7 +186,9 @@ const Signup = () => {
                 type={showConfirmPassword ? "text" : "password"}
                 placeholder="Confirm Password"
                 className="mt-1 focus-visible:ring-0 focus-visible:ring-offset-0 pr-10"
-                {...register("confirmPassword", { required: "Please confirm your password" })}
+                {...register("confirmPassword", {
+                  required: "Please confirm your password",
+                })}
               />
               <button
                 type="button"
@@ -169,7 +198,11 @@ const Signup = () => {
                 {showConfirmPassword ? <EyeOff /> : <Eye />}
               </button>
             </div>
-            {errors.confirmPassword && <p className="text-red-600 text-sm">{errors.confirmPassword.message}</p>}
+            {errors.confirmPassword && (
+              <p className="text-red-600 text-sm">
+                {errors.confirmPassword.message}
+              </p>
+            )}
           </div>
 
           <div className="my-4 flex items-center">
@@ -193,7 +226,9 @@ const Signup = () => {
           </div>
 
           <Button
-            className={`my-4 w-full ${loading ? "bg-gray-400" : "bg-[#1B3C73] hover:bg-[#40679E]"}`}
+            className={`my-4 w-full ${
+              loading ? "bg-gray-400" : "bg-[#1B3C73] hover:bg-[#40679E]"
+            }`}
             type="submit"
             disabled={loading || !termsAccepted}
           >
@@ -209,8 +244,15 @@ const Signup = () => {
         </form>
       </div>
 
-      {modalMessage && <SignUpModal message={modalMessage} onClose={() => navigate("/login")} />}
-      {showTermsModal && <TermsModal onClose={() => setShowTermsModal(false)} />}
+      {modalMessage && (
+        <SignUpModal
+          message={modalMessage}
+          onClose={() => navigate("/login")}
+        />
+      )}
+      {showTermsModal && (
+        <TermsModal onClose={() => setShowTermsModal(false)} />
+      )}
     </div>
   );
 };

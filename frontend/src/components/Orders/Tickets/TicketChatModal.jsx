@@ -14,7 +14,6 @@ const TicketChatModal = ({ isOpen, onClose, ticket, setTickets }) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-
   const handleSendMessage = async () => {
     if (!ticket) {
       setError("Ticket data is missing.");
@@ -31,7 +30,7 @@ const TicketChatModal = ({ isOpen, onClose, ticket, setTickets }) => {
       return;
     }
 
-    if(newMessage.trim().length>300){
+    if (newMessage.trim().length > 300) {
       setError("your message is too long");
       return;
     }
@@ -41,7 +40,7 @@ const TicketChatModal = ({ isOpen, onClose, ticket, setTickets }) => {
 
     try {
       const res = await fetch(
-        "/api/user/order/support/ticket/chat",
+        `${import.meta.env.VITE_BACKEND_URL}/user/order/support/ticket/chat`,
         {
           method: "POST",
           headers: {
@@ -98,7 +97,10 @@ const TicketChatModal = ({ isOpen, onClose, ticket, setTickets }) => {
       <div className="bg-white w-full max-w-md sm:max-w-lg md:max-w-2xl p-6 rounded-lg shadow-lg relative overflow-hidden">
         <div className="flex justify-between items-center border-b pb-3 mb-3">
           <div>
-            <h3 id="modal-title" className="text-lg font-semibold text-gray-800">
+            <h3
+              id="modal-title"
+              className="text-lg font-semibold text-gray-800"
+            >
               Ticket - {ticket?.ticketNumber || "Unknown"}
             </h3>
             <h2
@@ -185,7 +187,11 @@ const TicketChatModal = ({ isOpen, onClose, ticket, setTickets }) => {
               variant="outline"
               onClick={handleSendMessage}
             >
-              {loading ? <Loader2 className="animate-spin text-[#1B3C73]" size={28}/> : <SendHorizonal />}
+              {loading ? (
+                <Loader2 className="animate-spin text-[#1B3C73]" size={28} />
+              ) : (
+                <SendHorizonal />
+              )}
             </Button>
           </div>
         ) : (

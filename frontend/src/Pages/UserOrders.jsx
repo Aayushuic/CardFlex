@@ -12,8 +12,8 @@ import { FourSquare } from "react-loading-indicators";
 const UserOrders = () => {
   const [orders, setOrders] = useState([]);
   const user = useSelector((state) => state.auth.user);
-  const navigate = useNavigate();;
-  const[loading,setLoading] = useState(false)
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!user) {
@@ -25,14 +25,17 @@ const UserOrders = () => {
     const fetchOrders = async () => {
       try {
         setLoading(true);
-        const res = await fetch("/api/user/order/getOrders", {
-          method: "GET",
-          headers: {
-            "x-api-key": import.meta.env.VITE_API_KEY,
-            "X-CSRF-Token": localStorage.getItem("csrfToken"),
-          },
-          credentials: "include",
-        });
+        const res = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/user/order/getOrders`,
+          {
+            method: "GET",
+            headers: {
+              "x-api-key": import.meta.env.VITE_API_KEY,
+              "X-CSRF-Token": localStorage.getItem("csrfToken"),
+            },
+            credentials: "include",
+          }
+        );
 
         if (res.status === 401) {
           navigate("/login");
@@ -51,7 +54,7 @@ const UserOrders = () => {
       } catch (error) {
         console.error("Error fetching orders:", error);
         toast.error("Something went wrong. Please try again.");
-      }finally{
+      } finally {
         setLoading(false);
       }
     };

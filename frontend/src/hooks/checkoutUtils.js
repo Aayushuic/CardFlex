@@ -1,13 +1,16 @@
 // checkoutUtils.js
 export const fetchRazorpayKey = async () => {
-  const res = await fetch("/api/payment/getRazorpayKey", {
-    method: "GET",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-      "x-api-key": import.meta.env.VITE_API_KEY,
-    },
-  });
+  const res = await fetch(
+    `${import.meta.env.VITE_BACKEND_URL}/payment/getRazorpayKey`,
+    {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": import.meta.env.VITE_API_KEY,
+      },
+    }
+  );
   const resData = await res.json();
   if (resData.success == true) {
     return resData.key;
@@ -17,15 +20,18 @@ export const fetchRazorpayKey = async () => {
 };
 
 export const createOrder = async (orderDetails) => {
-  const res = await fetch("/api/payment/checkout", {
-    method: "POST",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-      "x-api-key": import.meta.env.VITE_API_KEY,
-    },
-    body: JSON.stringify(orderDetails),
-  });
+  const res = await fetch(
+    `${import.meta.env.VITE_BACKEND_URL}/payment/checkout`,
+    {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": import.meta.env.VITE_API_KEY,
+      },
+      body: JSON.stringify(orderDetails),
+    }
+  );
   const orderData = await res.json();
   if (orderData.success == true) {
     return orderData;

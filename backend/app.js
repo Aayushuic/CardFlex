@@ -89,7 +89,7 @@ app.use("/api/user/product", apiKeyMiddleware, limiter, productRouter);
 app.use("/api/user/cart", apiKeyMiddleware, limiter, cartRouter);
 app.use("/api/user/order", apiKeyMiddleware, limiter, orderRouter);
 
-app.all("*",(req,res)=>{
+app.all("/api/*",(req,res)=>{
   res.render("pagenotfound");
 })
 

@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { AiOutlineSearch, AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+import {
+  AiOutlineSearch,
+  AiOutlineCheckCircle,
+  AiOutlineCloseCircle,
+} from "react-icons/ai";
 import { BiRefresh } from "react-icons/bi";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -50,15 +54,18 @@ const TicketDashboard = () => {
       try {
         setLoading(true);
         setIsRotating(true);
-        const res = await fetch("/api/user/order/support/ticket", {
-          method: "GET",
-          headers: {
-            "x-api-key": import.meta.env.VITE_API_KEY,
-            "X-CSRF-Token": localStorage.getItem("csrfToken"),
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        });
+        const res = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/user/order/support/ticket`,
+          {
+            method: "GET",
+            headers: {
+              "x-api-key": import.meta.env.VITE_API_KEY,
+              "X-CSRF-Token": localStorage.getItem("csrfToken"),
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
 
         if (!res.ok) {
           if (res.status === 401) {
@@ -107,7 +114,7 @@ const TicketDashboard = () => {
     <>
       {/* SEO using react-helmet */}
       <Helmet>
-        <title>Ticket Dashboard | Cardflex</title>
+        <title>Ticket Dashboard | CardFlex</title>
         <meta
           name="description"
           content="Manage and view your support tickets. Track the status of open and closed tickets easily."
@@ -150,8 +157,10 @@ const TicketDashboard = () => {
             <div>
               <h3 className="text-sm font-medium">Open Tickets</h3>
               <p className="text-lg font-bold">
-                {filteredTickets?.filter((ticket) => ticket.status == "Open")
-                  .length}
+                {
+                  filteredTickets?.filter((ticket) => ticket.status == "Open")
+                    .length
+                }
               </p>
             </div>
           </Card>
@@ -160,8 +169,11 @@ const TicketDashboard = () => {
             <div>
               <h3 className="text-sm font-medium">Closed Tickets</h3>
               <p className="text-lg font-bold">
-                {filteredTickets?.filter((ticket) => ticket.status === "Closed")
-                  .length}
+                {
+                  filteredTickets?.filter(
+                    (ticket) => ticket.status === "Closed"
+                  ).length
+                }
               </p>
             </div>
           </Card>

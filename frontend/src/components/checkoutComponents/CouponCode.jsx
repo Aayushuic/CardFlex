@@ -26,14 +26,17 @@ const CouponCode = ({ setDiscountPercentage }) => {
 
   const checkFirstOrder = async () => {
     try {
-      const response = await fetch(`/api/user/order/check-first-order`, {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": import.meta.env.VITE_API_KEY,
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/user/order/check-first-order`,
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": import.meta.env.VITE_API_KEY,
+          },
+        }
+      );
       const data = await response.json();
       if (data.success) {
         return true;

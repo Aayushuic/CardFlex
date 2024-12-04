@@ -38,7 +38,7 @@ const Orders = ({ orders }) => {
     <>
       {/* SEO Tags */}
       <Helmet>
-        <title>Your Orders | Cardflex</title>
+        <title>Your Orders | CardFlex</title>
         <meta
           name="description"
           content="View and manage your orders at Cardflex. Track payment statuses, download CDR files, and get help for your orders."

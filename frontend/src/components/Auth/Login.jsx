@@ -32,16 +32,19 @@ const Login = () => {
     setLoading(true);
     setBackendError("");
     try {
-      const response = await fetch(`/api/user/login`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": import.meta.env.VITE_API_KEY,
-          "X-CSRF-Token": localStorage.getItem("csrfToken"),
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/user/login`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": import.meta.env.VITE_API_KEY,
+            "X-CSRF-Token": localStorage.getItem("csrfToken"),
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       const responseData = await response.json();
       if (responseData.success === true) {
@@ -68,7 +71,10 @@ const Login = () => {
           name="description"
           content="Login to Cardflex and access premium features including secure transactions, CDR file downloads, and more."
         />
-        <meta name="keywords" content="Cardflex, Login, Secure Login, CDR Downloads, CDR files,free design,Payment Gateway,free hindi design" />
+        <meta
+          name="keywords"
+          content="Cardflex, Login, Secure Login, CDR Downloads, CDR files,free design,Payment Gateway,free hindi design"
+        />
         <meta name="author" content="Cardflex" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://cardflex.in/login" />

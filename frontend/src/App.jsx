@@ -13,7 +13,7 @@ function App() {
   //   const fetchCSRFToken = async () => {
   //     try {
   //       const response = await fetch(
-  //         "/api/get-csrf-token",
+  //         `${import.meta.env.VITE_BACKEND_URL}/get-csrf-token`,
   //         {
   //           method: "GET",
   //           credentials: "include",

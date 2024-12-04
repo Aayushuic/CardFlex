@@ -95,14 +95,17 @@ const Navbar = ({ setSearchDialog }) => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch(`/api/user/logout`, {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "x-api-key": import.meta.env.VITE_API_KEY,
-          "X-CSRF-Token": localStorage.getItem("csrfToken"),
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/user/logout`,
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "x-api-key": import.meta.env.VITE_API_KEY,
+            "X-CSRF-Token": localStorage.getItem("csrfToken"),
+          },
+        }
+      );
 
       const responseData = await response.json();
       if (responseData.success == true) {
@@ -212,21 +215,23 @@ const Navbar = ({ setSearchDialog }) => {
                   className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md cursor-pointer"
                   onClick={() => navigate("/orders")}
                 >
-                  <Button variant="ghost"> 
-                    <Logs/>
-                     Orders</Button>
+                  <Button variant="ghost">
+                    <Logs />
+                    Orders
+                  </Button>
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md cursor-pointer"
                   onClick={() => navigate("/ticket")}
                 >
                   <Button variant="ghost">
-                    <Ticket/>
-                    Tickets</Button>
+                    <Ticket />
+                    Tickets
+                  </Button>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
                   <Button variant="ghost" onClick={handleLogout}>
-                    <LogOut/>
+                    <LogOut />
                     Logout
                   </Button>
                 </DropdownMenuItem>

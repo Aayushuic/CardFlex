@@ -59,16 +59,19 @@ const HelpDialog = ({
         razorpay_order_id, // Add razorpay_order_id
         receipt, // Add receipt
       };
-      const res = await fetch("/api/user/order/support", {
-        method: "POST",
-        body: JSON.stringify(updatedFormData),
-        headers: {
-          "x-api-key": import.meta.env.VITE_API_KEY,
-          "X-CSRF-Token": localStorage.getItem("csrfToken"),
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/user/order/support`,
+        {
+          method: "POST",
+          body: JSON.stringify(updatedFormData),
+          headers: {
+            "x-api-key": import.meta.env.VITE_API_KEY,
+            "X-CSRF-Token": localStorage.getItem("csrfToken"),
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
 
       if (res.status === 401) {
         navigate("/login");

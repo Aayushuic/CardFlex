@@ -22,15 +22,18 @@ const Forgot = () => {
     setIsLoading(true);
     try {
       // Replace with your backend endpoint for password reset
-      const response = await fetch(`/api/reset/forgot-password`,{
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": import.meta.env.VITE_API_KEY,
-          "X-CSRF-Token": localStorage.getItem("csrfToken"),
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/reset/forgot-password`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": import.meta.env.VITE_API_KEY,
+            "X-CSRF-Token": localStorage.getItem("csrfToken"),
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       const responseData = await response.json();
       if (responseData.success) {
@@ -49,7 +52,7 @@ const Forgot = () => {
 
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       <div className="max-w-4xl mx-auto px-4 md:px-0 py-8">
         <div className="bg-white  rounded-lg p-6">
           <h1 className="font-bold text-2xl mb-4">Forgot Password</h1>
@@ -80,12 +83,19 @@ const Forgot = () => {
               )}
             </div>
             {isLoading ? (
-              <Button variant="outline" className="bg-[#1B3C73] hover:bg-[#40679E]">
-                <Loader2 className="animate-spin mr-2  "></Loader2>{" "}
-                please wait...
+              <Button
+                variant="outline"
+                className="bg-[#1B3C73] hover:bg-[#40679E]"
+              >
+                <Loader2 className="animate-spin mr-2  "></Loader2> please
+                wait...
               </Button>
             ) : (
-              <Button variant="outline"  type="submit" className="bg-[#1B3C73] text-white hover:bg-[#40679E] hover:text-white ">
+              <Button
+                variant="outline"
+                type="submit"
+                className="bg-[#1B3C73] text-white hover:bg-[#40679E] hover:text-white "
+              >
                 Send Reset Link
               </Button>
             )}

@@ -13,7 +13,10 @@ const CartPage = () => {
   const navigate = useNavigate();
 
   // Calculate subtotal
-  const subtotal = user?.cart?.reduce((total, item) => total + item.newPrice, 0);
+  const subtotal = user?.cart?.reduce(
+    (total, item) => total + item.newPrice,
+    0
+  );
 
   // Handle remove item
   const handleRemove = async (productId, setLoading) => {
@@ -25,16 +28,19 @@ const CartPage = () => {
         return;
       }
 
-      const response = await fetch("/api/user/cart/remove", {
-        method: "PATCH",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": import.meta.env.VITE_API_KEY,
-          "X-CSRF-Token": localStorage.getItem("csrfToken"),
-        },
-        body: JSON.stringify({ productId }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/user/cart/remove`,
+        {
+          method: "PATCH",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": import.meta.env.VITE_API_KEY,
+            "X-CSRF-Token": localStorage.getItem("csrfToken"),
+          },
+          body: JSON.stringify({ productId }),
+        }
+      );
 
       const responseData = await response.json();
       if (responseData.success) {
@@ -72,7 +78,10 @@ const CartPage = () => {
               <span className="font-semibold">Why not add something fun?</span>
             </p>
             <Link to="/">
-              <Button variant="outline" className="flex items-center gap-2 group mt-5">
+              <Button
+                variant="outline"
+                className="flex items-center gap-2 group mt-5"
+              >
                 <Heart className="h-5 w-5 text-gray-800 transition-colors duration-200 group-hover:text-red-500" />
                 <span className="text-gray-800">Browse Products</span>
               </Button>

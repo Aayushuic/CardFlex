@@ -27,20 +27,23 @@ const SearchResult = () => {
   useEffect(() => {
     const fetchSearchResult = async () => {
       setLoading(true);
-      const response = await fetch(`/api/user/product/search`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": import.meta.env.VITE_API_KEY,
-          "X-CSRF-Token": localStorage.getItem("csrfToken"),
-        },
-        body: JSON.stringify({
-          search: searchKey,
-          page: currentPage,
-          limit: 15,
-        }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/user/product/search`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": import.meta.env.VITE_API_KEY,
+            "X-CSRF-Token": localStorage.getItem("csrfToken"),
+          },
+          body: JSON.stringify({
+            search: searchKey,
+            page: currentPage,
+            limit: 15,
+          }),
+        }
+      );
 
       const responseData = await response.json();
       if (responseData.success) {

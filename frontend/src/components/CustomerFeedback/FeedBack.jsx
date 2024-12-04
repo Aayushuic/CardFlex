@@ -29,7 +29,7 @@ const FeedBack = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        "/api/user/submit-feedback",
+        `${import.meta.env.VITE_BACKEND_URL}/user/submit-feedback`,
         {
           method: "POST",
           credentials: "include",
@@ -104,7 +104,7 @@ const FeedBack = () => {
             aria-busy={true}
             disabled={loading}
           >
-            <Loader2 className="animate-spin"/> Please Wait...
+            <Loader2 className="animate-spin" /> Please Wait...
           </Button>
         ) : (
           <Button

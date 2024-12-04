@@ -44,7 +44,7 @@ const CheckoutPage = () => {
     setDiscount(discountedAmount);
   };
 
-  const handleRemove = async (productId,setLoading) => {
+  const handleRemove = async (productId, setLoading) => {
     setLoading(true);
     try {
       if (!user) {
@@ -53,16 +53,19 @@ const CheckoutPage = () => {
         return;
       }
 
-      const response = await fetch("/api/user/cart/remove", {
-        method: "PATCH",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": import.meta.env.VITE_API_KEY,
-          "X-CSRF-Token": localStorage.getItem("csrfToken"),
-        },
-        body: JSON.stringify({ productId }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/user/cart/remove`,
+        {
+          method: "PATCH",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": import.meta.env.VITE_API_KEY,
+            "X-CSRF-Token": localStorage.getItem("csrfToken"),
+          },
+          body: JSON.stringify({ productId }),
+        }
+      );
 
       const responseData = await response.json();
       if (responseData.success) {
@@ -111,7 +114,8 @@ const CheckoutPage = () => {
       };
       const orderInstance = await createOrder(orderDetails);
 
-      const { razorpay_order_id, orderId, amount,name,email,phoneNumber } = orderInstance;
+      const { razorpay_order_id, orderId, amount, name, email, phoneNumber } =
+        orderInstance;
       // Razorpay options
       const options = {
         key: razorpayKey,
@@ -119,9 +123,12 @@ const CheckoutPage = () => {
         currency: "INR",
         name: "Card Flex",
         description: "Card Flex",
-        image: "https://res.cloudinary.com/dpx4mvnkp/image/upload/v1730016310/android-chrome-512x512_pw2tlc.png",
+        image:
+          "https://res.cloudinary.com/dpx4mvnkp/image/upload/v1730016310/android-chrome-512x512_pw2tlc.png",
         order_id: razorpay_order_id,
-        callback_url: `/api/payment/payment-verification?secret=${orderId}`,
+        callback_url: `${
+          import.meta.env.VITE_BACKEND_URL
+        }/payment/payment-verification?secret=${orderId}`,
         prefill: {
           name: name,
           email: email,

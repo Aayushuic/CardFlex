@@ -24,7 +24,9 @@ const DownloadPage = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `/api/user/order/${orderId}/token/${paymentId}`,
+          `${
+            import.meta.env.VITE_BACKEND_URL
+          }/user/order/${orderId}/token/${paymentId}`,
           {
             method: "GET",
             credentials: "include",

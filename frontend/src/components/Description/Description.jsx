@@ -55,16 +55,19 @@ const Description = () => {
         return;
       }
 
-      const response = await fetch("/api/user/cart/add", {
-        method: "PATCH",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": import.meta.env.VITE_API_KEY,
-          "X-CSRF-Token": localStorage.getItem("csrfToken"),
-        },
-        body: JSON.stringify({ productId }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/user/cart/add`,
+        {
+          method: "PATCH",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": import.meta.env.VITE_API_KEY,
+            "X-CSRF-Token": localStorage.getItem("csrfToken"),
+          },
+          body: JSON.stringify({ productId }),
+        }
+      );
 
       const responseData = await response.json();
       if (responseData.success) {
