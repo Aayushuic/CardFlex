@@ -13,20 +13,13 @@ const paymentVerification = async (req, res) => {
       razorpay_payment_id,
       razorpay_order_id,
       razorpay_signature,
-      handler,
     } = req.body;
     const { secret } = req.query;
-    console.log(req.body);
+  
 
     const body = razorpay_order_id + "|" + razorpay_payment_id;
 
-    const isAlreadyVerified = await Order.findOne({
-      razorpay_order_id: razorpay_order_id,
-      _id: secret,
-    });
-    if (isAlreadyVerified.paymentStatus == "successful") {
-      return res.status(200).json({ success: true, alreadyVerified: true });
-    }
+    
     const expectedSignature = crypto
       .createHmac("sha256", RAZOR_PAY_SECRET) // Replace this with your actual key
       .update(body.toString())
