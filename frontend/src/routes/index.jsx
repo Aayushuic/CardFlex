@@ -2,6 +2,7 @@ import App from "@/App";
 import Forgot from "@/components/Auth/Forgot";
 import Login from "@/components/Auth/Login";
 import Signup from "@/components/Auth/SignUp";
+import HandlePaymentUI from "@/components/checkoutComponents/PaymentHandler/HandlePaymentUI";
 import AboutUs from "@/components/FooterHelpers.jsx/aboutus";
 import ContactUs from "@/components/FooterHelpers.jsx/ContactUs";
 import Help from "@/components/FooterHelpers.jsx/Help";
@@ -100,6 +101,10 @@ const router = createBrowserRouter([
       {
         path: "/ticket",
         element: <TicketDashboard/>,
+      },
+      {
+        path: "/payment",
+        element: <HandlePaymentUI/>,
       },
       
     ],

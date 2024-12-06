@@ -92,16 +92,16 @@ const CheckoutPage = () => {
         toast.error("please add billing address");
         return;
       }
-      if (cart.length == 0 && product == null) {
+      if (!user && product == null) {
+        toast.error("please add some item to checkout");
+        return;
+      }
+      if(user&&cart.length==0){
         toast.error("please add item in cart");
         return;
       }
 
       setLoadingOverlay(true);
-
-      // Fetch Razorpay key
-      const razorpayKey = await fetchRazorpayKey();
-
       // Create order
       let orderDetails = {
         name: user?.name || guestUser?.name,
@@ -114,36 +114,73 @@ const CheckoutPage = () => {
       };
       const orderInstance = await createOrder(orderDetails);
 
-      const { razorpay_order_id, orderId, amount, name, email, phoneNumber } =
-        orderInstance;
-      // Razorpay options
-      const options = {
-        key: razorpayKey,
-        amount: amount,
-        currency: "INR",
-        name: "Card Flex",
-        description: "Card Flex",
-        image:
-          "https://res.cloudinary.com/dpx4mvnkp/image/upload/v1730016310/android-chrome-512x512_pw2tlc.png",
-        order_id: razorpay_order_id,
-        callback_url: `${
-          import.meta.env.VITE_BACKEND_URL
-        }/payment/payment-verification?secret=${orderId}`,
-        prefill: {
-          name: name,
-          email: email,
-          contact: phoneNumber,
-        },
-        notes: {
-          address: "_blank",
-        },
-        theme: {
-          color: "#1B3C73",
-        },
-      };
+      navigate("/payment",{state:{orderInstance}})
 
-      // Initiate payment
-      initiateRazorpay(options);
+      // const { razorpay_order_id, orderId, amount, name, email, phoneNumber } =
+      //   orderInstance;
+      // // Razorpay options
+      // const options = {
+      //   key: razorpayKey,
+      //   amount: amount,
+      //   currency: "INR",
+      //   name: "CardFlex",
+      //   description: "Thankyou for purchasing from cardflex!",
+      //   image:
+      //     "https://res.cloudinary.com/dpx4mvnkp/image/upload/v1730016310/android-chrome-512x512_pw2tlc.png",
+      //   order_id: razorpay_order_id,
+      //   callback_url: `${
+      //     import.meta.env.VITE_BACKEND_URL
+      //   }/payment/payment-verification?secret=${orderId}`,
+      //   handler: function (response) {
+      //     fetch(
+      //       `${import.meta.env.VITE_BACKEND_URL}/payment/payment-verification?secret=${orderId}`,
+      //       {
+      //         method: "POST",
+      //         headers: {
+      //           "Content-Type": "application/json",
+      //         },
+      //         body: JSON.stringify({
+      //           razorpay_payment_id: response.razorpay_payment_id,
+      //           razorpay_order_id: response.razorpay_order_id,
+      //           razorpay_signature: response.razorpay_signature,
+      //           handler:true
+      //         }),
+      //       }
+      //     )
+      //       .then((res) => res.json())
+      //       .then((data) => {
+      //         if (data.success) {
+      //           navigate(`/download/${data.order}/verified/${data.razorpay_payment_id}`);
+      //         } else {
+      //           toast.error("something went wrong if money deducted reach to customer support team");
+      //         }
+      //       })
+      //       .catch((error) => {
+      //         toast.error("An error occurred during payment completion");
+      //         console.error(error);
+      //       });
+      //   },
+      //   prefill: {
+      //     name: name,
+      //     email: email,
+      //     contact: phoneNumber,
+      //   },
+      //   notes: {
+      //     address: "_blank",
+      //   },
+      //   theme: {
+      //     color: "#1B3C73",
+      //   },
+      //   modal: {
+      //     ondismiss: function () {
+            
+      //     },
+      //   },
+        
+      // };
+
+      // // Initiate payment
+      // initiateRazorpay(options);
     } catch (error) {
       toast.error(error.message);
     } finally {
@@ -154,7 +191,7 @@ const CheckoutPage = () => {
   return (
     <>
       <div className="container mx-auto p-0 sm:px-6 py-12 max-w-6xl">
-        {loadingOverlay && <LoadingOverlay />} {/* Show overlay when loading */}
+        {loadingOverlay && <LoadingOverlay text={"please wait..."} />} {/* Show overlay when loading */}
         <h1 className="text-3xl font-bold text-center text-[#1B3C73] mb-12">
           Checkout
         </h1>
@@ -189,13 +226,13 @@ const CheckoutPage = () => {
                 />
               )}
               {(guestUser !== null || user !== null) &&
-                (product != null || cart.length !== 0) && (
+                (product != null || cart.length != 0) && (
                   <div className="mt-8">
                     <Button
                       className="w-full bg-green-600 hover:bg-green-500 text-white font-semibold py-3 rounded-lg transition ease-in-out duration-300"
                       onClick={onSubmit}
                     >
-                      Proceed with Payment
+                      Proceed To Checkout
                     </Button>
 
                     {/* Move CouponCode component here */}
