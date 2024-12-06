@@ -21,12 +21,12 @@ import PaymentPendingUI from "./PaymentPendingUI";
 const HandlePaymentUI = () => {
   const [LoadingOverLay, setLoadingOverlay] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState(null);
-  const [countdown, setCountdown] = useState(35); // Countdown state
+  const [countdown, setCountdown] = useState(60); // Countdown state
   const [attempts, setAttempts] = useState(0); // Track attempts
   const location = useLocation();
   const navigate = useNavigate();
   const { orderInstance } = location?.state || {};
-  const { order_amount, name, email, phoneNumber, orderId, razorpay_order_id } =
+  const { order_amount, name, email, phoneNumber, orderId, razorpay_order_id,discount } =
     orderInstance || {};
 
   useEffect(() => {
@@ -99,6 +99,7 @@ const HandlePaymentUI = () => {
   const handlePayment = async () => {
     try {
       setLoadingOverlay(true);
+      setPaymentStatus("pending");
       const razorpayKey = await fetchRazorpayKey();
       const options = {
         key: razorpayKey,
@@ -170,6 +171,8 @@ const HandlePaymentUI = () => {
       setLoadingOverlay(false);
     }
   };
+
+  console.log(orderInstance)
 
   return (
     <>
@@ -247,7 +250,9 @@ const HandlePaymentUI = () => {
                     </p>
                     <p className="flex items-center text-gray-700 text-lg">
                       <FaRupeeSign className="text-green-500 w-6 h-6 mr-2" />
-                      <strong> {order_amount.toFixed(2)}</strong>
+                      <strong> {Math.floor(
+                  order_amount - (order_amount * discount) / 100
+                )}</strong>
                     </p>
                   </div>
                 </div>
