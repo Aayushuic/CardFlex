@@ -26,8 +26,7 @@ const HandlePaymentUI = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { orderInstance } = location?.state || {};
-  const { order_amount, name, email, phoneNumber, orderId, razorpay_order_id,discount } =
-    orderInstance || {};
+  const { order_amount, name, email, phoneNumber, orderId, razorpay_order_id, discount } = orderInstance || {};
 
   useEffect(() => {
     if (!location?.state?.orderInstance) {
@@ -39,9 +38,7 @@ const HandlePaymentUI = () => {
     try {
       setPaymentStatus("pending");
       const response = await fetch(
-        `${
-          import.meta.env.VITE_BACKEND_URL
-        }/payment/status/?orderId=${orderId}&razorpay_order_id=${razorpay_order_id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/payment/status/?orderId=${orderId}&razorpay_order_id=${razorpay_order_id}`,
         {
           method: "GET",
           credentials: "include",
@@ -56,10 +53,7 @@ const HandlePaymentUI = () => {
       if (data.success) {
         setPaymentStatus("success");
         setTimeout(() => {
-          navigate(
-            `/download/${orderId}/verified/${data.razorpay_payment_id}`,
-            { replace: true }
-          );
+          navigate(`/download/${orderId}/verified/${data.razorpay_payment_id}`, { replace: true });
         }, 3000);
       } else if (data.pending) {
         setPaymentStatus("pending");
@@ -99,7 +93,6 @@ const HandlePaymentUI = () => {
   const handlePayment = async () => {
     try {
       setLoadingOverlay(true);
-      setPaymentStatus("pending");
       const razorpayKey = await fetchRazorpayKey();
       const options = {
         key: razorpayKey,
@@ -107,17 +100,12 @@ const HandlePaymentUI = () => {
         currency: "INR",
         name: "CardFlex",
         description: "Thank you for choosing CardFlex!",
-        image:
-          "https://res.cloudinary.com/dpx4mvnkp/image/upload/v1730016310/android-chrome-512x512_pw2tlc.png",
+        image: "https://res.cloudinary.com/dpx4mvnkp/image/upload/v1730016310/android-chrome-512x512_pw2tlc.png",
         order_id: razorpay_order_id,
-        callback_url: `${
-          import.meta.env.VITE_BACKEND_URL
-        }/payment/payment-verification?secret=${orderId}`,
+        callback_url: `${import.meta.env.VITE_BACKEND_URL}/payment/payment-verification?secret=${orderId}`,
         handler: function (response) {
           fetch(
-            `${
-              import.meta.env.VITE_BACKEND_URL
-            }/payment/payment-verification?secret=${orderId}`,
+            `${import.meta.env.VITE_BACKEND_URL}/payment/payment-verification?secret=${orderId}`,
             {
               method: "POST",
               headers: {
@@ -136,10 +124,7 @@ const HandlePaymentUI = () => {
               if (data.success) {
                 setPaymentStatus("success");
                 setTimeout(() => {
-                  navigate(
-                    `/download/${data.order}/verified/${data.razorpay_payment_id}`,
-                    { replace: true }
-                  );
+                  navigate(`/download/${data.order}/verified/${data.razorpay_payment_id}`, { replace: true });
                 }, 3000);
               } else {
                 setPaymentStatus("failed");
@@ -160,7 +145,7 @@ const HandlePaymentUI = () => {
         },
         modal: {
           ondismiss: function () {
-            checkPaymentStatus();
+            checkPaymentStatus(); // Trigger payment status check when Razorpay window is closed
           },
         },
       };
@@ -172,7 +157,19 @@ const HandlePaymentUI = () => {
     }
   };
 
-  console.log(orderInstance)
+  // Handle window beforeunload event
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      // If Razorpay window is closed or user tries to leave, check payment status
+      checkPaymentStatus();
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
   return (
     <>
@@ -180,61 +177,36 @@ const HandlePaymentUI = () => {
         {LoadingOverLay && <LoadingOverlay text={"processing payment.."} />}
         {orderInstance ? (
           <>
-            {paymentStatus === "pending" && (
-              <PaymentPendingUI
-                countdown={countdown}
-                attempts={attempts}
-              ></PaymentPendingUI>
-            )}
+            {paymentStatus === "pending" && <PaymentPendingUI countdown={countdown} attempts={attempts}></PaymentPendingUI>}
             {paymentStatus === "failed" && <PaymentFailedUi />}
             {paymentStatus === "success" && (
               <div className="status-container flex items-center justify-center ">
                 <div className="max-w-4xl w-full p-6 lg:p-10 flex flex-col items-center text-center">
-                  {/* Animation */}
                   <div className="w-3/4 max-w-xs sm:max-w-md lg:max-w-lg">
                     <Lottie animationData={paymentSuccessAnimation} loop={5} />
                   </div>
-
-                  {/* Success Message */}
-                  <p className="text-lg sm:text-2xl lg:text-3xl text-green-600 mt-6 font-semibold">
-                    Payment Successful!
-                  </p>
-
-                  {/* Redirecting Text */}
-                  <p className="text-sm sm:text-base lg:text-lg text-gray-700 mt-2">
-                    Redirecting, Please wait...
-                  </p>
+                  <p className="text-lg sm:text-2xl lg:text-3xl text-green-600 mt-6 font-semibold">Payment Successful!</p>
+                  <p className="text-sm sm:text-base lg:text-lg text-gray-700 mt-2">Redirecting, Please wait...</p>
                 </div>
               </div>
             )}
             {paymentStatus === null && (
               <div className="order-summary p-5 sm:p-8 lg:p-10 w-full max-w-2xl">
-                <h2
-                  id="latest-design-heading"
-                  className="text-center mb-4 relative text-xl md:text-3xl lg:text-4xl"
-                >
+                <h2 className="text-center mb-4 relative text-xl md:text-3xl lg:text-4xl">
                   <span className="block text-3xl md:text-5xl font-bold text-[#1B3C73] leading-snug">
                     <span className="block">
                       Time
-                      <span className="text-4xl md:text-6xl text-[#FF6347] inline-block transform rotate-2 ml-2">
-                        is
-                      </span>
+                      <span className="text-4xl md:text-6xl text-[#FF6347] inline-block transform rotate-2 ml-2">is</span>
                     </span>
                     <span className="block mt-1 md:mt-0">
                       Running
-                      <span className="text-3xl md:text-5xl text-[#FFD700] inline-block transform -rotate-2 ml-4">
-                        Fast
-                      </span>
+                      <span className="text-3xl md:text-5xl text-[#FFD700] inline-block transform -rotate-2 ml-4">Fast</span>
                       <span className="ml-4">Hurry up and Order!</span>
                     </span>
                   </span>
                 </h2>
                 <div className="flex flex-col sm:flex-row items-center gap-6">
-                  <Lottie
-                    animationData={orderNowAnimation}
-                    loop
-                    className="w-32 sm:w-48 lg:w-64 hidden sm:block"
-                  />
+                  <Lottie animationData={orderNowAnimation} loop className="w-32 sm:w-48 lg:w-64 hidden sm:block" />
                   <div className="mt-4 space-y-4">
                     <p className="flex items-center text-gray-700 text-lg">
                       <FaUser className="text-blue-600 w-6 h-6 mr-2" />
@@ -250,15 +222,13 @@ const HandlePaymentUI = () => {
                     </p>
                     <p className="flex items-center text-gray-700 text-lg">
                       <FaRupeeSign className="text-green-500 w-6 h-6 mr-2" />
-                      <strong> {Math.floor(
-                  order_amount - (order_amount * discount) / 100
-                )}</strong>
+                      <strong> {Math.floor(order_amount - (order_amount * discount) / 100)}</strong>
                     </p>
                   </div>
                 </div>
                 <div className="action-container flex flex-col items-center mt-6">
                   <Button
-                    className="bg-green-500 text-white px-12 py-4 rounded-lg text-lg font-semibold  hover:bg-green-600  flex items-center"
+                    className="bg-green-500 text-white px-12 py-4 rounded-lg text-lg font-semibold hover:bg-green-600 flex items-center"
                     onClick={handlePayment}
                   >
                     <FaCheckCircle className="mr-2" /> Proceed to Payment
@@ -268,12 +238,10 @@ const HandlePaymentUI = () => {
             )}
           </>
         ) : (
-          <p className="text-gray-600 text-center text-xl">
-            Loading order details...
-          </p>
+          <p className="text-gray-600 text-center text-xl">Loading order details...</p>
         )}
       </div>
-      {paymentStatus != "success" && <Footer />}
+      {paymentStatus !== "success" && <Footer />}
     </>
   );
 };
