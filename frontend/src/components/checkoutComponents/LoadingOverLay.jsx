@@ -1,7 +1,4 @@
-// /src/components/LoadingOverlay.jsx
-import React from "react";
-
-const LoadingOverlay = ({text}) => {
+const LoadingOverlay = ({ text }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-50">
       <div className="text-white text-2xl font-bold">
@@ -14,7 +11,8 @@ const LoadingOverlay = ({text}) => {
           <p className="ml-4">{text}</p>
         </div>
       </div>
-      <style jsx>{`
+      {/* Removed `jsx` attribute */}
+      <style>{`
         .dot-loader {
           display: flex;
           align-items: center;

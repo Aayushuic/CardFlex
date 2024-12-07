@@ -17,6 +17,7 @@ import {
   initiateRazorpay,
 } from "@/hooks/checkoutUtils";
 import Footer from "@/components/utils/Footer";
+import { setCurrentOrder, setPaymentStatus } from "@/features/paymentSlice";
 
 const CheckoutPage = () => {
   const [loadingOverlay, setLoadingOverlay] = useState(false);
@@ -113,74 +114,9 @@ const CheckoutPage = () => {
         discountPercentage: discountPercentage,
       };
       const orderInstance = await createOrder(orderDetails);
-
-      navigate("/payment",{state:{orderInstance}})
-
-      // const { razorpay_order_id, orderId, amount, name, email, phoneNumber } =
-      //   orderInstance;
-      // // Razorpay options
-      // const options = {
-      //   key: razorpayKey,
-      //   amount: amount,
-      //   currency: "INR",
-      //   name: "CardFlex",
-      //   description: "Thankyou for purchasing from cardflex!",
-      //   image:
-      //     "https://res.cloudinary.com/dpx4mvnkp/image/upload/v1730016310/android-chrome-512x512_pw2tlc.png",
-      //   order_id: razorpay_order_id,
-      //   callback_url: `${
-      //     import.meta.env.VITE_BACKEND_URL
-      //   }/payment/payment-verification?secret=${orderId}`,
-      //   handler: function (response) {
-      //     fetch(
-      //       `${import.meta.env.VITE_BACKEND_URL}/payment/payment-verification?secret=${orderId}`,
-      //       {
-      //         method: "POST",
-      //         headers: {
-      //           "Content-Type": "application/json",
-      //         },
-      //         body: JSON.stringify({
-      //           razorpay_payment_id: response.razorpay_payment_id,
-      //           razorpay_order_id: response.razorpay_order_id,
-      //           razorpay_signature: response.razorpay_signature,
-      //           handler:true
-      //         }),
-      //       }
-      //     )
-      //       .then((res) => res.json())
-      //       .then((data) => {
-      //         if (data.success) {
-      //           navigate(`/download/${data.order}/verified/${data.razorpay_payment_id}`);
-      //         } else {
-      //           toast.error("something went wrong if money deducted reach to customer support team");
-      //         }
-      //       })
-      //       .catch((error) => {
-      //         toast.error("An error occurred during payment completion");
-      //         console.error(error);
-      //       });
-      //   },
-      //   prefill: {
-      //     name: name,
-      //     email: email,
-      //     contact: phoneNumber,
-      //   },
-      //   notes: {
-      //     address: "_blank",
-      //   },
-      //   theme: {
-      //     color: "#1B3C73",
-      //   },
-      //   modal: {
-      //     ondismiss: function () {
-            
-      //     },
-      //   },
-        
-      // };
-
-      // // Initiate payment
-      // initiateRazorpay(options);
+      dispatch(setCurrentOrder(orderInstance));
+      dispatch(setPaymentStatus(null));
+      navigate("/payment");
     } catch (error) {
       toast.error(error.message);
     } finally {

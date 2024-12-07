@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { fetchRazorpayKey, initiateRazorpay } from "@/hooks/checkoutUtils";
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import LoadingOverlay from "../LoadingOverLay";
 import {
   FaUser,
@@ -17,15 +17,18 @@ import { toast } from "sonner";
 import PaymentFailedUi from "./PaymentFailedUi";
 import Footer from "@/components/utils/Footer";
 import PaymentPendingUI from "./PaymentPendingUI";
+import { useDispatch, useSelector } from "react-redux";
+import { setPaymentStatus } from "@/features/paymentSlice";
 
 const HandlePaymentUI = () => {
   const [LoadingOverLay, setLoadingOverlay] = useState(false);
-  const [paymentStatus, setPaymentStatus] = useState(null);
-  const [countdown, setCountdown] = useState(60); // Countdown state
+  const [countdown, setCountdown] = useState(11); // Countdown state
   const [attempts, setAttempts] = useState(0); // Track attempts
-  const location = useLocation();
   const navigate = useNavigate();
-  const { orderInstance } = location?.state || {};
+  const dispatch = useDispatch();
+  const currOrder = useSelector((state) => state.payment.currentOrder);
+  const paymentStatus = useSelector((state) => state.payment.paymentStatus);
+  const orderInstance = currOrder;
   const {
     order_amount,
     name,
@@ -36,16 +39,16 @@ const HandlePaymentUI = () => {
     discount,
   } = orderInstance || {};
 
+  console.log(attempts);
+
   useEffect(() => {
-    if (!location?.state?.orderInstance) {
-      navigate("/", { replace: true }); // Redirect if no order or payment already successful
+    if (!currOrder || currOrder == null) {
+      navigate("/", { replace: true });
     }
-  }, [orderInstance]);
+  }, [currOrder, paymentStatus]);
 
   const checkPaymentStatus = async () => {
     try {
-      console.log("aa gye");
-      setPaymentStatus("pending")
       const response = await fetch(
         `${
           import.meta.env.VITE_BACKEND_URL
@@ -62,7 +65,7 @@ const HandlePaymentUI = () => {
       const data = await response.json();
 
       if (data.success) {
-        setPaymentStatus("success");
+        dispatch(setPaymentStatus("success"));
         setTimeout(() => {
           navigate(
             `/download/${orderId}/verified/${data.razorpay_payment_id}`,
@@ -70,42 +73,47 @@ const HandlePaymentUI = () => {
           );
         }, 3000);
       } else if (data.pending) {
-        setPaymentStatus("pending");
+        dispatch(setPaymentStatus("pending"));
       } else {
-        setPaymentStatus("failed");
+        dispatch(setPaymentStatus("failed"));
       }
     } catch (error) {
-      setPaymentStatus("failed");
+      dispatch(setPaymentStatus("failed"));
       console.error(error);
     }
   };
 
   useEffect(() => {
-    if (paymentStatus === "pending" && attempts < 3) {
-      const intervalId = setInterval(() => {
-        setCountdown((prevCountdown) => {
-          if (prevCountdown > 0) {
-            return prevCountdown - 1; // Decrease countdown
-          } else {
-            setAttempts((prevAttempts) => prevAttempts + 1);
-            checkPaymentStatus();
-            return 35; // Reset countdown to 30 seconds
-          }
-        });
-      }, 1000);
+    let intervalId;
 
-      // Stop polling if attempts exceed 3
-      if (attempts >= 4) {
-        setPaymentStatus("failed");
-        clearInterval(intervalId);
-      }
-
-      return () => clearInterval(intervalId);
+    // Handle first request after 1 minute (60 seconds)
+    if (paymentStatus === "pending" && attempts === 0) {
+      setTimeout(() => {
+        checkPaymentStatus();
+        setAttempts(1);
+      }, 60000);
     }
-  }, [attempts, countdown, paymentStatus]);
+
+    // Handle subsequent requests every 30 seconds after the first one
+    if (paymentStatus === "pending" && attempts > 0 && attempts < 4) {
+      intervalId = setInterval(() => {
+        checkPaymentStatus(); // Call API every 30 seconds
+        setAttempts((prevAttempts) => prevAttempts + 1); // Increment attempts
+      }, 30000); // 30 seconds for subsequent requests
+
+      return () => clearInterval(intervalId); // Cleanup interval on unmount or status change
+    } else if (attempts >= 4) {
+      // After 4 attempts, set payment status to failed
+      dispatch(setPaymentStatus("failed"));
+      clearInterval(intervalId); // Stop the interval
+    }
+
+    return () => {}; // No polling if status is not pending or attempts exceed 4
+  }, [paymentStatus, attempts]);
 
   const handlePayment = async () => {
     try {
+      dispatch(setPaymentStatus("pending"));
       const razorpayKey = await fetchRazorpayKey();
       const options = {
         key: razorpayKey,
@@ -129,7 +137,7 @@ const HandlePaymentUI = () => {
         },
         modal: {
           ondismiss: function () {
-            checkPaymentStatus(); // Trigger payment status check when Razorpay window is closed
+            checkPaymentStatus();
           },
         },
       };

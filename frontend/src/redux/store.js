@@ -12,6 +12,8 @@ import {
 import storage from "redux-persist/lib/storage";
 import authReducer from "@/features/authslice";
 import productReducer from "@/features/productSlice";
+import paymentSlice from "@/features/paymentSlice";
+
 
 // Persist configuration
 const persistConfig = {
@@ -23,6 +25,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: authReducer,
   product: productReducer,
+  payment: paymentSlice
 });
 
 // Create a persisted reducer

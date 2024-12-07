@@ -11,6 +11,7 @@ import "react-loading-skeleton/dist/skeleton.css"; // Include skeleton CSS
 import SkeletonDownload from "@/components/DownloadPage/Skeleton";
 import OrderNotFound from "@/components/DownloadPage/OrderNotFound";
 import FeedBack from "@/components/CustomerFeedback/FeedBack";
+import { setCurrentOrder, setPaymentStatus } from "@/features/paymentSlice";
 
 const DownloadPage = () => {
   const { orderId, paymentId } = useParams(); // Get the orderId and paymentId from the URL
@@ -21,6 +22,8 @@ const DownloadPage = () => {
 
   useEffect(() => {
     const fetchOrderDetails = async () => {
+      dispatch(setCurrentOrder(null));
+      dispatch(setPaymentStatus(null));
       setLoading(true);
       try {
         const response = await fetch(

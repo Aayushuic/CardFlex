@@ -2,7 +2,7 @@ import Lottie from "lottie-react";
 import React from "react";
 import paymentPendingAnimation from "@/assets/paymentPending.json";
 
-const PaymentPendingUI = ({ countdown, attempts }) => {
+const PaymentPendingUI = ({attempts }) => {
   return (
     <div className="status-container text-center space-y-4 md:min-h-screen mt-8 md:-mt-9 ">
       <Lottie
@@ -13,7 +13,7 @@ const PaymentPendingUI = ({ countdown, attempts }) => {
       {attempts > 2 ? (
         <p className="text-lg sm:text-xl text-gray-700 md:mt-2">
           Oops, it’s taking a bit longer!
-          <p>But don’t worry, good things are worth the wait</p>
+          <span>But don’t worry, good things are worth the wait</span>
         </p>
       ) : (
         <p className="text-lg sm:text-xl text-gray-700  md:mt-2">
@@ -21,9 +21,9 @@ const PaymentPendingUI = ({ countdown, attempts }) => {
         </p>
       )}
 
-      <p className="text-2xl font-bold text-red-500 sm:mt-5">
+      {/* <p className="text-2xl font-bold text-red-500 sm:mt-5">
         {countdown} seconds remaining
-      </p>
+      </p> */}
     </div>
   );
 };
