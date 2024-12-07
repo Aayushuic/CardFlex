@@ -41,11 +41,11 @@ const HandlePaymentUI = () => {
 
   console.log(attempts);
 
-  useEffect(() => {
-    if (!currOrder || currOrder == null) {
-      navigate("/", { replace: true });
-    }
-  }, [currOrder, paymentStatus]);
+  // useEffect(() => {
+  //   if (!currOrder || currOrder == null) {
+  //     navigate("/", { replace: true });
+  //   }
+  // }, [currOrder, paymentStatus]);
 
   const checkPaymentStatus = async () => {
     try {
