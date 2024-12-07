@@ -22,8 +22,6 @@ import { setPaymentStatus } from "@/features/paymentSlice";
 
 const HandlePaymentUI = () => {
   const [LoadingOverLay, setLoadingOverlay] = useState(false);
-  const [countdown, setCountdown] = useState(11); // Countdown state
-  const [attempts, setAttempts] = useState(0); // Track attempts
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currOrder = useSelector((state) => state.payment.currentOrder);
@@ -38,78 +36,6 @@ const HandlePaymentUI = () => {
     razorpay_order_id,
     discount,
   } = orderInstance || {};
-
-  console.log(attempts);
-
-  useEffect(() => {
-    if (!currOrder || currOrder == null) {
-      navigate("/", { replace: true });
-    }
-  }, [currOrder, paymentStatus]);
-
-  const checkPaymentStatus = async () => {
-    try {
-      const response = await fetch(
-        `${
-          import.meta.env.VITE_BACKEND_URL
-        }/payment/status/?orderId=${orderId}&razorpay_order_id=${razorpay_order_id}`,
-        {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            "x-api-key": import.meta.env.VITE_API_KEY,
-          },
-        }
-      );
-      const data = await response.json();
-
-      if (data.success) {
-        dispatch(setPaymentStatus("success"));
-        setTimeout(() => {
-          navigate(
-            `/download/${orderId}/verified/${data.razorpay_payment_id}`,
-            { replace: true }
-          );
-        }, 3000);
-      } else if (data.pending) {
-        dispatch(setPaymentStatus("pending"));
-      } else {
-        dispatch(setPaymentStatus("failed"));
-      }
-    } catch (error) {
-      dispatch(setPaymentStatus("failed"));
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    let intervalId;
-
-    // Handle first request after 1 minute (60 seconds)
-    if (paymentStatus === "pending" && attempts === 0) {
-      setTimeout(() => {
-        checkPaymentStatus();
-        setAttempts(1);
-      }, 60000);
-    }
-
-    // Handle subsequent requests every 30 seconds after the first one
-    if (paymentStatus === "pending" && attempts > 0 && attempts < 4) {
-      intervalId = setInterval(() => {
-        checkPaymentStatus(); // Call API every 30 seconds
-        setAttempts((prevAttempts) => prevAttempts + 1); // Increment attempts
-      }, 30000); // 30 seconds for subsequent requests
-
-      return () => clearInterval(intervalId); // Cleanup interval on unmount or status change
-    } else if (attempts >= 4) {
-      // After 4 attempts, set payment status to failed
-      dispatch(setPaymentStatus("failed"));
-      clearInterval(intervalId); // Stop the interval
-    }
-
-    return () => {}; // No polling if status is not pending or attempts exceed 4
-  }, [paymentStatus, attempts]);
 
   const handlePayment = async () => {
     try {
@@ -135,11 +61,6 @@ const HandlePaymentUI = () => {
         theme: {
           color: "#1B3C73",
         },
-        modal: {
-          ondismiss: function () {
-            checkPaymentStatus();
-          },
-        },
       };
       initiateRazorpay(options);
     } catch (error) {
@@ -148,6 +69,7 @@ const HandlePaymentUI = () => {
       setLoadingOverlay(false);
     }
   };
+  
   return (
     <>
       <div className="payment-container flex flex-col items-center justify-center p-6 ">
@@ -156,8 +78,8 @@ const HandlePaymentUI = () => {
           <>
             {paymentStatus === "pending" && (
               <PaymentPendingUI
-                countdown={countdown}
-                attempts={attempts}
+                orderId={orderId}
+                razorpay_order_id={razorpay_order_id}
               ></PaymentPendingUI>
             )}
             {paymentStatus === "failed" && <PaymentFailedUi />}
@@ -237,8 +159,8 @@ const HandlePaymentUI = () => {
             )}
           </>
         ) : (
-          <p className="text-gray-600 text-center text-xl">
-            Loading order details...
+          <p className="text-gray-600 text-center text-xl min-h-screen">
+            No payment process is currently active.
           </p>
         )}
       </div>
