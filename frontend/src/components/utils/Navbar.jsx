@@ -31,6 +31,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 import { logout } from "@/features/authslice";
 import CardFlexPng from "../../assets/cardflex.Png";
+import { setCurrentOrder, setPaymentStatus } from "@/features/paymentSlice";
 
 const Navbar = ({ setSearchDialog }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -110,6 +111,8 @@ const Navbar = ({ setSearchDialog }) => {
       const responseData = await response.json();
       if (responseData.success == true) {
         toast(responseData.message);
+        dispatch(setCurrentOrder(null));
+        dispatch(setPaymentStatus(null));
         dispatch(logout());
         navigate("/");
       }

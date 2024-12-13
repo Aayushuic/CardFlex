@@ -51,19 +51,15 @@ export const Card = ({
           body: JSON.stringify({ productId }),
         }
       );
-
       const responseData = await response.json();
       if (responseData.success) {
         toast.success(responseData.message);
         dispatch(addToCart(responseData.cart));
         return true; // Indicate success
       } else {
-        if (responseData.message === "Session Expired") {
-          toast.error(responseData.message);
-          dispatch(logout());
-          navigate("/login");
-        }
-        return false; // Indicate failure
+        toast.error(responseData.message);
+        dispatch(logout());
+        navigate("/login");
       }
     } catch (error) {
       toast.error(error.message || error);
@@ -75,6 +71,7 @@ export const Card = ({
 
   // Check if the item exists in the user's cart by comparing the _id with the cart items' _id
   const isItemInCart = user?.cart?.some((item) => item._id === _id);
+
 
   const handleDownload = async () => {
     if (user) {

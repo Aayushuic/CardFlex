@@ -84,6 +84,8 @@ const Orders = ({ orders }) => {
                       ? "bg-blue-300 text-blue-800"
                       : order.paymentStatus === "refund_processed"
                       ? "bg-purple-300 text-purple-800"
+                      : order.paymentStatus === "cancelled"
+                      ? "bg-red-300 text-red-800"
                       : ""
                   }`}
                 >
@@ -97,7 +99,7 @@ const Orders = ({ orders }) => {
                     ? "Refunded"
                     : order.paymentStatus === "refund_processed"
                     ? "Refund Processed"
-                    : ""}
+                    : order.paymentStatus === "cancelled"?"cancelled":""}
                 </Badge>
               </div>
               <div className="mt-4">
@@ -143,7 +145,9 @@ const Orders = ({ orders }) => {
                     className="text-indigo-600 hover:text-indigo-700"
                     onClick={() => toggleExpandOrder(index)}
                   >
-                    {expandedOrderIndex === index ? "Show Less" : "Show Details"}
+                    {expandedOrderIndex === index
+                      ? "Show Less"
+                      : "Show Details"}
                   </Button>
                 </CollapsibleTrigger>
                 <CollapsibleContent>

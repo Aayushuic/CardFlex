@@ -12,7 +12,9 @@ import TermsAndConditions from "@/components/FooterHelpers.jsx/TermsAndCondition
 
 import Home from "@/components/Home/Home";
 import TicketDashboard from "@/components/Orders/Tickets/Ticket";
+
 import PageNotFound from "@/components/utils/PageNotFound";
+import ScrollToTop from "@/components/utils/scrollToTop";
 import SearchResult from "@/components/utils/SearchResult";
 import CartPage from "@/Pages/CartPage";
 import CategoryPage from "@/Pages/CategoryPage";
@@ -28,7 +30,12 @@ import { createBrowserRouter } from "react-router-dom";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: (
+      <>
+        <ScrollToTop />
+        <App />
+      </>
+    ),
     children: [
       {
         path: "/",
@@ -100,13 +107,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/ticket",
-        element: <TicketDashboard/>,
+        element: <TicketDashboard />,
       },
       {
         path: "/payment",
-        element: <HandlePaymentUI/>,
+        element: <HandlePaymentUI />,
       },
-      
     ],
   },
   {

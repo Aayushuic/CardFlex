@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "sonner";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -18,11 +18,13 @@ import {
 } from "@/hooks/checkoutUtils";
 import Footer from "@/components/utils/Footer";
 import { setCurrentOrder, setPaymentStatus } from "@/features/paymentSlice";
+import AlreadyOrder from "@/components/checkoutComponents/AlreadyOrder";
 
 const CheckoutPage = () => {
   const [loadingOverlay, setLoadingOverlay] = useState(false);
   // const [loading, setLoading] = useState(false);
   const [discount, setDiscount] = useState(0);
+  const [modal,setModal] = useState(false);
   const user = useSelector((state) => state.auth.user);
   const cart = user ? user.cart : [];
   const location = useLocation();
@@ -32,7 +34,8 @@ const CheckoutPage = () => {
   const subtotal = cart.reduce((total, item) => total + item.newPrice, 0);
   const [guestUser, setGuestUserInfo] = useState(null);
   const [discountPercentage, setDiscountPercentage] = useState(0);
-
+  const currOrder = useSelector(state=>state.payment.currentOrder);
+  const paymentStatus = useSelector(state=>state.payment.paymentStatus);
   const cartProductArray = useMemo(() => {
     if (user) {
       return cart.map((product) => product._id);
@@ -118,11 +121,22 @@ const CheckoutPage = () => {
       dispatch(setPaymentStatus(null));
       navigate("/payment");
     } catch (error) {
-      toast.error(error.message);
+      toast.error("server busy, try again later");
     } finally {
       setLoadingOverlay(false);
     }
   };
+
+  useEffect(()=>{
+    if(currOrder&&paymentStatus==null){
+      setModal(true);
+    }else if(currOrder&&paymentStatus=="failed"){
+      dispatch(setPaymentStatus(null));
+      dispatch(setCurrentOrder(null));
+    }else if(currOrder&&paymentStatus=="pending"){
+      navigate("/payment");
+    }
+  },[currOrder]);
 
   return (
     <>
@@ -205,6 +219,7 @@ const CheckoutPage = () => {
           </div>
         )}
       </div>
+      {(currOrder&&modal) && <AlreadyOrder orderId={currOrder?.orderId} razorpay_order_id={currOrder.razorpay_order_id} email={currOrder.email} />}
       <Footer />
     </>
   );

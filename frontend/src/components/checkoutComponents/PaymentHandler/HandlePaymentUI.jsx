@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { fetchRazorpayKey, initiateRazorpay } from "@/hooks/checkoutUtils";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { replace, useNavigate } from "react-router-dom";
 import LoadingOverlay from "../LoadingOverLay";
 import {
   FaUser,
@@ -18,15 +18,21 @@ import PaymentFailedUi from "./PaymentFailedUi";
 import Footer from "@/components/utils/Footer";
 import PaymentPendingUI from "./PaymentPendingUI";
 import { useDispatch, useSelector } from "react-redux";
-import { setPaymentStatus } from "@/features/paymentSlice";
+import { setCurrentOrder, setPaymentStatus } from "@/features/paymentSlice";
+import { Loader2 } from "lucide-react";
+import useCancelOrder from "../../../hooks/useCancelOrder";
+import { MdCancel } from "react-icons/md";
+// import useCancelOrder from "";
 
 const HandlePaymentUI = () => {
   const [LoadingOverLay, setLoadingOverlay] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currOrder = useSelector((state) => state.payment.currentOrder);
   const paymentStatus = useSelector((state) => state.payment.paymentStatus);
   const orderInstance = currOrder;
+  const { cancelOrder } = useCancelOrder();
   const {
     order_amount,
     name,
@@ -39,6 +45,7 @@ const HandlePaymentUI = () => {
 
   const handlePayment = async () => {
     try {
+      setLoadingOverlay(true);
       dispatch(setPaymentStatus("pending"));
       const razorpayKey = await fetchRazorpayKey();
       const options = {
@@ -61,7 +68,13 @@ const HandlePaymentUI = () => {
         theme: {
           color: "#1B3C73",
         },
+        modal: {
+          ondismiss: function () {
+            dispatch(setPaymentStatus(null));
+          },
+        },
       };
+
       initiateRazorpay(options);
     } catch (error) {
       toast.error(error.message);
@@ -69,7 +82,7 @@ const HandlePaymentUI = () => {
       setLoadingOverlay(false);
     }
   };
-  
+
   return (
     <>
       <div className="payment-container flex flex-col items-center justify-center p-6 ">
@@ -149,11 +162,36 @@ const HandlePaymentUI = () => {
                 </div>
                 <div className="action-container flex flex-col items-center mt-6">
                   <Button
-                    className="bg-green-500 text-white px-12 py-4 rounded-lg text-lg font-semibold hover:bg-green-600 flex items-center"
+                    className="bg-green-500 text-white px-12 py-4  text-lg font-semibold hover:bg-green-600 flex items-center"
                     onClick={handlePayment}
                   >
                     <FaCheckCircle className="mr-2" /> Proceed to Payment
                   </Button>
+                  {loading ? (
+                    <Button
+                      variant="outline"
+                      className="px-12 py-4 mt-2 text-lg font-semibold bg-red-500 text-white  hover:bg-red-600"
+                    >
+                      <Loader2 className="mr-3 animate-spin" /> Please Wait..
+                    </Button>
+                  ) : (
+                    <Button
+                      bg-red-500
+                      text-white
+                      hover:bg-red-600
+                      className="px-12 py-4 mt-2 text-lg font-semibold bg-red-500 text-white  hover:bg-red-600"
+                      onClick={() => {
+                        cancelOrder({
+                          orderId,
+                          email,
+                          razorpay_order_id,
+                          setLoading,
+                        });
+                      }}
+                    >
+                      <MdCancel className="mr-3" /> Cancel Order
+                    </Button>
+                  )}
                 </div>
               </div>
             )}

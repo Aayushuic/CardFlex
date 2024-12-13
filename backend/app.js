@@ -34,8 +34,6 @@ const corsOptions = {
   ],
 };
 
-
-
 // CSRF protection setup
 // const csrfProtection = csurf({
 //   cookie: {
@@ -69,9 +67,8 @@ const limiter = rateLimit({
 
 // API key middleware for secure endpoints
 
-app.post("/api/razorpay/webhook",webhookCaller);
+app.post("/api/razorpay/webhook", webhookCaller);
 app.use("/api/payment", limiter, paymentRouter);
-
 
 // app.use("/api", csrfProtection);
 
@@ -81,17 +78,17 @@ app.use("/api/payment", limiter, paymentRouter);
 // });
 
 // Apply rate limiter and routes
-app.use("/api/reset", limiter, forgotRouter);
-app.use("/api/user/verify", limiter, verificationRouter);
-app.use("/api/user", apiKeyMiddleware, limiter, usersRouter);
-app.use("/api/admin", apiKeyMiddleware, limiter, adminRouter);
-app.use("/api/user/product", apiKeyMiddleware, limiter, productRouter);
-app.use("/api/user/cart", apiKeyMiddleware, limiter, cartRouter);
-app.use("/api/user/order", apiKeyMiddleware, limiter, orderRouter);
+app.use("/api/reset", forgotRouter);
+app.use("/api/user/verify", verificationRouter);
+app.use("/api/user", apiKeyMiddleware, usersRouter);
+app.use("/api/admin", apiKeyMiddleware, adminRouter);
+app.use("/api/user/product", apiKeyMiddleware, productRouter);
+app.use("/api/user/cart", apiKeyMiddleware, cartRouter);
+app.use("/api/user/order", apiKeyMiddleware, orderRouter);
 
-app.all("/api/*",(req,res)=>{
+app.all("/api/*", (req, res) => {
   res.render("pagenotfound");
-})
+});
 
 // Error handling middleware
 app.use((req, res, next) => {

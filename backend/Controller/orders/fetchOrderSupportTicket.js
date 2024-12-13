@@ -3,8 +3,6 @@ const orderSupport = require("../../modals/OrderSupport");
 const fetchTicket = async (req, res) => {
   try {
     const userId = req._id;
-
-
     const ticket = await orderSupport.find({ user: userId }).populate({
       path:"order",
       select:["razorpay_order_id"]

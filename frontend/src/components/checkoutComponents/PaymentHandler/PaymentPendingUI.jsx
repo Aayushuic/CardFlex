@@ -2,22 +2,22 @@ import Lottie from "lottie-react";
 import React, { useState, useEffect } from "react";
 import paymentPendingAnimation from "@/assets/paymentPending.json";
 import { useDispatch, useSelector } from "react-redux";
-import { setPaymentStatus } from "@/features/paymentSlice";
+import { setCurrentOrder, setPaymentStatus } from "@/features/paymentSlice";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 const PaymentPendingUI = ({ orderId, razorpay_order_id }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [attempts, setAttempts] = useState(0);
   const [timer, setTimer] = useState(0);
   const [isTimerActive, setIsTimerActive] = useState(false);
+  const [error, setError] = useState(null);
 
-  
   const checkPaymentStatus = async () => {
     try {
-      if(attempts>2){
+      if (attempts > 2) {
         dispatch(setPaymentStatus("failed"));
         return;
       }
@@ -46,6 +46,9 @@ const PaymentPendingUI = ({ orderId, razorpay_order_id }) => {
         }, 3000);
       } else if (data.pending) {
         dispatch(setPaymentStatus("pending"));
+        setError(
+          "Payment status is still pending. Don't worry, please check the payment status again."
+        );
       } else {
         dispatch(setPaymentStatus("failed"));
       }
@@ -53,8 +56,7 @@ const PaymentPendingUI = ({ orderId, razorpay_order_id }) => {
       // Increment attempts after each check
       setAttempts((prev) => prev + 1);
     } catch (error) {
-      dispatch(setPaymentStatus("failed"));
-      console.error(error);
+      toast.error("server busy,try again later");
     }
   };
 
@@ -80,27 +82,36 @@ const PaymentPendingUI = ({ orderId, razorpay_order_id }) => {
   }, [isTimerActive, timer]);
 
   return (
-    <div className="status-container text-center space-y-6 md:min-h-screen mt-8 md:-mt-9">
+    <div className="status-container flex flex-col items-center text-center space-y-6 md:min-h-screen -mt-20">
       <Lottie
         animationData={paymentPendingAnimation}
         loop
         className="w-full sm:w-200 lg:w-[500px]"
       />
-      
+
       <div>
-        <p className="text-lg sm:text-xl text-gray-700 md:mt-2">
-          Payment Done. Click below to confirm payment status.
-        </p>
+        {error ? (
+          <p className="text-lg sm:text-xl text-red-500 md:mt-2">{error}</p>
+        ) : (
+          <div className="text-lg sm:text-xl text-gray-700  -mt-16">
+            <p className="font-semibold">Please Wait for 10 seconds,</p>
+            <p className="block">
+              If your payment was successful but the file hasn’t been received
+              yet
+            </p>
+            please click below to confirm your payment status.
+          </div>
+        )}
         <Button
           onClick={handleClick}
-          
           disabled={isTimerActive} // Disable button during countdown
-          className="mt-4 px-6"
+          className={`mt-4 px-6 ${isTimerActive?"cursor-not-allowed":"cursor-pointer"}`}
         >
           {isTimerActive && timer > 0
             ? `Please wait... ${timer}s remaining`
             : "Check Payment Status"}
         </Button>
+        <p>Attempts Left : {4-attempts}</p>
       </div>
     </div>
   );
