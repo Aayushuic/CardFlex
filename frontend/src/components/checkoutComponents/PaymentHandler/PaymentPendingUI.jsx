@@ -82,7 +82,7 @@ const PaymentPendingUI = ({ orderId, razorpay_order_id }) => {
   }, [isTimerActive, timer]);
 
   return (
-    <div className="status-container flex flex-col items-center text-center space-y-6 md:min-h-screen -mt-20">
+    <div className="status-container flex flex-col items-center text-center space-y-6 md:min-h-screen  -mt-16">
       <Lottie
         animationData={paymentPendingAnimation}
         loop
@@ -93,7 +93,7 @@ const PaymentPendingUI = ({ orderId, razorpay_order_id }) => {
         {error ? (
           <p className="text-lg sm:text-xl text-red-500 md:mt-2">{error}</p>
         ) : (
-          <div className="text-lg sm:text-xl text-gray-700  -mt-16">
+          <div className="text-lg sm:text-xl text-gray-700  md:-mt-16">
             <p className="font-semibold">Please Wait for 10 seconds,</p>
             <p className="block">
               If your payment was successful but the file hasn’t been received

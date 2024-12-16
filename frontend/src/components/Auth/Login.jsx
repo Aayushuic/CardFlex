@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setAuthUser } from "@/features/authslice";
 import { toast } from "sonner";
+import { setCurrentOrder, setPaymentStatus } from "@/features/paymentSlice";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -49,6 +50,8 @@ const Login = () => {
       const responseData = await response.json();
       if (responseData.success === true) {
         dispatch(setAuthUser(responseData.user));
+        dispatch(setCurrentOrder(null));
+        dispatch(setPaymentStatus(null));
         toast.success(responseData.message);
         reset();
         navigate("/");

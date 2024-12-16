@@ -68,11 +68,11 @@ const HandlePaymentUI = () => {
         theme: {
           color: "#1B3C73",
         },
-        modal: {
-          ondismiss: function () {
-            dispatch(setPaymentStatus(null));
-          },
-        },
+        // modal: {
+        //   ondismiss: function () {
+        //     dispatch(setPaymentStatus(null));
+        //   },
+        // },
       };
 
       initiateRazorpay(options);

@@ -3,6 +3,7 @@ const Product = require("../../modals/product"); // Assuming Product schema is d
 const fetchSearchProducts = async (req, res) => {
   try {
     const { search, page = 1, limit = 12 } = req.body;
+    console.log(req.body);
 
     // Define query object using $or for matching any of the fields
     const query = {
