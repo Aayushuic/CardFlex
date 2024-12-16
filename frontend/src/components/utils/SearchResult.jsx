@@ -66,10 +66,7 @@ const SearchResult = () => {
       }
     };
 
-    if (searchKey && searchKey !== previousSearchKey?.current) {
-      fetchSearchResult();
-      previousSearchKey.current = searchKey;
-    }
+    fetchSearchResult();
   }, [searchKey, currentPage]);
 
   const handlePageChange = (page) => {
