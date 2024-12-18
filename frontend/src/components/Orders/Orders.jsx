@@ -14,6 +14,8 @@ import Modal from "../ConfirmationModal/Modal";
 import { Link } from "react-router-dom";
 import Footer from "../utils/Footer";
 import { Helmet } from "react-helmet"; // Import Helmet for SEO
+import { TbFileInvoice } from "react-icons/tb";
+import useInvoiceGenerator from "@/hooks/useInvoiceGenerator";
 
 const Orders = ({ orders }) => {
   const [expandedOrderIndex, setExpandedOrderIndex] = useState(null);
@@ -23,6 +25,7 @@ const Orders = ({ orders }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [modalTitle, setModalTitle] = useState("");
+  const { generatePDF } = useInvoiceGenerator();
 
   const toggleExpandOrder = (index) => {
     setExpandedOrderIndex(expandedOrderIndex === index ? null : index);
@@ -99,7 +102,9 @@ const Orders = ({ orders }) => {
                     ? "Refunded"
                     : order.paymentStatus === "refund_processed"
                     ? "Refund Processed"
-                    : order.paymentStatus === "cancelled"?"cancelled":""}
+                    : order.paymentStatus === "cancelled"
+                    ? "cancelled"
+                    : ""}
                 </Badge>
               </div>
               <div className="mt-4">
@@ -138,52 +143,72 @@ const Orders = ({ orders }) => {
                 ))}
               </div>
 
-              <Collapsible open={expandedOrderIndex === index}>
-                <CollapsibleTrigger asChild>
+              <div className="flex justify-between">
+                <Collapsible open={expandedOrderIndex === index}>
+                  <CollapsibleTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className="text-indigo-600 hover:text-indigo-700"
+                      onClick={() => toggleExpandOrder(index)}
+                    >
+                      {expandedOrderIndex === index
+                        ? "Show Less"
+                        : "Show Details"}
+                    </Button>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <div className="mt-4 border-t pt-4 text-gray-700">
+                      <p>
+                        <strong>Payment Status:</strong>{" "}
+                        <span>{order.paymentStatus}</span>
+                      </p>
+                      <p>
+                        <strong>
+                          {order.paymentStatus === "pending"
+                            ? "Amount To be Paid"
+                            : "Amount Paid"}{" "}
+                          :
+                        </strong>{" "}
+                        ₹{order.amount}
+                      </p>
+                      <p>
+                        <strong>Discount:</strong> {order.discountPercentage}%
+                      </p>
+                      <p>
+                        <strong>Receipt:</strong> {order.receipt}
+                      </p>
+                      <p>
+                        <strong>Payment Method:</strong>{" "}
+                        {order.paymentMethod == null
+                          ? "online"
+                          : order.paymentMethod}
+                      </p>
+                      <p>
+                        <strong>Ordered At:</strong>{" "}
+                        {new Date(order.createdAt).toLocaleString()}
+                      </p>
+                      <div className="mt-4 bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                        <p>
+                          <strong>Note:</strong> Your order details will remain
+                          available for 15 days. Please save your files.
+                        </p>
+                      </div>
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
+                {order.paymentStatus == "successful" && (
                   <Button
                     variant="outline"
                     className="text-indigo-600 hover:text-indigo-700"
-                    onClick={() => toggleExpandOrder(index)}
+                    onClick={() => {
+                      generatePDF(order);
+                    }}
                   >
-                    {expandedOrderIndex === index
-                      ? "Show Less"
-                      : "Show Details"}
+                    <TbFileInvoice />
+                    Invoice
                   </Button>
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                  <div className="mt-4 border-t pt-4 text-gray-700">
-                    <p>
-                      <strong>Payment Status:</strong>{" "}
-                      <span>{order.paymentStatus}</span>
-                    </p>
-                    <p>
-                      <strong>
-                        {order.paymentStatus === "pending"
-                          ? "Amount To be Paid"
-                          : "Amount Paid"}{" "}
-                        :
-                      </strong>{" "}
-                      ₹{order.amount}
-                    </p>
-                    <p>
-                      <strong>Discount:</strong> {order.discountPercentage}%
-                    </p>
-                    <p>
-                      <strong>Receipt:</strong> {order.receipt}
-                    </p>
-                    <p>
-                      <strong>Ordered At:</strong>{" "}
-                      {new Date(order.createdAt).toLocaleString()}
-                    </p>
-                    <div className="mt-4 bg-yellow-50 border-l-4 border-yellow-400 p-4">
-                      <p>
-                        <strong>Note:</strong> Your order details will remain
-                        available for 15 days. Please save your files.
-                      </p>
-                    </div>
-                  </div>
-                </CollapsibleContent>
-              </Collapsible>
+                )}
+              </div>
 
               <div className="mt-6 flex justify-between items-center">
                 <Button

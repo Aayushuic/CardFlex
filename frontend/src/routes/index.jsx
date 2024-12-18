@@ -9,10 +9,8 @@ import Help from "@/components/FooterHelpers.jsx/Help";
 import PrivacyPolicy from "@/components/FooterHelpers.jsx/PrivacyPolicy";
 import RefundAndCancellations from "@/components/FooterHelpers.jsx/RefundAndCancellations";
 import TermsAndConditions from "@/components/FooterHelpers.jsx/TermsAndConditions";
-
 import Home from "@/components/Home/Home";
 import TicketDashboard from "@/components/Orders/Tickets/Ticket";
-
 import PageNotFound from "@/components/utils/PageNotFound";
 import ScrollToTop from "@/components/utils/scrollToTop";
 import SearchResult from "@/components/utils/SearchResult";
