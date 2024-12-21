@@ -14,6 +14,20 @@ const Help = () => {
 
   return (
     <div className="bg-white">
+      {/* SEO Improvements: Title, Meta Description, and Keywords */}
+      <head>
+        <title>CardFlex - Help & Support</title>
+        <meta
+          name="description"
+          content="Need assistance? Explore our Help & Support page for answers to frequently asked questions (FAQ), contact details, and more."
+        />
+        <meta
+          name="keywords"
+          content="CardFlex, Help & Support, Frequently Asked Questions, Download CDR files, Custom Designs, Payment Methods, Razorpay, Contact Support, Invoice"
+        />
+        <meta name="robots" content="index, follow" />
+      </head>
+
       <div className="py-16 px-8 md:px-16">
         <h1 className="text-4xl font-bold text-center text-[#1B3C73]  mb-12">
           Help & Support
@@ -31,21 +45,21 @@ const Help = () => {
             Here are some common questions we receive:
           </p>
 
-          {[
+          {[ 
             {
               question: "1. How do I download CDR files?",
               answer:
-                "After purchasing, you will receive a download link via email. If you have an account, your files will also be saved in your orders section for easy access.",
+                "After completing your payment, a page will appear with a download link for your purchased CDR files. If you're logged into your account, you can also access your files and invoice from the 'Orders' section in your account dashboard, where all your purchased items are stored for easy access.",
             },
             {
               question: "2. Can I customize the designs?",
               answer:
-                "Yes! We offer custom design services tailored to your needs.",
+                "Yes! We offer custom design services tailored to your needs. Please contact our support team for more details on how we can help you create a unique design.",
             },
             {
               question: "3. What payment methods do you accept?",
               answer:
-                "We accept all major credit/debit cards and payments through Razorpay.",
+                "We accept all major credit/debit cards, as well as payments through Razorpay for a secure and seamless transaction experience.",
             },
           ].map((item, index) => (
             <div key={index} className="mb-4">

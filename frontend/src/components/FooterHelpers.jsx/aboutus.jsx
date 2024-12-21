@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import Footer from "../utils/Footer";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
@@ -6,22 +7,42 @@ import { Phone } from "lucide-react";
 
 const AboutUs = () => (
   <div className="bg-white">
+    <Helmet>
+      <title>CardFlex - About Us</title>
+      <meta
+        name="description"
+        content="Learn more about CardFlex - your trusted source for professional digital designs and custom CDR file services. Explore our offerings and get in touch for custom orders."
+      />
+      <meta
+        name="keywords"
+        content="About CardFlex, Professional Digital Designs, Free CDR Files, Custom CDR Design Services, CardFlex Contact,Free Hindi Design,free cdr files,CDR files,custom cdr file"
+      />
+      <meta name="author" content="CardFlex" />
+      <meta property="og:title" content="CardFlex - About Us" />
+      <meta
+        property="og:description"
+        content="Discover CardFlex and our commitment to providing high-quality digital designs and custom CDR file services. Contact us for personalized solutions."
+      />
+      <meta property="og:url" content="https://cardflex.in/about-us" />
+      <meta property="og:type" content="website" />
+      <meta property="og:image" content="https://cardflex.in/about-us-image.jpg" />
+      <link rel="canonical" href="https://cardflex.in/about-us" />
+    </Helmet>
+
     <div className="py-16 px-8 md:px-16">
       <h1 className="text-4xl font-bold text-center text-[#1B3C73] mb-12">
         About Us
       </h1>
       <p className="text-lg text-gray-700 mb-6 text-center">
-        Welcome to{" "}
-        <span className="font-semibold text-indigo-600">CardFlex</span> – your
+        Welcome to
+        <span className="font-semibold text-indigo-600"> CardFlex</span> – your
         one-stop shop for professional digital designs and custom CDR file
         services. We’re passionate about bringing your visions to life with
         expertly crafted templates and personalized designs.
       </p>
 
       <section className="mb-16">
-        <h2 className="text-3xl font-semibold text-[#1B3C73] mb-4">
-          What We Offer
-        </h2>
+        <h2 className="text-3xl font-semibold text-[#1B3C73] mb-4">What We Offer</h2>
         <p className="text-lg text-gray-700 mb-4">
           At <span className="font-semibold text-indigo-600">CardFlex</span>, we
           specialize in providing digital CDR files for a wide variety of design
@@ -41,9 +62,7 @@ const AboutUs = () => (
       </section>
 
       <section className="mb-16">
-        <h2 className="text-3xl font-semibold text-[#1B3C73] mb-4">
-          Custom Orders
-        </h2>
+        <h2 className="text-3xl font-semibold text-[#1B3C73] mb-4">Custom Orders</h2>
         <p className="text-lg text-gray-700 mb-4">
           Looking for something unique? We offer custom design services tailored
           specifically to your needs. Whether it’s a special event invitation, a
@@ -57,9 +76,7 @@ const AboutUs = () => (
       </section>
 
       <section className="mb-16">
-        <h2 className="text-3xl font-semibold text-[#1B3C73] mb-4">
-          Get In Touch
-        </h2>
+        <h2 className="text-3xl font-semibold text-[#1B3C73] mb-4">Get In Touch</h2>
         <p className="text-lg text-gray-700 mb-2">
           Have questions or want to place a custom order? Contact us, and we’ll
           be happy to assist you.

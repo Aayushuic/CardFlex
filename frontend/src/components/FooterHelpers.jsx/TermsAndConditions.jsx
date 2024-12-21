@@ -4,6 +4,20 @@ import Footer from "../utils/Footer";
 const TermsAndConditions = () => {
   return (
     <div className="bg-white">
+      {/* SEO Improvements: Title, Meta Description, and Keywords */}
+      <head>
+        <title>CardFlex - Terms and Conditions - </title>
+        <meta
+          name="description"
+          content="Review the Terms and Conditions for using CardFlex services. By accessing our site, you agree to comply with our policies regarding payment, custom orders, intellectual property, and more."
+        />
+        <meta
+          name="keywords"
+          content="CardFlex, Terms and Conditions, Digital Products, Custom Orders, Payment Terms, Legal Agreement, Intellectual Property"
+        />
+        <meta name="robots" content="index, follow" />
+      </head>
+
       <div className="py-16 px-8 md:px-16">
         <h1 className="text-4xl font-bold text-center text-[#1B3C73] mb-12">
           Terms and Conditions

@@ -27,14 +27,17 @@ const Home = () => {
         <title>CardFlex - Home</title>
         <meta
           name="description"
-          content="Explore trending card designs and customer reviews at CardFlex. Discover creative designs for every occasion. Contact us via WhatsApp!"
+          content="Download free CDR files including wedding cards, visiting cards, and more. Explore creative designs and trending categories for every occasion at CardFlex."
         />
-        <meta name="keywords" content="Card Designs, Trending Cards, CardFlex Reviews, Creative Cards,CardFlex,cardflex,free hindi design,custom design" />
+        <meta
+          name="keywords"
+          content="Free CDR files, CDR file download, wedding card CDR files, visiting card designs, CardFlex, trending card designs, free creative cards, custom design,free hindi design, free cdr files,cdr files, CDR files"
+        />
         <meta name="author" content="CardFlex" />
-        <meta property="og:title" content="CardFlex - Trending Card Designs & Reviews" />
+        <meta property="og:title" content="CardFlex - Home" />
         <meta
           property="og:description"
-          content="Discover trending card designs and customer reviews at CardFlex. Your one-stop solution for creative cards!"
+          content="Discover and download free CDR files for wedding cards, visiting cards, and creative designs. Your one-stop solution for free card templates."
         />
         <meta property="og:url" content="https://cardflex.in/" />
         <meta property="og:type" content="website" />
@@ -45,9 +48,10 @@ const Home = () => {
       {/* Main content area */}
       <main className="p-0 mt-5 sm:mt-0 sm:p-6 lg:p-10 bg-white relative">
         {/* Home Carousel Section */}
-        {/* <section className="mb-10 max-w-7xl mx-auto">
-          <HomeCarousel /> 
-        </section> */}
+        <section className="mb-10 max-w-7xl mx-auto" aria-labelledby="home-carousel">
+          <h2 id="home-carousel" className="sr-only">Home Carousel</h2>
+          <HomeCarousel />
+        </section>
 
         {/* Trending Categories Section */}
         <section className="mb-10 max-w-3xl mx-auto" aria-labelledby="trending-categories">
@@ -63,7 +67,7 @@ const Home = () => {
 
         {/* Reviews Section */}
         <section className="max-w-7xl mx-auto px-4 mt-8" aria-labelledby="reviews">
-          <h2 id="latest-designs" className="sr-only">Reviews</h2>
+          <h2 id="reviews" className="sr-only">Reviews</h2>
           <Reviews />
         </section>
 

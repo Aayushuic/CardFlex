@@ -52,12 +52,18 @@ const ContactUs = () => {
     <div className="bg-white">
       {/* SEO Improvements: Title and Meta Description */}
       <head>
-        <title>Contact Us | CardFlex</title>
+        <title>CardFlex - Contact Us</title>
         <meta
           name="description"
           content="Get in touch with CardFlex for support or inquiries. Contact us via the form or our provided contact information."
         />
+        <meta
+          name="keywords"
+          content="Contact CardFlex,cardflex contact, Free CDR Files, Custom CDR Design Services, CardFlex Contact,Free Hindi Design,free cdr files,CDR files,custom cdr file,cardflex contact number"
+        />
         <meta name="robots" content="index, follow" />
+        <meta name="author" content="CardFlex" />
+        <meta property="og:title" content="CardFlex - Contact Us" />
       </head>
 
       <div className="py-16 px-8 md:px-16 max-w-6xl mx-auto">

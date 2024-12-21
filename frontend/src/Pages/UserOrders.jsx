@@ -73,6 +73,24 @@ const UserOrders = () => {
   if (!orders.length) {
     return (
       <>
+        {/* SEO Tags */}
+        <Helmet>
+          <title>CardFlex - Orders</title>
+          <meta
+            name="description"
+            content="View and manage your orders at Cardflex. Track payment statuses,download invoice, download CDR files, and get help for your orders."
+          />
+          <meta
+            name="keywords"
+            content="CardFlex,cardflex your orders,raise ticket,download invoice,free cdr files,orders, payment status, download CDR files, Cardflex, ticket support"
+          />
+          <meta property="og:title" content="Cardflex - Orders" />
+          <meta
+            property="og:description"
+            content="View and manage your orders at Cardflex. Track payment statuses, download CDR files, and get help for your orders."
+          />
+          <meta property="og:type" content="website" />
+        </Helmet>
         <div className="flex flex-col items-center justify-center h-screen text-center">
           <ShoppingCart className="h-16 w-16 text-pink-600 mb-4" />
           <h2 className="text-3xl font-bold text-[#1B3C73] mb-4">

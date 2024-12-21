@@ -81,7 +81,7 @@ const Reviews = () => {
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://cardflex.in" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Customer Reviews | CardFlex" />
+        <meta property="og:title" content="CardFlex - Customer Reviews" />
         <meta
           property="og:description"
           content="Check out customer reviews for our high-quality CDR files. We prioritize customer satisfaction!"

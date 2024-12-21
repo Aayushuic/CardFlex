@@ -5,6 +5,20 @@ import Navbar from "../utils/Navbar";
 const PrivacyPolicy = () => {
   return (
     <div className="bg-white">
+      {/* SEO Improvements: Title, Meta Description, and Keywords */}
+      <head>
+        <title>CardFlex - Privacy Policy</title>
+        <meta
+          name="description"
+          content="Read CardFlex's Privacy Policy to understand how we collect, use, and protect your personal information when you use our services."
+        />
+        <meta
+          name="keywords"
+          content="CardFlex, Privacy Policy, Data Collection, Data Security, Personal Information, User Rights, Razorpay"
+        />
+        <meta name="robots" content="index, follow" />
+      </head>
+
       <div className="py-16 px-8 md:px-16">
         <h1 className="text-4xl font-bold text-center text-[#1B3C73] mb-12">
           Privacy Policy

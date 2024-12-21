@@ -7,6 +7,20 @@ import { Phone } from "lucide-react";
 const RefundAndCancellations = () => {
   return (
     <div className="bg-white">
+      {/* SEO Improvements: Title, Meta Description, and Keywords */}
+      <head>
+        <title>CardFlex - Refund & Cancellation Policy - </title>
+        <meta
+          name="description"
+          content="Learn about CardFlex's Refund and Cancellation Policy. As digital products, we do not offer refunds, but we provide support for any issues with your purchase."
+        />
+        <meta
+          name="keywords"
+          content="CardFlex, Refund Policy, Cancellation Policy, Digital Products, Support, Payment Issues"
+        />
+        <meta name="robots" content="index, follow" />
+      </head>
+
       <div className="py-16 px-8 md:px-16">
         <h1 className="text-4xl font-bold text-center text-[#1B3C73]  mb-12">
           Refund & Cancellation Policy

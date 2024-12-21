@@ -39,25 +39,6 @@ const Orders = ({ orders }) => {
 
   return (
     <>
-      {/* SEO Tags */}
-      <Helmet>
-        <title>Your Orders | CardFlex</title>
-        <meta
-          name="description"
-          content="View and manage your orders at Cardflex. Track payment statuses, download CDR files, and get help for your orders."
-        />
-        <meta
-          name="keywords"
-          content="orders, payment status, download CDR files, Cardflex, ticket support"
-        />
-        <meta property="og:title" content="Your Orders | Cardflex" />
-        <meta
-          property="og:description"
-          content="View and manage your orders at Cardflex. Track payment statuses, download CDR files, and get help for your orders."
-        />
-        <meta property="og:type" content="website" />
-      </Helmet>
-
       <div className="max-w-7xl mx-auto p-6">
         <h2 className="text-4xl font-bold mb-8 text-center text-[#1B3C73]">
           Your Orders
