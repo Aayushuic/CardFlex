@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"; // Assuming you have a Button c
 import { Heart, ShoppingCart } from "lucide-react";
 import Footer from "@/components/utils/Footer";
 import { FourSquare } from "react-loading-indicators";
+import { Helmet } from "react-helmet";
 
 const UserOrders = () => {
   const [orders, setOrders] = useState([]);
