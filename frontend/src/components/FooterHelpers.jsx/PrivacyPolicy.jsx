@@ -1,12 +1,13 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import Footer from "../utils/Footer";
 import Navbar from "../utils/Navbar";
 
 const PrivacyPolicy = () => {
   return (
     <div className="bg-white">
-      {/* SEO Improvements: Title, Meta Description, and Keywords */}
-      <head>
+      {/* SEO Improvements using Helmet */}
+      <Helmet>
         <title>CardFlex - Privacy Policy</title>
         <meta
           name="description"
@@ -17,7 +18,17 @@ const PrivacyPolicy = () => {
           content="CardFlex, Privacy Policy, Data Collection, Data Security, Personal Information, User Rights, Razorpay"
         />
         <meta name="robots" content="index, follow" />
-      </head>
+        <meta name="author" content="CardFlex" />
+        <meta property="og:title" content="CardFlex - Privacy Policy" />
+        <meta
+          property="og:description"
+          content="Learn how we collect, use, and protect your personal information when using CardFlex services. Read our Privacy Policy for more details."
+        />
+        <meta property="og:url" content="https://cardflex.in/privacy-policy" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://cardflex.in/privacy-policy-image.jpg" />
+        <link rel="canonical" href="https://cardflex.in/privacy-policy" />
+      </Helmet>
 
       <div className="py-16 px-8 md:px-16">
         <h1 className="text-4xl font-bold text-center text-[#1B3C73] mb-12">

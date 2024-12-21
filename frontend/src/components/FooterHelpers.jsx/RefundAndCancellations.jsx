@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import Footer from "../utils/Footer";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
@@ -7,9 +8,9 @@ import { Phone } from "lucide-react";
 const RefundAndCancellations = () => {
   return (
     <div className="bg-white">
-      {/* SEO Improvements: Title, Meta Description, and Keywords */}
-      <head>
-        <title>CardFlex - Refund & Cancellation Policy - </title>
+      {/* SEO Improvements using Helmet */}
+      <Helmet>
+        <title>CardFlex - Refund & Cancellation Policy</title>
         <meta
           name="description"
           content="Learn about CardFlex's Refund and Cancellation Policy. As digital products, we do not offer refunds, but we provide support for any issues with your purchase."
@@ -19,16 +20,26 @@ const RefundAndCancellations = () => {
           content="CardFlex, Refund Policy, Cancellation Policy, Digital Products, Support, Payment Issues"
         />
         <meta name="robots" content="index, follow" />
-      </head>
+        <meta name="author" content="CardFlex" />
+        <meta property="og:title" content="CardFlex - Refund & Cancellation Policy" />
+        <meta
+          property="og:description"
+          content="Read CardFlex's Refund and Cancellation Policy. We do not offer refunds for digital products but offer support for any payment or delivery issues."
+        />
+        <meta property="og:url" content="https://cardflex.in/refund-cancellation-policy" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://cardflex.in/refund-cancellation-image.jpg" />
+        <link rel="canonical" href="https://cardflex.in/refund-cancellation-policy" />
+      </Helmet>
 
       <div className="py-16 px-8 md:px-16">
-        <h1 className="text-4xl font-bold text-center text-[#1B3C73]  mb-12">
+        <h1 className="text-4xl font-bold text-center text-[#1B3C73] mb-12">
           Refund & Cancellation Policy
         </h1>
 
         <section className="mb-16">
           <p className="text-lg text-gray-700 mb-6">
-            At <span className="font-semibold text-indigo-600">Card Flex</span>,
+            At <span className="font-semibold text-indigo-600">CardFlex</span>,
             we prioritize delivering digital products of the highest quality. As
             our products are digital files, we do not offer refunds or
             cancellations after the purchase has been completed.
@@ -41,7 +52,7 @@ const RefundAndCancellations = () => {
         </section>
 
         <section className="mb-16">
-          <h2 className="text-3xl font-semibold text-[#1B3C73]  mb-4">
+          <h2 className="text-3xl font-semibold text-[#1B3C73] mb-4">
             Need Help?
           </h2>
           <p className="text-lg text-gray-700 mb-2">

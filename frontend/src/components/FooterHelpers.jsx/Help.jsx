@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import { Helmet } from "react-helmet";
 import Footer from "../utils/Footer";
 import { ChevronDown, ChevronUp, Phone } from "lucide-react";
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
-// Ensure you have lucid-react installed
 
 const Help = () => {
   const [openIndex, setOpenIndex] = useState(null);
@@ -14,8 +14,8 @@ const Help = () => {
 
   return (
     <div className="bg-white">
-      {/* SEO Improvements: Title, Meta Description, and Keywords */}
-      <head>
+      {/* SEO Improvements using Helmet */}
+      <Helmet>
         <title>CardFlex - Help & Support</title>
         <meta
           name="description"
@@ -26,7 +26,17 @@ const Help = () => {
           content="CardFlex, Help & Support, Frequently Asked Questions, Download CDR files, Custom Designs, Payment Methods, Razorpay, Contact Support, Invoice"
         />
         <meta name="robots" content="index, follow" />
-      </head>
+        <meta name="author" content="CardFlex" />
+        <meta property="og:title" content="CardFlex - Help & Support" />
+        <meta
+          property="og:description"
+          content="Need help with CardFlex services? Visit our Help & Support page to get answers to FAQs, contact support, and learn more about our offerings."
+        />
+        <meta property="og:url" content="https://cardflex.in/help" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://cardflex.in/help-image.jpg" />
+        <link rel="canonical" href="https://cardflex.in/help" />
+      </Helmet>
 
       <div className="py-16 px-8 md:px-16">
         <h1 className="text-4xl font-bold text-center text-[#1B3C73]  mb-12">
