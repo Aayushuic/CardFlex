@@ -4,6 +4,7 @@ import Modal from "./ContactFormModal";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 
 const ContactUs = () => {
   const [loading, setLoading] = useState(false);
