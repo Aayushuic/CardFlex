@@ -6,7 +6,7 @@ const addReview = async (req, res) => {
     const { productId, comment, rating } = req.body;
 
     // Validate request body
-    if (!productId|| !rating) {
+    if (!productId || !rating) {
       return res.status(400).json({
         success: false,
         message:
@@ -37,7 +37,8 @@ const addReview = async (req, res) => {
     if (!hasPurchased) {
       return res.status(400).json({
         success: false,
-        message: "You haven't purchased this item yet",
+        message:
+          "It seems you haven’t purchased this item yet,You need to purchase this item to leave a review",
       });
     }
 

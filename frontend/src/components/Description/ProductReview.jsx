@@ -5,15 +5,11 @@ import { Button } from "../ui/button";
 import { useNavigate } from "react-router-dom";
 import { logout } from "@/features/authslice";
 import { toast } from "sonner";
-import { Lock } from "lucide-react";
 import { MdOutlineCancel } from "react-icons/md";
 import ReviewsBox from "./ReviewsBox";
 
 const ProductReview = ({ productId }) => {
   const user = useSelector((state) => state.auth.user);
-  const isPresent = user?.purchasedItem?.some((item) => {
-    return item === productId;
-  });
   const [rating, setRating] = useState(4);
   const [feedback, setFeedback] = useState("");
   const [loading, setLoading] = useState(false);
@@ -28,7 +24,6 @@ const ProductReview = ({ productId }) => {
   const changeRating = (newRating) => setRating(newRating);
 
   const editReviewRef = useRef(null);
-  console.log(editReviewRef);
 
   const handleEditReview = (reviewId) => {
     const review = reviews.find((review) => {
@@ -42,9 +37,8 @@ const ProductReview = ({ productId }) => {
       if (editReviewRef.current) {
         editReviewRef.current.scrollIntoView({ behavior: "smooth" });
       }
-    },100);
+    }, 100);
   };
-
 
   const handleUpdateReview = async () => {
     try {
@@ -122,12 +116,7 @@ const ProductReview = ({ productId }) => {
         setError("login to review product");
         return;
       }
-      if (!isPresent) {
-        setError(
-          "It seems you haven’t purchased this item yet,You need to purchase this item to leave a review"
-        );
-        return;
-      }
+
       const res = await fetch(
         `${
           import.meta.env.VITE_BACKEND_URL
@@ -336,16 +325,7 @@ const ProductReview = ({ productId }) => {
                 }`}
                 disabled={loading}
               >
-                {loading ? (
-                  "Submitting..."
-                ) : isPresent ? (
-                  "Submit Review"
-                ) : (
-                  <>
-                    <Lock />
-                    Submit Review
-                  </>
-                )}
+                {loading ? "Submitting..." : "Submit Review"}
               </Button>
             </div>
           </div>
