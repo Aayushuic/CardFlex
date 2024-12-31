@@ -41,7 +41,10 @@ const Home = () => {
         />
         <meta property="og:url" content="https://cardflex.in/" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://cardflex.in/preview-image.jpg" />
+        <meta
+          property="og:image"
+          content="https://cardflex.in/preview-image.jpg"
+        />
         <link rel="canonical" href="https://cardflex.in/" />
       </Helmet>
 
@@ -54,20 +57,35 @@ const Home = () => {
         </section> */}
 
         {/* Trending Categories Section */}
-        <section className="mb-10 max-w-3xl mx-auto" aria-labelledby="trending-categories">
-          <h2 id="trending-categories" className="sr-only">Trending Categories</h2>
+        <section
+          className="mb-10 max-w-3xl mx-auto"
+          aria-labelledby="trending-categories"
+        >
+          <h2 id="trending-categories" className="sr-only">
+            Trending Categories
+          </h2>
           <TrendingCategory />
         </section>
 
         {/* Latest Designs Section */}
-        <section className="max-w-7xl mx-auto px-4" aria-labelledby="latest-designs">
-          <h2 id="latest-designs" className="sr-only">Latest Designs</h2>
+        <section
+          className="max-w-7xl mx-auto px-4"
+          aria-labelledby="latest-designs"
+        >
+          <h2 id="latest-designs" className="sr-only">
+            Latest Designs
+          </h2>
           <LatestDesign />
         </section>
 
         {/* Reviews Section */}
-        <section className="max-w-7xl mx-auto px-4 mt-8" aria-labelledby="reviews">
-          <h2 id="reviews" className="sr-only">Reviews</h2>
+        <section
+          className="max-w-7xl mx-auto px-4 mt-8"
+          aria-labelledby="reviews"
+        >
+          <h2 id="reviews" className="sr-only">
+            Reviews
+          </h2>
           <Reviews />
         </section>
 

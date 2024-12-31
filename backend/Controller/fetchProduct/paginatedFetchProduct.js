@@ -18,7 +18,7 @@ const paginateFetchProduct = async (req, res) => {
     const products = await Product.find(query)
       .skip(skip)
       .limit(parseInt(limit))
-      .select("-cdrFile");
+      .select(["-cdrFile","-reviews"]);
 
       if(!products){
         return res.status(200).json({success:false,message:"No Product Found"})
@@ -26,7 +26,7 @@ const paginateFetchProduct = async (req, res) => {
 
     // Get the total count of matching documents
     const total = await Product.countDocuments(query);
-    console.log(total)
+    
     
     res.json({
       success: true,

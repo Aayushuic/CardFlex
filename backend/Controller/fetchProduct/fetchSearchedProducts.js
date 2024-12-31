@@ -21,16 +21,17 @@ const fetchSearchProducts = async (req, res) => {
     const products = await Product.find(query)
       .skip(skip)
       .limit(parseInt(limit))
-      .select(["-cdrFile","-purchaseCount"]);
+      .select(["-cdrFile", "-purchaseCount", "-reviews"]);
 
     if (!products.length) {
-      return res.status(200).json({ success: false, message: "No Products Found",products:null });
+      return res
+        .status(200)
+        .json({ success: false, message: "No Products Found", products: null });
     }
 
     // Get the total count of matching documents
     const total = await Product.countDocuments(query);
 
-    
     res.json({
       success: true,
       products,
@@ -38,7 +39,6 @@ const fetchSearchProducts = async (req, res) => {
       currentPage: parseInt(page),
       totalProducts: total,
     });
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Server error" });

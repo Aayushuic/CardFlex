@@ -54,12 +54,30 @@ const ProductSchema = new Schema(
       enum: itemEnum,
       required: true,
     },
-    fileName:{
-      type:String,
+    fileName: {
+      type: String,
     },
     imageUrl: { type: String, required: true }, // New field for image URL
     cdrFile: { type: String, required: true }, // New field for CDR file URL
     purchaseCount: { type: Number, default: 0 },
+    reviews: [
+      {
+        rating: {
+          type: Number,
+          required: [true, "Rating is required"], // Required field with custom message
+          min: [1, "Rating must be between 1 and 5"], // Min validation
+          max: [5, "Rating must be between 1 and 5"], // Max validation
+        },
+        comment: {
+          type: String,
+        },
+        user: {
+          type: mongoose.Schema.ObjectId,
+          ref: "User",
+          required: true,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );

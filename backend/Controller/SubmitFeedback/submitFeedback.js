@@ -7,7 +7,7 @@ const submitfeedBack = async (req, res) => {
     if (!rating || !name) {
       return res.status(400).json({success:false, message: "Rating and name are required." });
     }
-    console.log(req.body);
+
 
     // Create a new feedback entry
     const newfeedback = new Feedback({ rating, feedback, user, name });

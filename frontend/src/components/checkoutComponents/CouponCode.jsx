@@ -22,6 +22,10 @@ const CouponCode = ({ setDiscountPercentage }) => {
       discount: 10,
       description: "10% off for all registered users",
     },
+    NEWYEAR:{
+      discount:25,
+      description:"25% off for all registered users"
+    }
   };
 
   const checkFirstOrder = async () => {
@@ -116,7 +120,7 @@ const CouponCode = ({ setDiscountPercentage }) => {
           <input
             type="text"
             value={coupon}
-            onChange={(e) => setCoupon(e.target.value)}
+            onChange={(e) => setCoupon(e.target.value.toUpperCase())}
             className="border border-gray-300 p-2 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-pink-200"
             placeholder="Enter coupon code"
           />

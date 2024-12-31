@@ -39,6 +39,7 @@ const Description = () => {
   useEffect(() => {
     if (!productDetails) {
       navigate("/page-not-found");
+      return;
     }
   }, [productDetails, navigate]);
 
@@ -121,14 +122,14 @@ const Description = () => {
             <img
               src={productDetails.imageSrc}
               alt="image preview"
-              className="w-full h-full object-cover md:object-contain rounded-lg shadow-xl transition-transform duration-300 hover:scale-105"
+              className="w-full h-full object-cover md:object-contain rounded-lg  transition-transform duration-300 hover:scale-105"
             />
           </div>
         </div>
 
         {/* Description Section */}
-        <Card className="bg-white dark:bg-gray-900 text-black dark:text-white transition-colors duration-300 shadow-xl rounded-lg overflow-hidden ">
-          <CardHeader className="border-b pb-4 px-6 pt-6 cursor-pointer">
+        <Card className="border-none dark:bg-gray-900 text-black dark:text-white transition-colors duration-300 overflow-hidden ">
+          <CardHeader className=" px-6 pt-6 cursor-pointer">
             <CardTitle className="text-3xl font-semibold leading-tight">
               {productDetails.title}
             </CardTitle>
@@ -172,7 +173,7 @@ const Description = () => {
               </li>
             </ul>
           </CardContent>
-          <CardFooter className="flex gap-4 p-6 border-t">
+          <CardFooter className="flex gap-4 p-6">
             <Button
               variant="outline"
               onClick={handleDownload}

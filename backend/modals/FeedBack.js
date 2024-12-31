@@ -5,8 +5,8 @@ const feedbackSchema = new mongoose.Schema(
     rating: {
       type: Number,
       required: [true, "Rating is required"], // Required field with custom message
-      min: [0, "Rating must be between 0 and 5"],  // Min validation
-      max: [5, "Rating must be between 0 and 5"],  // Max validation
+      min: [1, "Rating must be between 1 and 5"],  // Min validation
+      max: [5, "Rating must be between 1 and 5"],  // Max validation
     },
     feedback: {
       type: String,

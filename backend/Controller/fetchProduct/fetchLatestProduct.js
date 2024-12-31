@@ -3,7 +3,7 @@ const Product = require("../../modals/product");
 const fetchLatestProduct = async (req, res) => {
   try {
     const latestProduct = await Product.find({})
-      .select("-cdrFile")
+      .select(["-cdrFile","-reviews"])
       .sort({ createdAt: -1 }) // Sort by creation time in descending order
       .limit(9); // Optionally limit the number of products (e.g., 10)
     

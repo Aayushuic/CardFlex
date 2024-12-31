@@ -36,6 +36,7 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    purchasedItem: [{ type: mongoose.Schema.ObjectId, ref: "Product" }],
   },
   {
     timestamps: true,
