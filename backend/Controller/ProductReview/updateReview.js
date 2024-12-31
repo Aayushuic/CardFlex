@@ -21,6 +21,12 @@ const updateReview = async (req, res) => {
 
     const review = product.reviews.id(reviewId);
 
+    if (!review) {
+      return res
+        .status(400)
+        .json({ success: false, message: "review not found" });
+    }
+
     if (review.user.toString() != req._id) {
       return res.status(400).json({
         success: false,

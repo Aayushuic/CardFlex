@@ -13,6 +13,8 @@ const ReviewsBox = ({
   handleEditReview,
   productId,
   setReviews,
+  setEditingReview,
+  setFeedback,
 }) => {
   const [reviewLoading, setReviewLoading] = useState(false);
   const [reviewError, setReviewError] = useState(null);
@@ -70,6 +72,8 @@ const ReviewsBox = ({
   const handleDelete = async (reviewId) => {
     try {
       setDeleteLoading(reviewId);
+      setEditingReview(null);
+      setFeedback("");
       if (!user) {
         setError("please login in..");
         return;

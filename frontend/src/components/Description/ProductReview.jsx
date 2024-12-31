@@ -175,6 +175,11 @@ const ProductReview = ({ productId }) => {
     }
   };
 
+  const handleCancelUpdate = () => {
+    setEditingReview(null);
+    setFeedback("");
+  };
+
   return (
     <>
       <div className="container mx-auto px-4 py-12 max-w-6xl">
@@ -190,6 +195,8 @@ const ProductReview = ({ productId }) => {
           handleEditReview={handleEditReview}
           productId={productId}
           setReviews={setReviews}
+          setEditingReview={setEditingReview}
+          setFeedback={setFeedback}
         />
 
         {/* Show All Reviews Link */}
@@ -207,7 +214,7 @@ const ProductReview = ({ productId }) => {
         )}
 
         {/* Edit Review Section */}
-        {editingReview && (
+        {editingReview != null && (
           <div className="mt-12" ref={editReviewRef}>
             <h3 className="text-2xl text-[#1B3C73] font-semibold mb-4 text-center">
               Edit Your Review
@@ -260,7 +267,7 @@ const ProductReview = ({ productId }) => {
                 </Button>
                 <Button
                   variant="outline"
-                  onClick={() => setEditingReview(null)}
+                  onClick={handleCancelUpdate}
                   className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full font-semibold"
                 >
                   Cancel
