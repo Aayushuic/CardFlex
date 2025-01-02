@@ -8,6 +8,7 @@ import HomeCarousel from "./HomeCarousel"; // Component for the home carousel
 import Footer from "../utils/Footer"; // Footer component for the page
 import TrendingCategory from "./TrendingCategory"; // Component for trending categories
 import Reviews from "./Reviews";
+import WhyChooseCardFlex from "./WhyChooseCardFlex";
 
 const Home = () => {
   // Smooth scroll to top function
@@ -87,6 +88,16 @@ const Home = () => {
             Reviews
           </h2>
           <Reviews />
+        </section>
+
+        <section
+          className="max-w-7xl mx-auto px-4 mt-8"
+          aria-labelledby="reviews"
+        >
+          <h2 id="reviews" className="sr-only">
+            
+          </h2>
+          <WhyChooseCardFlex />
         </section>
 
         {/* Floating Scroll to Top Button */}
