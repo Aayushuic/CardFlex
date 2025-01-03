@@ -9,7 +9,7 @@ const DescriptionPage = () => {
   return (
     <div>
       <Description />
-      <ProductReview productId={productDetails._id} />
+      {productDetails && <ProductReview productId={productDetails?._id} />}
     </div>
   );
 };

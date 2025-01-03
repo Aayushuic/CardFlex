@@ -32,16 +32,16 @@ const Description = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
   const dispatch = useDispatch();
 
-  const isItemInCart = user?.cart?.some(
-    (item) => item._id === productDetails._id
-  );
-
   useEffect(() => {
     if (!productDetails) {
       navigate("/page-not-found");
       return;
     }
   }, [productDetails, navigate]);
+
+  const isItemInCart = user?.cart?.some(
+    (item) => item._id === productDetails?._id
+  );
 
   if (!productDetails) {
     return;
