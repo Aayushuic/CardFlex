@@ -36,8 +36,17 @@ const Login = () => {
 
   // Generate CAPTCHA
   const generateCaptcha = () => {
-    const captcha = Math.floor(1000 + Math.random() * 9000); // Generate a 4-digit number
-    setCaptchaGenerated(captcha.toString()); // Ensure it's stored as a string
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"; // Possible characters
+    let captcha = "";
+    const captchaLength = 6; // Length of the captcha
+
+    for (let i = 0; i < captchaLength; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length); // Random index from the characters string
+      captcha += characters[randomIndex]; // Append the random character
+    }
+
+    setCaptchaGenerated(captcha); // Set the generated captcha
   };
 
   // Validate CAPTCHA input
@@ -108,13 +117,6 @@ const Login = () => {
       setLoading(false);
     }
   };
-
-  // Trigger CAPTCHA generation after 3 failed login attempts
-  useEffect(() => {
-    if (loginTry >= 3 && !captchaGenerated) {
-      generateCaptcha(); // Generate CAPTCHA only once after 3 failed attempts
-    }
-  }, [loginTry, captchaGenerated]);
 
   // Retry CAPTCHA generation
   const retryCaptcha = () => {
@@ -210,19 +212,42 @@ const Login = () => {
             <div className="my-2">
               <div className="flex gap-2 items-center">
                 <Label htmlFor="captcha">
-                  Enter CAPTCHA:
                   <span
-                    className="font-bold text-xl text-blue-500"
+                    className="font-bold text-xl"
                     style={{
+                      display: "inline-block",
+                      padding: "10px",
+                      border: "1px solid #ccc",
+                      borderRadius: "5px",
                       background:
-                        "linear-gradient(45deg, rgba(255,255,255,0.1) 25%, rgba(0,0,0,0.05) 25%, rgba(0,0,0,0.05) 50%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.1) 75%, rgba(0,0,0,0.05) 75%, rgba(0,0,0,0.05) 100%)",
+                        "linear-gradient(45deg, #f0f0f0 25%, #d4d4d4 25%, #d4d4d4 50%, #f0f0f0 50%, #f0f0f0 75%, #d4d4d4 75%, #d4d4d4 100%)",
                       backgroundSize: "40px 40px",
+                      textAlign: "center",
+                      fontFamily: "monospace, sans-serif",
+                      letterSpacing: "5px",
+                      color: "#333",
+                      position: "relative",
+                      overflow: "hidden",
                     }}
                   >
-                    {/* Display each character with random rotation */}
-                    {captchaGenerated}
+                    {/* Display each character with random styles */}
+                    {captchaGenerated.split("").map((char, index) => (
+                      <span
+                        key={index}
+                        style={{
+                          display: "inline-block",
+                          transform: `rotate(${Math.random() * 30 - 15}deg)`, // Random rotation between -15 to 15 degrees
+                          fontSize: `${Math.random() * 10 + 20}px`, // Random font size between 20px and 30px
+                          color: `hsl(${Math.random() * 360}, 70%, 50%)`, // Random color
+                          margin: "0 2px",
+                        }}
+                      >
+                        {char}
+                      </span>
+                    ))}
                   </span>
                 </Label>
+
                 <div
                   className="cursor-pointer text-gray-600"
                   onClick={retryCaptcha}
