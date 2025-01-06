@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet"; // Import Helmet for SEO
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { useForm } from "react-hook-form";
-import { Eye, EyeOff, Loader2 } from "lucide-react";
+import { Eye, EyeOff, Loader2, RefreshCcw } from "lucide-react"; // Import retry icon
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setAuthUser } from "@/features/authslice";
@@ -17,6 +17,10 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [backendError, setBackendError] = useState("");
+  const [loginTry, setLoginTry] = useState(0);
+  const [captcha, setCaptcha] = useState(false);
+  const [captchaValue, setCaptchaValue] = useState("");
+  const [captchaGenerated, setCaptchaGenerated] = useState(""); // Ensure CAPTCHA is set properly
 
   const {
     register,
@@ -25,13 +29,47 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
+  // Toggle password visibility
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
+  // Generate CAPTCHA
+  const generateCaptcha = () => {
+    const captcha = Math.floor(1000 + Math.random() * 9000); // Generate a 4-digit number
+    setCaptchaGenerated(captcha.toString()); // Ensure it's stored as a string
+  };
+
+  // Validate CAPTCHA input
+  const validateCaptcha = () => {
+    return captchaValue === captchaGenerated; // Check if the CAPTCHA matches
+  };
+
+  // Handle form submission
   const onSubmit = async (data) => {
     setLoading(true);
     setBackendError("");
+
+    // Increment login attempts
+    setLoginTry((prevLoginTry) => prevLoginTry + 1);
+
+    // If CAPTCHA is required (after 3 failed attempts), validate it
+    if (loginTry >= 3) {
+      if (!captchaValue) {
+        setBackendError("Please complete the CAPTCHA.");
+        setLoading(false);
+        return;
+      }
+
+      if (!validateCaptcha()) {
+        setBackendError("Incorrect CAPTCHA. Please try again.");
+        generateCaptcha(); // Regenerate CAPTCHA for retry
+        setCaptchaValue(""); // Clear CAPTCHA input field
+        setLoading(false);
+        return;
+      }
+    }
+
     try {
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/user/login`,
@@ -48,6 +86,7 @@ const Login = () => {
       );
 
       const responseData = await response.json();
+
       if (responseData.success === true) {
         dispatch(setAuthUser(responseData.user));
         dispatch(setCurrentOrder(null));
@@ -56,6 +95,10 @@ const Login = () => {
         reset();
         navigate("/");
       } else {
+        if (loginTry >= 2) {
+          generateCaptcha(); // Generate CAPTCHA only after 3 failed attempts
+          setCaptcha(true); // Show CAPTCHA field after 3 failed attempts
+        }
         setBackendError(responseData.message);
       }
     } catch (error) {
@@ -64,6 +107,19 @@ const Login = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  // Trigger CAPTCHA generation after 3 failed login attempts
+  useEffect(() => {
+    if (loginTry >= 3 && !captchaGenerated) {
+      generateCaptcha(); // Generate CAPTCHA only once after 3 failed attempts
+    }
+  }, [loginTry, captchaGenerated]);
+
+  // Retry CAPTCHA generation
+  const retryCaptcha = () => {
+    generateCaptcha();
+    setCaptchaValue(""); // Reset CAPTCHA input value
   };
 
   return (
@@ -76,7 +132,7 @@ const Login = () => {
         />
         <meta
           name="keywords"
-          content="Cardflex, Login, Secure Login, CDR Downloads, CDR files,free design,Payment Gateway,free hindi design"
+          content="Cardflex, Login, Secure Login, CDR Downloads, CDR files, free design, Payment Gateway, free hindi design"
         />
         <meta name="author" content="Cardflex" />
         <meta name="robots" content="index, follow" />
@@ -148,6 +204,45 @@ const Login = () => {
               <p className="text-red-600">{errors.password.message}</p>
             )}
           </div>
+
+          {/* CAPTCHA field shown after 3 failed attempts */}
+          {captcha && (
+            <div className="my-2">
+              <div className="flex gap-2 items-center">
+                <Label htmlFor="captcha">
+                  Enter CAPTCHA:
+                  <span
+                    className="font-bold text-xl text-blue-500"
+                    style={{
+                      background:
+                        "linear-gradient(45deg, rgba(255,255,255,0.1) 25%, rgba(0,0,0,0.05) 25%, rgba(0,0,0,0.05) 50%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.1) 75%, rgba(0,0,0,0.05) 75%, rgba(0,0,0,0.05) 100%)",
+                      backgroundSize: "40px 40px",
+                    }}
+                  >
+                    {/* Display each character with random rotation */}
+                    {captchaGenerated}
+                  </span>
+                </Label>
+                <div
+                  className="cursor-pointer text-gray-600"
+                  onClick={retryCaptcha}
+                >
+                  <RefreshCcw className="h-5 w-5" />
+                </div>
+              </div>
+
+              <Input
+                id="captcha"
+                name="captcha"
+                className="mt-1 focus-visible:ring-0 focus-visible:ring-offset-0"
+                type="text"
+                placeholder="Enter CAPTCHA value"
+                value={captchaValue}
+                onChange={(e) => setCaptchaValue(e.target.value)}
+              />
+            </div>
+          )}
+
           {loading ? (
             <Button className="w-full my-4">
               <Loader2 className="h-4 w-4 mr-2 animate-spin" /> Please Wait...

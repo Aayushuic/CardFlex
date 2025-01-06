@@ -21,10 +21,14 @@ const signUp = async (req, res) => {
       $or: [{ email: email }, { phoneNumber: phoneNumber }],
     });
 
-    if (isAlreadyUser) {
+    if (isAlreadyUser.verified==true) {
       return res
         .status(400)
-        .json({ success: false, message: "User already exists." });
+        .json({ success: false, message: "User already exists."});
+    }
+
+    if(isAlreadyUser.verified==false){
+      await User.deleteOne({ _id: isAlreadyUser._id });
     }
 
     // Generate salt and hash the password
