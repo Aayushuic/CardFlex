@@ -9,6 +9,7 @@ import Footer from "../utils/Footer"; // Footer component for the page
 import TrendingCategory from "./TrendingCategory"; // Component for trending categories
 import Reviews from "./Reviews";
 import WhyChooseCardFlex from "./WhyChooseCardFlex";
+import { motion } from "framer-motion";
 
 const Home = () => {
   // Smooth scroll to top function
@@ -80,25 +81,40 @@ const Home = () => {
         </section>
 
         {/* Reviews Section */}
-        <section
-          className="max-w-7xl mx-auto px-4 mt-8"
-          aria-labelledby="reviews"
-        >
-          <h2 id="reviews" className="sr-only">
-            Reviews
-          </h2>
-          <Reviews />
-        </section>
 
-        <section
-          className="max-w-7xl mx-auto px-4 mt-8"
-          aria-labelledby="reviews"
+        <motion.div
+          key={2}
+          initial={{ opacity: 0, x: 100 }} // Start with opacity 0 and slightly below
+          whileInView={{ opacity: 1, x: 0 }} // Fade in and slide up
+          transition={{ duration: 1.5, ease: "easeOut" }} // Smooth transition
+          viewport={{ once: true }} // Trigger once when entering the viewport
         >
-          <h2 id="reviews" className="sr-only">
-            
-          </h2>
-          <WhyChooseCardFlex />
-        </section>
+          <section
+            className="max-w-7xl mx-auto px-4 mt-8"
+            aria-labelledby="reviews"
+          >
+            <h2 id="reviews" className="sr-only">
+              Reviews
+            </h2>
+            <Reviews />
+          </section>
+        </motion.div>
+
+        <motion.div
+          key={2}
+          initial={{ opacity: 0, x: 100 }} // Start with opacity 0 and slightly below
+          whileInView={{ opacity: 1, x: 0 }} // Fade in and slide up
+          transition={{ duration: 1.5, ease: "easeOut" }} // Smooth transition
+          viewport={{ once: true }} // Trigger once when entering the viewport
+        >
+          <section
+            className="max-w-7xl mx-auto px-4 mt-8"
+            aria-labelledby="reviews"
+          >
+            <h2 id="reviews" className="sr-only"></h2>
+            <WhyChooseCardFlex />
+          </section>
+        </motion.div>
 
         {/* Floating Scroll to Top Button */}
         <Button

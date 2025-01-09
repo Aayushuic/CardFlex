@@ -163,6 +163,16 @@ const Signup = () => {
                 className="mt-1 focus-visible:ring-0 focus-visible:ring-offset-0 pr-10"
                 {...register("password", {
                   required: "Please enter a password",
+                  minLength: {
+                    value: 4,
+                    message: "Password must be at least 4 characters",
+                  },
+                  pattern: {
+                    value:
+                      /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{4,}$/,
+                    message:
+                      "Password must include 1 uppercase letter, 1 special character, and be at least 4 characters long",
+                  },
                 })}
               />
               <button
