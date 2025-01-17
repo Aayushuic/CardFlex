@@ -83,8 +83,8 @@ const Home = () => {
 
         <motion.div
           key={2}
-          initial={{ opacity: 0, x: 100 }} // Start with opacity 0 and slightly below
-          whileInView={{ opacity: 1, x: 0 }} // Fade in and slide up
+          initial={{ opacity: 0, y: 100 }} // Start with opacity 0 and slightly below
+          whileInView={{ opacity: 1, y: 0 }} // Fade in and slide up
           transition={{ duration: 2, ease: "easeIn" }} // Smooth transition
           viewport={{ once: true }} // Trigger once when entering the viewport
         >
@@ -101,8 +101,8 @@ const Home = () => {
 
         <motion.div
           key={2}
-          initial={{ opacity: 0, x: -100 }} // Start with opacity 0 and slightly below
-          whileInView={{ opacity: 1, x: 0 }} // Fade in and slide up
+          initial={{ opacity: 0, y: 100 }} // Start with opacity 0 and slightly below
+          whileInView={{ opacity: 1, y: 0 }} // Fade in and slide up
           transition={{ duration: 2, ease: "easeIn" }} // Smooth transition
           viewport={{ once: true }} // Trigger once when entering the viewport
         >
