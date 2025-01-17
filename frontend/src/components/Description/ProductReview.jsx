@@ -7,6 +7,7 @@ import { logout } from "@/features/authslice";
 import { toast } from "sonner";
 import { MdOutlineCancel } from "react-icons/md";
 import ReviewsBox from "./ReviewsBox";
+import { resetPayment } from "@/features/paymentSlice";
 
 const ProductReview = ({ productId }) => {
   const user = useSelector((state) => state.auth.user);
@@ -74,6 +75,7 @@ const ProductReview = ({ productId }) => {
         navigate("/login");
         toast.info("Session expired. Please log in again.");
         dispatch(logout());
+        dispatch(resetPayment());
         return;
       }
 
@@ -142,6 +144,8 @@ const ProductReview = ({ productId }) => {
         navigate("/login");
         toast.info("Session expired. Please log in again.");
         dispatch(logout());
+        dispatch(resetPayment());
+
         return;
       }
 

@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { logout } from "@/features/authslice";
+import { resetPayment } from "@/features/paymentSlice";
 import { Loader2, SendHorizonal } from "lucide-react";
 import React, { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
@@ -61,6 +62,7 @@ const TicketChatModal = ({ isOpen, onClose, ticket, setTickets }) => {
           navigate("/login");
           toast.info("Session expired. Please log in again.");
           dispatch(logout());
+          dispatch(resetPayment());
         } else if (res.status === 429) {
           toast.info("Too many requests. Please try again later.");
         } else {

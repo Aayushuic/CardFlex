@@ -18,7 +18,8 @@ const apiKeyMiddleware = require("./middleware/apiKeyMiddleWare");
 const verificationRouter = require("./routes/verification");
 const forgotRouter = require("./routes/ForgotPassword");
 const webhookCaller = require("./Webhook/webhook");
-const bodyParser = require("body-parser");
+const { SitemapStream, streamToPromise } = require('sitemap');
+const { Readable } = require('stream');
 
 const app = express();
 
@@ -65,7 +66,35 @@ const limiter = rateLimit({
   max: 100, // Limit each IP to 100 requests per window
 });
 
-// API key middleware for secure endpoints
+const baseUrl = 'https://cardflex.in';
+const routes = [
+  { url: '/', changefreq: 'daily', priority: 1.0 },
+  { url: '/category/banner/shop-banner', changefreq: 'daily', priority: 0.9 },
+  { url: '/orders', changefreq: 'weekly', priority: 0.8 },
+  { url: '/ticket', changefreq: 'weekly', priority: 0.8 },
+  { url: '/help', changefreq: 'yearly', priority: 0.6 },
+  { url: '/contact-us', changefreq: 'monthly', priority: 0.5 },
+  { url: '/about-us', changefreq: 'yearly', priority: 0.7 },
+  { url: '/login', changefreq: 'yearly', priority: 0.2 },
+  { url: '/signup', changefreq: 'yearly', priority: 0.3 },
+];
+
+// siteXML
+app.get('/sitemap.xml', async (req, res) => {
+  try {
+    const sitemap = new SitemapStream({ hostname: baseUrl });
+    const stream = Readable.from(routes);
+    stream.pipe(sitemap);
+
+    const xml = await streamToPromise(sitemap).then((data) => data.toString());
+    res.header('Content-Type', 'application/xml');
+    res.send(xml);
+  } catch (error) {
+    console.error('Error generating sitemap:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 
 app.post("/api/razorpay/webhook", webhookCaller);
 app.use("/api/payment", limiter, paymentRouter);

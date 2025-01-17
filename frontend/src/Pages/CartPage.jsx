@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Heart, ShoppingCart } from "lucide-react";
+import { resetPayment } from "@/features/paymentSlice";
 
 const CartPage = () => {
   const user = useSelector((state) => state.auth.user);
@@ -50,6 +51,7 @@ const CartPage = () => {
         if (responseData.message === "Session Expired") {
           toast.error(responseData.message);
           dispatch(logout());
+          dispatch(resetPayment());
           navigate("/login");
           return;
         }

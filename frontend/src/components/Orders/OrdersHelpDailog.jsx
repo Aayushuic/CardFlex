@@ -16,6 +16,7 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 import { logout } from "@/features/authslice";
+import { resetPayment } from "@/features/paymentSlice";
 
 const HelpDialog = ({
   isOpen,
@@ -76,6 +77,7 @@ const HelpDialog = ({
       if (res.status === 401) {
         navigate("/login");
         dispatch(logout());
+        dispatch(resetPayment());
         toast.info("Session expired. Please log in again.");
         return;
       }

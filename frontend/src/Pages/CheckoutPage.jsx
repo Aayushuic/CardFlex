@@ -24,7 +24,7 @@ const CheckoutPage = () => {
   const [loadingOverlay, setLoadingOverlay] = useState(false);
   // const [loading, setLoading] = useState(false);
   const [discount, setDiscount] = useState(0);
-  const [modal,setModal] = useState(false);
+  const [modal, setModal] = useState(false);
   const user = useSelector((state) => state.auth.user);
   const cart = user ? user.cart : [];
   const location = useLocation();
@@ -34,8 +34,8 @@ const CheckoutPage = () => {
   const subtotal = cart.reduce((total, item) => total + item.newPrice, 0);
   const [guestUser, setGuestUserInfo] = useState(null);
   const [discountPercentage, setDiscountPercentage] = useState(0);
-  const currOrder = useSelector(state=>state.payment.currentOrder);
-  const paymentStatus = useSelector(state=>state.payment.paymentStatus);
+  const currOrder = useSelector((state) => state.payment.currentOrder);
+  const paymentStatus = useSelector((state) => state.payment.paymentStatus);
   const cartProductArray = useMemo(() => {
     if (user) {
       return cart.map((product) => product._id);
@@ -79,6 +79,7 @@ const CheckoutPage = () => {
         if (responseData.message == "Session Expired") {
           toast.error(responseData.message);
           dispatch(logout());
+          dispatch(resetPayment());
           navigate("/login");
           return;
         }
@@ -100,7 +101,7 @@ const CheckoutPage = () => {
         toast.error("please add some item to checkout");
         return;
       }
-      if(user&&cart.length==0){
+      if (user && cart.length == 0) {
         toast.error("please add item in cart");
         return;
       }
@@ -127,21 +128,22 @@ const CheckoutPage = () => {
     }
   };
 
-  useEffect(()=>{
-    if(currOrder&&paymentStatus==null){
+  useEffect(() => {
+    if (currOrder && paymentStatus == null) {
       setModal(true);
-    }else if(currOrder&&paymentStatus=="failed"){
+    } else if (currOrder && paymentStatus == "failed") {
       dispatch(setPaymentStatus(null));
       dispatch(setCurrentOrder(null));
-    }else if(currOrder&&paymentStatus=="pending"){
+    } else if (currOrder && paymentStatus == "pending") {
       navigate("/payment");
     }
-  },[currOrder]);
+  }, [currOrder]);
 
   return (
     <>
       <div className="container mx-auto p-0 sm:px-6 py-12 max-w-6xl">
-        {loadingOverlay && <LoadingOverlay text={"please wait..."} />} {/* Show overlay when loading */}
+        {loadingOverlay && <LoadingOverlay text={"please wait..."} />}{" "}
+        {/* Show overlay when loading */}
         <h1 className="text-3xl font-bold text-center text-[#1B3C73] mb-12">
           Checkout
         </h1>
@@ -219,7 +221,13 @@ const CheckoutPage = () => {
           </div>
         )}
       </div>
-      {(currOrder&&modal) && <AlreadyOrder orderId={currOrder?.orderId} razorpay_order_id={currOrder.razorpay_order_id} email={currOrder.email} />}
+      {currOrder && modal && (
+        <AlreadyOrder
+          orderId={currOrder?.orderId}
+          razorpay_order_id={currOrder.razorpay_order_id}
+          email={currOrder.email}
+        />
+      )}
       <Footer />
     </>
   );

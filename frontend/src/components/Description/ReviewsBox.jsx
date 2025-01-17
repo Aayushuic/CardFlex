@@ -1,4 +1,5 @@
 import { logout } from "@/features/authslice";
+import { resetPayment } from "@/features/paymentSlice";
 import { Loader2 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -98,6 +99,7 @@ const ReviewsBox = ({
         navigate("/login");
         toast.info("Session expired. Please log in again.");
         dispatch(logout());
+        dispatch(resetPayment());
         return;
       }
 

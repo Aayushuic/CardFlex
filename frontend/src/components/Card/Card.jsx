@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, logout } from "@/features/authslice";
+import { resetPayment } from "@/features/paymentSlice";
 
 export const Card = ({
   _id,
@@ -59,6 +60,7 @@ export const Card = ({
       } else {
         toast.error(responseData.message);
         dispatch(logout());
+        dispatch(resetPayment());
         navigate("/login");
       }
     } catch (error) {
@@ -71,7 +73,6 @@ export const Card = ({
 
   // Check if the item exists in the user's cart by comparing the _id with the cart items' _id
   const isItemInCart = user?.cart?.some((item) => item._id === _id);
-
 
   const handleDownload = async () => {
     if (user) {

@@ -16,6 +16,7 @@ import { Mosaic } from "react-loading-indicators";
 import TicketChatModal from "./TicketChatModal";
 import Footer from "@/components/utils/Footer";
 import { Helmet } from "react-helmet"; // Import Helmet for SEO
+import { resetPayment } from "@/features/paymentSlice";
 
 const TicketDashboard = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -72,6 +73,7 @@ const TicketDashboard = () => {
             navigate("/login");
             toast.info("Session Expired, Please login again");
             dispatch(logout());
+            dispatch(resetPayment());
           } else {
             toast.info("Something broke, Please try again later.");
           }

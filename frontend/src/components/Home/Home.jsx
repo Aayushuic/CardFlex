@@ -24,7 +24,6 @@ const Home = () => {
 
   return (
     <>
-      {/* Helmet for SEO metadata */}
       <Helmet>
         <title>CardFlex - Home</title>
         <meta
@@ -33,7 +32,7 @@ const Home = () => {
         />
         <meta
           name="keywords"
-          content="Free CDR files, CDR file download, wedding card CDR files, visiting card designs, CardFlex, trending card designs, free creative cards, custom design,free hindi design, free cdr files,cdr files, CDR files"
+          content="Free CDR files,cdr files, CDR file download, wedding card CDR files, visiting card designs, CardFlex, trending card designs, free creative cards, custom design,free hindi design, free cdr files,cdr files, CDR files"
         />
         <meta name="author" content="CardFlex" />
         <meta property="og:title" content="CardFlex - Home" />
@@ -86,7 +85,7 @@ const Home = () => {
           key={2}
           initial={{ opacity: 0, x: 100 }} // Start with opacity 0 and slightly below
           whileInView={{ opacity: 1, x: 0 }} // Fade in and slide up
-          transition={{ duration: 1.5, ease: "easeOut" }} // Smooth transition
+          transition={{ duration: 2, ease: "easeIn" }} // Smooth transition
           viewport={{ once: true }} // Trigger once when entering the viewport
         >
           <section
@@ -102,9 +101,9 @@ const Home = () => {
 
         <motion.div
           key={2}
-          initial={{ opacity: 0, x: 100 }} // Start with opacity 0 and slightly below
+          initial={{ opacity: 0, x: -100 }} // Start with opacity 0 and slightly below
           whileInView={{ opacity: 1, x: 0 }} // Fade in and slide up
-          transition={{ duration: 1.5, ease: "easeOut" }} // Smooth transition
+          transition={{ duration: 2, ease: "easeIn" }} // Smooth transition
           viewport={{ once: true }} // Trigger once when entering the viewport
         >
           <section

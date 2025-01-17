@@ -14,12 +14,15 @@ export const paymentslice = createSlice({
     },
     setPaymentStatus:(state,action)=>{
       state.paymentStatus=action.payload
-    }
-   
+    },
+    resetPayment:(state,action)=>{
+      state.paymentStatus = null;
+      state.currentOrder = null;
+    } 
   },
 })
 
 // Action creators are generated for each case reducer function
-export const {setCurrentOrder,setPaymentStatus} = paymentslice.actions;
+export const {setCurrentOrder,setPaymentStatus,resetPayment} = paymentslice.actions;
 
 export default paymentslice.reducer;
