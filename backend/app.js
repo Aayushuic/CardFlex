@@ -115,10 +115,9 @@ app.use("/api/user/product", apiKeyMiddleware, productRouter);
 app.use("/api/user/cart", apiKeyMiddleware, cartRouter);
 app.use("/api/user/order", apiKeyMiddleware, orderRouter);
 
-app.all("*", (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/index.html'));
+app.all("/api/*", (req, res) => {
+  res.render("pagenotfound");
 });
-
 
 // Error handling middleware
 app.use((req, res, next) => {

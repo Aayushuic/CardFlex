@@ -12,7 +12,7 @@ const webhookCaller = async (req, res) => {
   const webhookSignature = req.headers["x-razorpay-signature"];
 
   // The raw payload that Razorpay sends is already parsed into an object
-  const payload = req.body; 
+  const payload = req.body; // <-- This is the correct payload (no need to parse)
 
   // Create the expected signature
   const expectedSignature = crypto
@@ -51,6 +51,10 @@ const webhookCaller = async (req, res) => {
 
       // Save the order with the updated status
       await order.save();
+
+      console.log(
+        `Payment captured for Order: ${razorpayOrderId}, Status: ${status}`
+      );
 
       res.status(200).send("Webhook processed successfully");
     } else if (event.event === "payment.failed") {

@@ -13,7 +13,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 import { addToCart, logout } from "@/features/authslice";
-import Modal from "./DescriptionModal"; 
+import Modal from "./DescriptionModal"; // Import Modal component
 import "./Description.css";
 
 const Description = () => {
@@ -128,7 +128,7 @@ const Description = () => {
         </div>
 
         {/* Description Section */}
-        <Card className="border-gray-100 dark:bg-gray-900 text-black dark:text-white transition-colors duration-300 overflow-hidden ">
+        <Card className="border-none dark:bg-gray-900 text-black dark:text-white transition-colors duration-300 overflow-hidden ">
           <CardHeader className=" px-6 pt-6 cursor-pointer">
             <CardTitle className="text-3xl font-semibold leading-tight">
               {productDetails.title}

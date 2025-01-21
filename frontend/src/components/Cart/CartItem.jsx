@@ -15,7 +15,6 @@ const CartItem = ({ item, onRemove }) => {
         newPrice: item.newPrice,
         oldPrice: item.oldPrice,
         description: item.description,
-        title:item.title
       },
     });
     return;
