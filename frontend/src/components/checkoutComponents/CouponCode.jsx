@@ -22,7 +22,7 @@ const CouponCode = ({ setDiscountPercentage }) => {
       discount: 10,
       description: "10% off for all registered users",
     },
-    NEWYEAR:{
+    YEAR25:{
       discount:25,
       description:"25% off for all registered users"
     }
