@@ -79,7 +79,7 @@ const routes = [
   { url: '/signup', changefreq: 'yearly', priority: 0.3 },
 ];
 
-// siteXML
+// site_XML
 app.get('/sitemap.xml', async (req, res) => {
   try {
     const sitemap = new SitemapStream({ hostname: baseUrl });
