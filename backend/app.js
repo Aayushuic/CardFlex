@@ -23,6 +23,7 @@ const { Readable } = require('stream');
 
 const app = express();
 
+
 // CORS configuration
 const corsOptions = {
   origin: ["http://localhost:5173", "http://localhost:5174"], // Frontend URL
